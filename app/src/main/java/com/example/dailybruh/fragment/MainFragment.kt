@@ -6,12 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.dailybruh.R
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentMainBinding
+import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.navigateTo
@@ -32,6 +36,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -46,7 +51,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             val observer = Observer<String> {
-                news = model.articles
+                news = model.news.value!!
                 navigateUp()
             }
             model.apply {

@@ -46,16 +46,16 @@ object NewsApi {
 
 class MoshiParse : ViewModel() {
     private val _status = MutableLiveData<String>()
+    private val _news = MutableLiveData<News>()
+    val news: LiveData<News> = _news
     val status: LiveData<String> = _status
-    lateinit var articles: News
 
 
     fun getNews(addUrl: String) {
         viewModelScope.launch {
             try {
                 setURLtoGetRequest(addUrl)
-                val listResult = NewsApi.retrofitService.getNews(url!!)
-                articles = listResult
+                _news.value = NewsApi.retrofitService.getNews(url!!)
                 _status.value = "ok"
             } catch (e : Exception) {
                 _status.value = e.message.toString()

@@ -22,12 +22,13 @@ class NewsPageRecyclerAdapter(private val news: News): RecyclerView.Adapter<News
         binding.apply {
             holder.apply {
                 titlePage.text = news.articles[position].title
+                bindImage(urlPhoto,news.articles[position].image)
                 descPage.text = news.articles[position].desc
             }
         }
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = 5
 
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root)
 }

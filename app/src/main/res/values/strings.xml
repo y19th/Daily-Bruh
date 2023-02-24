@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Daily Bruh</string>
+    <string name="article_photo">article_photo</string>
 </resources>

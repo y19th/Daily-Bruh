@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="20dp">
-
     <TextView
         android:id="@+id/title_page"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/title_text_color"
+        android:textSize="18sp"
         android:text="fewfwe"
+        android:fontFamily="@font/aleo"
         />
+
+    <ImageView
+        android:id="@+id/url_photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/article_photo" />
     <TextView
         android:id="@+id/desc_page"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="31231"
         />
-
-
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

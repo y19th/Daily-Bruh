@@ -1,5 +1,6 @@
 package com.example.dailybruh.fragment
 
+import android.app.ActionBar.LayoutParams
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.extension.changeHeight
+import com.example.dailybruh.extension.changeParams
 
 class FragmentNewsPage : Fragment() {
 
@@ -28,6 +31,7 @@ class FragmentNewsPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
         news = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getSerializable(NEWS_DATA,News::class.java) as News
         } else {
@@ -35,6 +39,7 @@ class FragmentNewsPage : Fragment() {
         }
         binding.apply {
             recyclerNewsPage.apply {
+               //changeHeight(qwe)
                 layoutManager = LinearLayoutManager(context)
                 adapter = NewsPageRecyclerAdapter(news)
             }
