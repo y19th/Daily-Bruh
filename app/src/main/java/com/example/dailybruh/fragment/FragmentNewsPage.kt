@@ -40,10 +40,13 @@ class FragmentNewsPage : Fragment() {
         }
         binding.apply {
             recyclerNewsPage.apply {
-               //changeHeight(qwe)
+                //changeHeight(qwe)
                 layoutManager = LinearLayoutManager(context)
                 adapter = NewsPageRecyclerAdapter(news)
             }
+            toolBar.titleMarginStart = 100
+            navView.y +=60
         }
     }
+
 }

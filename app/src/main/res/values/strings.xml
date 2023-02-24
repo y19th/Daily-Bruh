@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Daily Bruh</string>
     <string name="article_photo">article_photo</string>
+    <string name="daily_news">Новости дня</string>
+    <string name="week_news">Новости недели</string>
+    <string name="month_news">Новости месяца</string>
+    <string name="search_news">Поиск</string>
 </resources>

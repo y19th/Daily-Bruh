@@ -3,11 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <item
-        android:id="@+id/element_1"
-        android:title="qwe"
+        android:id="@+id/search"
+        android:title="@string/search_news"
         />
     <item
-        android:id="@+id/element_2"
-        android:title="qweqwe"
+        android:id="@+id/day"
+        android:title="@string/daily_news"
+        />
+    <item
+        android:id="@+id/week"
+        android:title="@string/week_news"
+        />
+    <item
+        android:id="@+id/month"
+        android:title="@string/month_news"
         />
 </menu>
