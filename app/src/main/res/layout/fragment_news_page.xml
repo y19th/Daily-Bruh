@@ -48,7 +48,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:listitem="@layout/recycler_item_news_page"
-            android:layout_margin="20dp"
             android:paddingBottom="50dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
