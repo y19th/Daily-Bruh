@@ -3,6 +3,7 @@ package com.example.dailybruh.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
@@ -29,6 +30,7 @@ class NewsPageRecyclerAdapter(private val news: News): RecyclerView.Adapter<News
     }
 
     override fun getItemCount(): Int = 5
+
 
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root)
 }

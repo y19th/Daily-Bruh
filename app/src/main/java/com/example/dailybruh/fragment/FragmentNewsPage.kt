@@ -1,20 +1,17 @@
 package com.example.dailybruh.fragment
 
-import android.app.ActionBar.LayoutParams
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
-import com.example.dailybruh.extension.changeHeight
-import com.example.dailybruh.extension.changeParams
 
 class FragmentNewsPage : Fragment() {
 
@@ -44,8 +41,10 @@ class FragmentNewsPage : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = NewsPageRecyclerAdapter(news)
             }
-            toolBar.titleMarginStart = 100
             navView.y +=60
+            navMenuButton.setOnClickListener {
+                mainLayout.openDrawer(GravityCompat.START)
+            }
         }
     }
 

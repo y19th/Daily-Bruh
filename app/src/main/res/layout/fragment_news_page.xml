@@ -18,7 +18,18 @@
             android:layout_height="55dp"
             app:title="@string/app_name"
             app:titleTextColor="@color/white"
+            app:titleMarginStart="60dp"
             android:background="@color/blue_400"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nav_menu_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tool_bar"
+            app:layout_constraintBottom_toBottomOf="@id/tool_bar"
+            android:background="@drawable/icon_nav_menu_open"
             />
         <TextView
             app:layout_constraintTop_toBottomOf="@id/tool_bar"
