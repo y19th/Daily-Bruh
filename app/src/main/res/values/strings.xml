@@ -5,4 +5,5 @@
     <string name="week_news">Новости недели</string>
     <string name="month_news">Новости месяца</string>
     <string name="search_news">Поиск</string>
+    <string name="url_text"><u>Перейти в источник</u></string>
 </resources>

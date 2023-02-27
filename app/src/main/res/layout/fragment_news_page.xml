@@ -31,15 +31,17 @@
             app:layout_constraintBottom_toBottomOf="@id/tool_bar"
             android:background="@drawable/icon_nav_menu_open"
             />
+
         <TextView
-            app:layout_constraintTop_toBottomOf="@id/tool_bar"
-            app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/textview"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="News"
-            android:textSize="40sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar"
+            android:text="text"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="20sp"
             />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_news_page"
             android:layout_width="match_parent"

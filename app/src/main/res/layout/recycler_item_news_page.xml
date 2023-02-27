@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/recycler_main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +16,8 @@
         android:textColor="@color/title_text_color"
         android:textSize="26sp"
         android:text="fewfwe"
-        android:fontFamily="@font/aleo"
+        android:fontFamily="@font/lato_bold"
+        android:layout_marginBottom="5dp"
         />
 
     <TextView
@@ -24,10 +26,10 @@
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
         android:textColor="@color/title_text_color"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:text="20:20:20"
-        android:fontFamily="@font/aleo"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/lato_regular"
+        android:layout_marginBottom="5dp"
         />
 
     <TextView
@@ -36,9 +38,9 @@
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
         android:textColor="@color/title_text_color"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:text="20:20:20"
-        android:fontFamily="@font/aleo"
+        android:fontFamily="@font/lato_regular"
         android:layout_marginBottom="10dp"
         />
 
@@ -47,11 +49,30 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/article_photo" />
+        android:contentDescription="@string/article_photo"
+        android:layout_marginBottom="10dp"
+        />
     <TextView
         android:id="@+id/desc_page"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_regular"
+        android:textSize="16sp"
+        android:textColor="@color/preview_text_color"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="31231"
+        android:layout_marginBottom="30dp"
+        />
+    <TextView
+        android:id="@+id/url_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:textColor="@color/url_color"
+        android:text="@string/url_text"
+        android:textSize="18sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         />
 </androidx.appcompat.widget.LinearLayoutCompat>
