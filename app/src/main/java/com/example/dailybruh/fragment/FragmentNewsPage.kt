@@ -17,8 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
+import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
@@ -44,27 +46,6 @@ class FragmentNewsPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        val scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                try {
-                    if(dy > 50) {
-                            view.disableView()
-                            recyclerView.smoothScrollToPosition(pos)
-                            pos += 1
-                            view.enableView()
-                        } else if (dy < -50) {
-                            view.disableView()
-                            recyclerView.smoothScrollToPosition(pos)
-                            pos -= 1
-                            view.enableView()
-                        }
-                } catch (e: java.lang.IllegalArgumentException) {
-                    Log.d(e.message.toString(),"")
-                }
-            }
-        }
         
         news = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getSerializable(NEWS_DATA,News::class.java) as News
@@ -72,11 +53,9 @@ class FragmentNewsPage : Fragment() {
             arguments?.getSerializable(NEWS_DATA) as News
         }
         binding.apply {
-            recyclerNewsPage.apply {
-                layoutManager = LinearRecyclerManager(context)
-                addOnScrollListener(scrollListener)
-                adapter = NewsPageRecyclerAdapter(news)
-                isNestedScrollingEnabled = true
+            viewpagerMain.apply {
+                adapter = VerticalPagerAdapter(news,parentFragmentManager,lifecycle)
+
             }
             navView.y +=60
             navMenuButton.setOnClickListener {

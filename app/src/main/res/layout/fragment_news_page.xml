@@ -32,23 +32,15 @@
             android:background="@drawable/icon_nav_menu_open"
             />
 
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tool_bar"
-            android:text="text"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="20sp"
-            />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_news_page"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textview"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical"
             tools:listitem="@layout/recycler_item_news_page"
             android:paddingBottom="50dp"
             />
