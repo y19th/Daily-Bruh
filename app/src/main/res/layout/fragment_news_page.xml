@@ -11,6 +11,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager_main"
+            android:layout_marginTop="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical"
+            />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tool_bar"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,18 +45,6 @@
             android:background="@drawable/icon_nav_menu_open"
             />
 
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewpager_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tool_bar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:orientation="vertical"
-            tools:listitem="@layout/recycler_item_news_page"
-            android:paddingBottom="50dp"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

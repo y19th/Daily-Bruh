@@ -3,6 +3,7 @@ package com.example.dailybruh.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailybruh.R
 import com.example.dailybruh.calendar.parseDate
@@ -17,6 +18,8 @@ class NewsPageRecyclerAdapter(private val news: News): RecyclerView.Adapter<News
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = RecyclerItemNewsPageBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+       // val params = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
+        //binding.root.layoutParams = params
         context = parent.context
         return ViewHolder()
     }

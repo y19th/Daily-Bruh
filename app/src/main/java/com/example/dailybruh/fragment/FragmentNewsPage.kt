@@ -14,6 +14,8 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
@@ -27,13 +29,13 @@ import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
 import com.example.dailybruh.manager.LinearRecyclerManager
+import com.example.dailybruh.viewmodel.LayoutViewModel
 
 class FragmentNewsPage : Fragment() {
 
     private lateinit var binding: FragmentNewsPageBinding
     private lateinit var news: News
-    private var pos = 0
-    private var temp = 0
+    private val heightViewModel: LayoutViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +48,18 @@ class FragmentNewsPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
         news = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getSerializable(NEWS_DATA,News::class.java) as News
         } else {
             arguments?.getSerializable(NEWS_DATA) as News
+        }
+
+        val observer = Observer<Int> {
+
+        }
+        heightViewModel.apply {
+            getHeight(view)
+            height.observe(viewLifecycleOwner,observer)
         }
         binding.apply {
             viewpagerMain.apply {
@@ -63,6 +72,4 @@ class FragmentNewsPage : Fragment() {
             }
         }
     }
-
-
 }

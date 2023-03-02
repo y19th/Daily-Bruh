@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.extension.changeHeight
 
 class FragmentViewPagerItem(
     private val news: News,

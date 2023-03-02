@@ -28,6 +28,10 @@ class LinearRecyclerManager(con: Context): LinearLayoutManager(con) {
             override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
                 return 0.1f
             }
+
+            override fun getVerticalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
         }
         lin.targetPosition = position
         startSmoothScroll(lin)
@@ -37,16 +41,17 @@ class LinearRecyclerManager(con: Context): LinearLayoutManager(con) {
         return true
     }
 
-   /* override fun scrollVerticallyBy(
+    override fun scrollVerticallyBy(
         dy: Int,
         recycler: RecyclerView.Recycler?,
         state: RecyclerView.State?
     ): Int {
+
         return if(dy > 50) {
             super.scrollVerticallyBy(dy, recycler, state)
         }
         else if(dy < -50) super.scrollVerticallyBy(dy, recycler, state)
         else return 0
-
-    }*/
+        return 0
+    }
 }

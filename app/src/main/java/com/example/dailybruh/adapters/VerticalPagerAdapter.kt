@@ -1,4 +1,6 @@
 package com.example.dailybruh.adapters
+import android.view.View
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -15,4 +17,5 @@ class VerticalPagerAdapter(private val news: News,
     override fun getItemCount(): Int = 5
 
     override fun createFragment(position: Int): Fragment = FragmentViewPagerItem(news,position)
+
 }
