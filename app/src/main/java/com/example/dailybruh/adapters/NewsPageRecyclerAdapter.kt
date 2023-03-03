@@ -31,13 +31,8 @@ class NewsPageRecyclerAdapter(private val news: News): RecyclerView.Adapter<News
                     publishedatPage.text =
                         "Опубликована: ${parseDate(news.articles[position].time)}"
                     authorPage.text = "Автор: ${news.articles[position].author}"
-                    urlArticle.setOnClickListener {
-                        urlArticle.setTextColor(context.getColor(R.color.pressed_url_color))
-
-                    }
                     bindImage(urlPhoto, news.articles[position].image)
                     descPage.text = news.articles[position].desc
-
                 }
             }
     }

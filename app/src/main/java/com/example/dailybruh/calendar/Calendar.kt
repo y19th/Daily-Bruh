@@ -18,33 +18,33 @@ private fun yearString(string: String): String {
     return "$day ${monthToCal(month)} $year года"
 }
 
-private fun monthToCal(string: String): String {
+fun monthToCal(string: String): String {
     return when(string) {
-        "01" -> {
+        "01","1" -> {
             "января"
         }
-        "02" -> {
+        "02","2" -> {
             "февраля"
         }
-        "03" -> {
+        "03","3" -> {
             "марта"
         }
-        "04" -> {
+        "04","4" -> {
             "апреля"
         }
-        "05" -> {
+        "05","5" -> {
             "мая"
         }
-        "06" -> {
+        "06","6" -> {
             "июня"
         }
-        "07" -> {
+        "07","7" -> {
             "июля"
         }
-        "08" -> {
+        "08","8" -> {
             "августа"
         }
-        "09" -> {
+        "09","9" -> {
             "сентября"
         }
         "10" -> {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolBarTextAppearance" >
+        <item name="android:fontFamily">@font/droid_serif</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Material3.DayNight.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/item_background_dialog</item>
+    </style>
+
+</resources>
