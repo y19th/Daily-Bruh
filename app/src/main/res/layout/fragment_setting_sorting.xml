@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat android:id="@+id/sort_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/sort_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_setting_sort_header"
+        android:fontFamily="@font/lato_bold"
+        android:textColor="@color/black"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        android:layout_marginEnd="20dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sort_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:hint="@string/hint_sort"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/sort_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

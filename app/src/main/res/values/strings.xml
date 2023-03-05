@@ -11,4 +11,18 @@
     <string name="dialog_search_header">Поисковик</string>
     <string name="dialog_search_under_header">Введите ключевую фразу, для поиска новостей</string>
     <string name="dialog_search_error_message">Запрос должен состоять из не менее 2 символов</string>
+    <string name="hint_language">Выберите язык</string>
+    <string name="done">Готово</string>
+    <string name="settings">Настройки</string>
+    <string name="dialog_settings_header">Настройки</string>
+    <string name="dialog_setting_under_header">Здесь вы можете изменить настройки поиска</string>
+    <array name="languages">
+        <item>Русский</item>
+        <item>Английский</item>
+    </array>
+    <string name="dialog_setting_language_header">Язык поисковика</string>
+    <string name="dialog_setting_sort_header">Сортировка</string>
+    <string name="hint_sort">Выберите сортировку</string>
+
+
 </resources>

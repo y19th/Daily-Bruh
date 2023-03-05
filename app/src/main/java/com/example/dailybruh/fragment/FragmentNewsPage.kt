@@ -17,6 +17,7 @@ import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
+import com.example.dailybruh.fragment.dialog.settings.FragmentDialogSettings
 import com.google.android.material.navigation.NavigationView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,6 +57,7 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
                 setNavigationItemSelectedListener {
                     when(it.itemId) {
                         R.id.search -> FragmentDialogSearch().show(childFragmentManager,"search_dialog")
+                        R.id.settings -> FragmentDialogSettings().show(childFragmentManager,"settings_dialog")
                     }
                     binding.mainLayout.closeDrawer(GravityCompat.START)
                     true

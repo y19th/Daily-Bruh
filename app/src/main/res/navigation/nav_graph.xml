@@ -19,6 +19,22 @@
         android:name="com.example.dailybruh.fragment.FragmentNewsPage"
         android:label="FragmentActivityNewsPage">
 
+        <action
+            android:id="@+id/newspage_to_searched"
+            app:destination="@id/search_newspage"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_newspage"
+        android:name="com.example.dailybruh.fragment.FragmentNewsPage"
+        android:label="FragmentActivitySearchNewsPage"
+        />
+    <fragment
+        android:id="@+id/dialog_search"
+        android:name="com.example.dailybruh.fragment.dialog.FragmentDialogSearch"
+        android:label="FragmentDialogSearch"
+        >
+
     </fragment>
 
 </navigation>

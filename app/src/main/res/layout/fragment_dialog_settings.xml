@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
     android:padding="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true">
+
 
     <ImageView
         android:id="@+id/drag_line"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/drag_line"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="20dp"
-        android:text="@string/dialog_search_header"
+        android:text="@string/dialog_settings_header"
         android:fontFamily="@font/lato_bold"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -35,42 +36,33 @@
         android:id="@+id/under_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_search_under_header"
+        android:text = "@string/dialog_setting_under_header"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/lato_regular"
         app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="parent"
         android:textAlignment="center"
+        android:paddingBottom="20dp"
         />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/lang_container"
+        app:layout_constraintTop_toBottomOf="@id/under_header"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_search"
-        app:startIconDrawable="@drawable/icon_edittext_preview"
-        app:errorIconDrawable="@drawable/icon_edittext_error"
-        app:errorIconTint="@color/red_300"
-        app:layout_constraintTop_toBottomOf="@id/under_header"
-        android:layout_marginTop="30dp"
-        android:paddingBottom="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/done_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/done"
-        app:layout_constraintTop_toBottomOf="@id/input_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/sort_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/lang_container"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/sort_container"
+        android:layout_height="200dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
