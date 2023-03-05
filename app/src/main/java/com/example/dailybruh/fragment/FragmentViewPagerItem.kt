@@ -39,12 +39,13 @@ class FragmentViewPagerItem(
                     "Опубликована: ${parseDate(news.articles[position].time)}"
                 authorPage.text = "Автор: ${news.articles[position].author}"
                 bindImage(urlPhoto, news.articles[position].image)
-                descPage.text = getSpan()
+                descPage.text = resizeDueTextLength()
         }
     }
 
-    private fun getSpan(): Spannable {
-        val string = substr()
+    private fun resizeDueTextLength(): Spannable {
+        val string = resizeDescription()
+        resizeTitle()
         val spannable = SpannableStringBuilder(string)
         try {
             spannable.setSpan(
@@ -58,9 +59,21 @@ class FragmentViewPagerItem(
         }
         return spannable
     }
-    private fun substr(): String {
+    private fun resizeDescription(): String {
         val str = news.articles[position].desc
-        return if(str!!.length > 200) str.substring(0, str.indexOf(" ", 200)).plus("...")
+        return if(str!!.length > 150) str.substring(0, str.indexOf(" ", 130)).plus("...")
             else return str
+    }
+    private fun resizeTitle() {
+        if(news.articles[position].title!!.length > 50)binding.titlePage.textSize = 24F
+        binding.titlePage.apply {
+            textSize = when (news.articles[position].title!!.length) {
+                in 0..50 -> 28F
+                in 50..75 -> 24F
+                in 75..100 -> 20F
+                else -> 18F
+            }
+        }
+
     }
 }

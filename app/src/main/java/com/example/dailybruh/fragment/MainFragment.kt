@@ -22,6 +22,8 @@ import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.viewmodel.MainViewModel
 import com.example.dailybruh.web.MoshiParse
+import com.example.dailybruh.web.Request
+
 
 class MainFragment : Fragment() {
 
@@ -55,7 +57,7 @@ class MainFragment : Fragment() {
                 navigateUp()
             }
             model.apply {
-                getNews("everything?q=Apple&from=2023-02-22&sortBy=popularity")
+                getNews(Request("everything","Apple",null,null,null,"ru").request)
                 status.observe(viewLifecycleOwner, observer)
             }
         }
@@ -65,4 +67,5 @@ class MainFragment : Fragment() {
         bundle.putSerializable(NEWS_DATA,news)
         view?.navigateTo(R.id.newspage,bundle)
     }
+
 }
