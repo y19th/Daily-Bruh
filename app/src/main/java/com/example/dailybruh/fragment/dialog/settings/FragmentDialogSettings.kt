@@ -29,6 +29,7 @@ class FragmentDialogSettings : BottomSheetDialogFragment() {
         childFragmentManager.commit {
             replace<FragmentSettingsLanguage>(R.id.lang_container,null,null)
             replace<FragmentSettingsSorting>(R.id.sort_container,null,null)
+            replace<FragmentSettingsFromDate>(R.id.date_container,null,null)
             setReorderingAllowed(true)
         }
     }

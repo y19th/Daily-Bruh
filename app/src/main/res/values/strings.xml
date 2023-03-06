@@ -21,8 +21,8 @@
         <item>Английский</item>
     </array>
     <string name="dialog_setting_language_header">Язык поисковика</string>
-    <string name="dialog_setting_sort_header">Сортировка</string>
-    <string name="hint_sort">Выберите сортировку</string>
-
-
+    <string name="dialog_setting_sort_header">Фильтры</string>
+    <string name="hint_sort">Выберите фильтр</string>
+    <string name="hint_from_date">Выберите промежуток времени</string>
+    <string name="dialog_setting_from_date_header">Период</string>
 </resources>

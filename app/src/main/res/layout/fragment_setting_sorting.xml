@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/sort_header"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:text="@string/dialog_setting_sort_header"
         android:fontFamily="@font/lato_bold"

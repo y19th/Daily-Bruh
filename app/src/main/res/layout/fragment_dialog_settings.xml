@@ -60,9 +60,17 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/date_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sort_container"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <Space
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/sort_container"
+        app:layout_constraintTop_toBottomOf="@id/date_container"
         android:layout_height="200dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
