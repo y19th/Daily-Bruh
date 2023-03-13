@@ -25,4 +25,6 @@
     <string name="hint_sort">Выберите фильтр</string>
     <string name="hint_from_date">Выберите промежуток времени</string>
     <string name="dialog_setting_from_date_header">Период</string>
+    <string name="description">Описание</string>
+    <string name="app_title">Daily Bruh</string>
 </resources>

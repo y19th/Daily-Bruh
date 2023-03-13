@@ -5,7 +5,7 @@ fun parseDate(string: String?): String {
         val fString: String
         val yDate: String = it.substring(0, it.indexOf("T"))
         val dDate: String = it.substring(it.indexOf("T") + 1,it.indexOf("Z") - 3)
-        fString = "${yearString(yDate)} в $dDate"
+        fString = "$dDate ${yearString(yDate)} "
         return fString
     }
     return "null date"
@@ -14,8 +14,9 @@ fun parseDate(string: String?): String {
 private fun yearString(string: String): String {
     val day = string.substring(IntRange(8,9))
     val month = string.substring(IntRange(5,6))
-    val year = string.substring(IntRange(0,3))
-    return "$day ${monthToCal(month)} $year года"
+    //val year = string.substring(IntRange(0,3)) для того что бы показывался еще год
+    //return "$day ${monthToCal(month)} $year года"
+    return "$day ${monthToCal(month)}"
 }
 
 fun monthToCal(string: String): String {

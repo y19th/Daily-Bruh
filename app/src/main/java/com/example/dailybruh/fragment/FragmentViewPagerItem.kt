@@ -1,17 +1,21 @@
 package com.example.dailybruh.fragment
 
+import android.R.attr.bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+
 
 class FragmentViewPagerItem(
     private val news: News,
@@ -35,29 +39,18 @@ class FragmentViewPagerItem(
 
         binding.apply {
                 titlePage.text = news.articles[position].title
-                publishedatPage.text =
-                    "Опубликована: ${parseDate(news.articles[position].time)}"
-                authorPage.text = "Автор: ${news.articles[position].author}"
+                publishedatPage.text = parseDate(news.articles[position].time)
+                authorPage.text = news.articles[position].author
                 bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
         }
     }
 
-    private fun resizeDueTextLength(): Spannable {
-        val string = resizeDescription()
+    private fun resizeDueTextLength(): String {
+        //val string = resizeDescription()
+        val string = news.articles[position].desc!!
         resizeTitle()
-        val spannable = SpannableStringBuilder(string)
-        try {
-            spannable.setSpan(
-                RelativeSizeSpan(1.1F),
-                0,
-                string.indexOf(' '),
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-        } catch (e: java.lang.NullPointerException) {
-            return SpannableStringBuilder(" ")
-        }
-        return spannable
+        return string
     }
     private fun resizeDescription(): String {
         val str = news.articles[position].desc

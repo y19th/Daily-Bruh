@@ -29,8 +29,8 @@ class NewsPageRecyclerAdapter(private val news: News): RecyclerView.Adapter<News
                 holder.apply {
                     titlePage.text = news.articles[position].title
                     publishedatPage.text =
-                        "Опубликована: ${parseDate(news.articles[position].time)}"
-                    authorPage.text = "Автор: ${news.articles[position].author}"
+                        parseDate(news.articles[position].time)
+                    authorPage.text = news.articles[position].author
                     bindImage(urlPhoto, news.articles[position].image)
                     descPage.text = news.articles[position].desc
                 }
