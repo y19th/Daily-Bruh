@@ -17,4 +17,6 @@
     <color name="pressed_url_color">#3F51B5</color>
     <color name="drag_line_color">#777777</color>
     <color name="back_text_color">#373636</color>
+    <color name="background_url_button_color">#808080</color>
+    <color name="background_view_pager">#D0D0D0</color>
 </resources>

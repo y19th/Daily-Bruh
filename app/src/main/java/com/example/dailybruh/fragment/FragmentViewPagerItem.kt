@@ -61,10 +61,10 @@ class FragmentViewPagerItem(
         if(news.articles[position].title!!.length > 50)binding.titlePage.textSize = 24F
         binding.titlePage.apply {
             textSize = when (news.articles[position].title!!.length) {
-                in 0..50 -> 28F
-                in 50..75 -> 24F
-                in 75..100 -> 20F
-                else -> 18F
+                in 0..50 -> 32F
+                in 50..75 -> 28F
+                in 75..100 -> 24F
+                else -> 20F
             }
         }
 

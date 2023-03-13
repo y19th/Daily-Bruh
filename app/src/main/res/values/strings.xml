@@ -5,7 +5,7 @@
     <string name="week_news">Новости недели</string>
     <string name="month_news">Новости месяца</string>
     <string name="search_news">Поиск</string>
-    <string name="url_text"><u>Перейти в источник</u></string>
+    <string name="url_text">Открыть полностью</string>
     <string name="drag_line">drag_line</string>
     <string name="hint_search">Введите запрос</string>
     <string name="dialog_search_header">Поисковик</string>
@@ -27,4 +27,5 @@
     <string name="dialog_setting_from_date_header">Период</string>
     <string name="description">Описание</string>
     <string name="app_title">Daily Bruh</string>
+    <string name="url_button_desc">arrow_next</string>
 </resources>

@@ -33,8 +33,8 @@
             >
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/nav_menu_button"
-                android:layout_width="23dp"
-                android:layout_height="15dp"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tool_bar"
@@ -42,16 +42,27 @@
                 android:background="@drawable/icon_menu"
                 />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toEndOf="@id/nav_menu_button"
+                app:layout_constraintEnd_toStartOf="@id/profile_button"
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/app_title"
                 android:textColor="@color/white"
                 android:textAlignment="gravity"
-                android:gravity="center|start"
+                android:gravity="center"
                 android:fontFamily="@font/lato_bold"
                 android:textSize="20sp"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/profile_button"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/nav_menu_button"
+                app:layout_constraintBottom_toBottomOf="@id/nav_menu_button"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/icon_profile_circle"
                 />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
