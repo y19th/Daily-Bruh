@@ -28,4 +28,7 @@
     <string name="description">Описание</string>
     <string name="app_title">Daily Bruh</string>
     <string name="url_button_desc">arrow_next</string>
+    <string name="hint_phone">Телефон</string>
+    <string name="hint_ver_code">Код подтверждения</string>
+
 </resources>

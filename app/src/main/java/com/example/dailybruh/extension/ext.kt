@@ -1,8 +1,10 @@
 package com.example.dailybruh.extension
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
 
@@ -44,4 +46,12 @@ private fun enableDisableView(view: View,enabled:Boolean) {
             enableDisableView(child,enabled)
         }
     }
+}
+
+fun ToastLong(context: Context,message: String) {
+    Toast.makeText(context,message,Toast.LENGTH_LONG).show()
+}
+
+fun ToastShort(context: Context,message: String) {
+    Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
 }

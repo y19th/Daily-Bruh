@@ -16,6 +16,7 @@ import com.example.dailybruh.calendar.monthToCal
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.fragment.dialog.FragmentDialogProfile
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.example.dailybruh.fragment.dialog.settings.FragmentDialogSettings
 import com.google.android.material.navigation.NavigationView
@@ -66,6 +67,9 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
             navMenuButton.setOnClickListener {
                 mainLayout.openDrawer(GravityCompat.START)
             }
+            profileButton.setOnClickListener {
+                FragmentDialogProfile().show(childFragmentManager,"profile_dialog")
+            }
         }
         timer(getSec())
     }
@@ -108,5 +112,19 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
         }
         binding.mainLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(NEWS_DATA,news)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        news = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable(NEWS_DATA,News::class.java) as News
+        } else {
+            arguments?.getSerializable(NEWS_DATA) as News
+        }
     }
 }

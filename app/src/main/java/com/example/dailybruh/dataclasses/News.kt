@@ -17,8 +17,8 @@ data class Article(
     @Json(name = "publishedAt")val time: String?,
     @Json(name = "content")val content: String?,
     @Json(name = "urlToImage")val image: String?,
-    @Json(name = "description")val desc: String?)
+    @Json(name = "description")val desc: String?) : Serializable
 
 data class Source(
     @Json(name = "id")val id: String?,
-    @Json(name = "name")val name: String?)
+    @Json(name = "name")val name: String?) : Serializable

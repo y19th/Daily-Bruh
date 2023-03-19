@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "591455873327",
+    "project_id": "dailybruh-bf63c",
+    "storage_bucket": "dailybruh-bf63c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591455873327:android:d6ada33c841082879c19da",
+        "android_client_info": {
+          "package_name": "y19th.apps.dailybruh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591455873327-f2o99g2tltihffh9ud4m7n9bdd6k5rik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "y19th.apps.dailybruh",
+            "certificate_hash": "b0c9b46b1220ef1629def8c34150d3b5fbeee113"
+          }
+        },
+        {
+          "client_id": "591455873327-uovh1kmhuc2hcp5ce3a6gkns6mraq9m8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "y19th.apps.dailybruh",
+            "certificate_hash": "f63a2cd8e94d177c5b71f79eed3d95246b643246"
+          }
+        },
+        {
+          "client_id": "591455873327-qi0979j80qumpmb8el4dt70dn0bnfilc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwDXFFDeqgYlbyayQE_TYnRMJl_q7XDvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591455873327-qi0979j80qumpmb8el4dt70dn0bnfilc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
