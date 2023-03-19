@@ -1,6 +1,5 @@
 package com.example.dailybruh.fragment.dialog
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +14,6 @@ import com.example.dailybruh.extension.ToastLong
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
@@ -47,27 +43,31 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
                     view.enableView()
                     phoneLayout.isEnabled = false
                 }
-            }
 
-            codeButton.setOnClickListener {
-                credential = PhoneAuthProvider.getCredential(callback.verificationId(),codeField.text.toString())
-                authOptions.signInWithCred(credential)
-                if(authOptions.user != null) {
+                override fun onSuccessAuth() {
                     ToastLong(requireContext(),"Success !!!!")
-                } else {
+                }
+
+                override fun onFailedAuth() {
+                    codeButton.isEnabled = true
+                    codeLayout.error = "Неверный код"
                     ToastLong(requireContext(),"Failed!")
                 }
             }
 
-            codeField.doOnTextChanged { text, start, before, count ->
+            codeButton.setOnClickListener {
+                codeButton.isEnabled = false
+                credential = PhoneAuthProvider.getCredential(callback.verificationId(),codeField.text.toString())
+                authOptions.signInWithCred(credential)
+            }
+
+            codeField.doOnTextChanged { _, _, _, _ ->
                 codeLayout.error = null
-                if(count !in 1..6) {
-                    codeLayout.error = "!0..6"  //TODO(DELETE THIS)
+                codeButton.isEnabled = true
+                if(codeField.text?.length == 0) {
+                    codeButton.isEnabled = false
+                    codeLayout.error = "Код не может быть пустым"
                 }
-                if(count in 1..6) {
-                    codeButton.isEnabled = true
-                }
-                if(count == 0)codeButton.isEnabled = false
             }
 
             readyButton.setOnClickListener {
@@ -78,9 +78,5 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
                 authOptions.createOptions(callback,phoneField.text.toString(),requireActivity(),60L).verify()
             }
         }
-
-        //
-
-        //
     }
 }

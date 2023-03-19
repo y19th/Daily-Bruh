@@ -2,13 +2,11 @@ package com.example.dailybruh.auth
 
 import android.app.Activity
 import android.content.Context
-import android.widget.Toast
 import com.example.dailybruh.extension.ToastLong
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
@@ -19,12 +17,15 @@ class AuthOptions(private val context: Context) {
 
     private var _phone: String? = null
     private var _activity: Activity? = null
+    private var _callbacks: CodeCallback? = null
+
+    private val callbacks: CodeCallback get() = _callbacks!!
     private val phone: String get() = _phone!!
     private val activity: Activity get() = _activity!!
 
     var user : FirebaseUser? = null
 
-    fun createOptions(callbacks: OnVerificationStateChangedCallbacks,
+    fun createOptions(callbacks: CodeCallback,
                       phoneNumber: String,
                       activity: Activity,
                       timeout: Long
@@ -32,6 +33,7 @@ class AuthOptions(private val context: Context) {
 
         _activity = activity
         _phone = phoneNumber
+        _callbacks = callbacks
 
         options = PhoneAuthOptions.newBuilder(Firebase.auth)
             .setPhoneNumber(phoneNumber)
@@ -47,9 +49,9 @@ class AuthOptions(private val context: Context) {
             .addOnCompleteListener(activity) { task ->
                 if(task.isSuccessful) {
                     user = task.result?.user
-                    ToastLong(context,"Authentication success")
+                    callbacks.onSuccessAuth()
                 } else {
-                    ToastLong(context,"Authentication failed")
+                    callbacks.onFailedAuth()
                 }
             }
     }

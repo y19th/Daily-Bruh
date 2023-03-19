@@ -34,7 +34,14 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
         _verId = verificationId
         stepOnCodeSent()
     }
+
     fun token() = token
+
     fun verificationId() = verId
+
     abstract fun stepOnCodeSent()
+
+    abstract fun onSuccessAuth()
+
+    abstract fun onFailedAuth()
 }
