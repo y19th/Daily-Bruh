@@ -2,7 +2,10 @@ package com.example.dailybruh.auth
 
 import android.content.Context
 import android.widget.Toast
+import com.example.dailybruh.R
+import com.example.dailybruh.extension.ToastShort
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -21,11 +24,10 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
 
     override fun onVerificationFailed(exc: FirebaseException) {
         when(exc) {
-            is FirebaseAuthInvalidCredentialsException -> Toast.makeText(context,"Invalid request",
-                Toast.LENGTH_SHORT).show()
-            is FirebaseTooManyRequestsException -> Toast.makeText(context,"Too many requests",
-                Toast.LENGTH_SHORT).show()
-            else -> Toast.makeText(context,"$exc exception", Toast.LENGTH_SHORT).show()
+            is FirebaseAuthInvalidCredentialsException -> ToastShort(context,"Invalid credential")
+            is FirebaseTooManyRequestsException -> ToastShort(context,"Too many requests")
+            is FirebaseNetworkException -> ToastShort(context,context.getString(R.string.firebase_error_network))
+            else -> ToastShort(context,"$exc exception")
         }
     }
 

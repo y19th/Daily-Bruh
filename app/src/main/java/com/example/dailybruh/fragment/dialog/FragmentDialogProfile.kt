@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
 import com.example.dailybruh.auth.verify
@@ -13,6 +14,7 @@ import com.example.dailybruh.databinding.FragmentDialogProfileBinding
 import com.example.dailybruh.extension.ToastLong
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
+import com.example.dailybruh.extension.navigateTo
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -45,6 +47,7 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
                 }
 
                 override fun onSuccessAuth() {
+                    parentFragment?.view?.navigateTo(R.id.newspage_to_profile)
                     ToastLong(requireContext(),"Success !!!!")
                 }
 

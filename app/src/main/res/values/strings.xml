@@ -30,5 +30,7 @@
     <string name="url_button_desc">arrow_next</string>
     <string name="hint_phone">Телефон</string>
     <string name="hint_ver_code">Код подтверждения</string>
+    <string name="firebase_error_network">Подключение к сети отсутствует</string>
+    <string name="phone">Номер телефона</string>
 
 </resources>
