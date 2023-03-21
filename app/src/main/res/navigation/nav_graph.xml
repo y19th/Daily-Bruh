@@ -37,7 +37,6 @@
         android:name="com.example.dailybruh.fragment.dialog.FragmentDialogSearch"
         android:label="FragmentDialogSearch"
         >
-
     </fragment>
 
     <fragment
@@ -45,8 +44,10 @@
         android:name="com.example.dailybruh.fragment.FragmentProfile"
         android:label="FragmentProfile"
         >
-
-
+        <action
+            android:id="@+id/profile_to_newspage"
+            app:destination="@id/newspage"
+            />
     </fragment>
 
 </navigation>

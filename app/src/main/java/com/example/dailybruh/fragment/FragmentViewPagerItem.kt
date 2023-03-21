@@ -1,9 +1,5 @@
 package com.example.dailybruh.fragment
 
-import android.R.attr.bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +45,7 @@ class FragmentViewPagerItem(
     private fun resizeDueTextLength(): String {
         //val string = resizeDescription()
         val string = news.articles[position].desc!!
-        resizeTitle()
+       // resizeTitle()
         return string
     }
     private fun resizeDescription(): String {
@@ -61,9 +57,9 @@ class FragmentViewPagerItem(
         if(news.articles[position].title!!.length > 50)binding.titlePage.textSize = 24F
         binding.titlePage.apply {
             textSize = when (news.articles[position].title!!.length) {
-                in 0..50 -> 32F
-                in 50..75 -> 28F
-                in 75..100 -> 24F
+                in 0..50 -> 20F
+                in 50..75 -> 18F
+                in 75..100 -> 16F
                 else -> 20F
             }
         }

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
@@ -73,7 +74,11 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
             profileButton.setOnClickListener {
                 when(Firebase.auth.currentUser) {
                     null -> FragmentDialogProfile().show(childFragmentManager,"profile_dialog")
-                    else -> view.navigateTo(R.id.newspage_to_profile)
+                    else -> {
+                        val bundle = Bundle()
+                        bundle.putSerializable(NEWS_DATA,news)
+                        view.navigateTo(R.id.newspage_to_profile,bundle)
+                    }
                 }
 
             }

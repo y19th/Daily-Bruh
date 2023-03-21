@@ -32,5 +32,13 @@
     <string name="hint_ver_code">Код подтверждения</string>
     <string name="firebase_error_network">Подключение к сети отсутствует</string>
     <string name="phone">Номер телефона</string>
+    <string name="back_button">back button</string>
+    <string name="back_button_text">Новости</string>
+    <string name="name_header">Ваше имя</string>
+    <string name="saved_news">Сохраненные новости</string>
+    <string name="liked_news">Понравившиеся новости</string>
+    <string name="sign_out_button">Выйти из профиля</string>
+    <string name="arrow_next">arrow_next</string>
+    <string name="popular_filter">Популярные</string>
 
 </resources>

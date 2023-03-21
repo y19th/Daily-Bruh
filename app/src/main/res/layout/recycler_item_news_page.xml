@@ -4,151 +4,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_view_pager"
+    android:background="@drawable/item_stroke_white"
     app:layout_constraintBottom_toBottomOf="parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:clipToPadding="true"
     tools:layout_height="match_parent"
     >
-    <ImageView
-        android:id="@+id/url_photo"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/url_photo_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:adjustViewBounds="true"
-        android:layout_margin="15dp"
-        android:contentDescription="@string/article_photo"
-        android:background="@drawable/item_stroke_url_image_white"
-        android:padding="2dp"
-        android:outlineProvider="paddedBounds"
-        android:elevation="8dp"
-        tools:src="@drawable/icon_edittext_error"
-        tools:layout_height="200dp"
-    />
+        android:layout_height="150dp"
+        app:layout_constraintTop_toBottomOf="@id/author_page"
+        app:cardCornerRadius="10dp"
+        android:background="@drawable/item_rouned_rectangle_light_black_fat"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="4dp"
+        >
+        <ImageView
+            android:id="@+id/url_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/article_photo"
+            tools:src="@drawable/icon_edittext_error"
+            tools:layout_height="200dp"
+        />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/title_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        app:layout_constraintTop_toBottomOf="@id/url_photo"
+        app:layout_constraintTop_toBottomOf="@id/url_photo_layout"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/title_text_color"
-        android:textSize="36sp"
-        android:paddingHorizontal="15dp"
-        android:fontFamily="@font/lato_heavy"
-        android:paddingBottom="5dp"
-        android:paddingTop="10dp"
-        tools:text="Заголовок"
+        android:textColor="@color/light_theme_text_color_light_black"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="20dp"
+        android:fontFamily="@font/jost_bold"
+        android:layout_marginTop="20dp"
+        tools:text="Котенок дважды украл деньги из бара"
         />
     <TextView
         android:id="@+id/desc_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/title_page"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/lato_heavy"
-        android:textColor="@color/black"
-        android:paddingTop="15dp"
-        android:paddingHorizontal="25dp"
+        android:fontFamily="@font/jost_medium"
+        android:textColor="@color/light_theme_text_color_light_black"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
         />
     <TextView
         android:id="@+id/desc_page"
         app:layout_constraintTop_toBottomOf="@id/desc_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lato_semibold"
-        android:textSize="16sp"
-        android:textColor="@color/preview_text_color"
-        android:paddingBottom="15dp"
-        android:elevation="8dp"
-        android:background="@drawable/item_background_desc_page_white"
-        android:layout_marginHorizontal="15dp"
-        android:paddingTop="5dp"
+        android:fontFamily="@font/jost_regular"
+        android:textSize="18sp"
+        android:textColor="@color/light_theme_text_color_light_black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="6dp"
         tools:text="Капибары — социальные животные, живущие группами по 10—20 особей. Группы состоят из доминирующего самца, нескольких взрослых самок (со своей внутренней иерархией), детёнышей и подчиненных самцов, находящихся на периферии группы. 5—10 % капибар, преимущественно самцов, живут в одиночку"
         />
 
     <TextView
         android:id="@+id/publishedat_page"
-        app:layout_constraintTop_toBottomOf="@id/author_page"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_layout"
+        app:layout_constraintBottom_toBottomOf="@id/button_layout"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
         android:textColor="@color/back_text_color"
-        android:paddingHorizontal="15dp"
+        android:layout_marginEnd="40dp"
         android:textSize="12sp"
         android:fontFamily="@font/lato_medium"
-        android:paddingBottom="5dp"
         tools:text="00:00 21 июля"
         />
 
+
     <TextView
         android:id="@+id/author_page"
-        app:layout_constraintTop_toTopOf="@id/button_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/jost_semibold"
         android:textAlignment="textStart"
         android:textColor="@color/back_text_color"
-        android:textSize="12sp"
-        android:fontFamily="@font/lato_medium"
-        android:paddingBottom="5dp"
-        android:paddingHorizontal="15dp"
-        tools:text="Фамилия имя"
-        />
-
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Фамилия имя" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/slide_bottom"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/item_rounded_rectangle_orange_medium"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="15dp"
-
+        android:paddingHorizontal="8dp"
         >
-    <TextView
-        android:id="@+id/url_button"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:textSize="16sp"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:text="@string/url_text"
-        android:fontFamily="@font/lato_semibold"
-        android:textAlignment="gravity"
-        android:gravity="center|start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <ImageView
-        android:id="@+id/url_button_icon"
-        android:layout_width="9dp"
-        android:layout_height="30dp"
-        android:src="@drawable/icon_arrow_right_1"
-        app:layout_constraintStart_toEndOf="@id/url_button"
-        app:layout_constraintTop_toTopOf="@id/url_button"
-        app:layout_constraintBottom_toBottomOf="@id/url_button"
-        android:contentDescription="@string/url_button_desc" />
+
+        <TextView
+            android:id="@+id/url_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:fontFamily="@font/lato_semibold"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/url_text"
+            android:textColor="@color/light_theme_text_color_light_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/url_button_icon"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:src="@drawable/icon_arrow_right_1"
+            app:layout_constraintStart_toEndOf="@id/url_button"
+            app:layout_constraintTop_toTopOf="@id/url_button"
+            app:layout_constraintBottom_toBottomOf="@id/url_button"
+            android:contentDescription="@string/url_button_desc"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/slide_bottom"
-        android:layout_width="100dp"
-        android:layout_height="5dp"
-        android:src="@drawable/item_drag_line"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="20dp"
-        />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

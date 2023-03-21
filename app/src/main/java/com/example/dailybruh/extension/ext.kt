@@ -14,6 +14,11 @@ fun View.navigateTo(id: Int) {
 fun View.navigateTo(id: Int,bundle: Bundle) {
     this.findNavController().navigate(id,bundle,null,null)
 }
+fun View.navigateToWithSerializable(id: Int,item: java.io.Serializable, serId: String) {
+    val bundle = Bundle()
+    bundle.putSerializable(serId,item)
+    this.findNavController().navigate(id,bundle,null,null)
+}
 
 fun View.changeParams(width: Int,height: Int) {
     val params = this.layoutParams
