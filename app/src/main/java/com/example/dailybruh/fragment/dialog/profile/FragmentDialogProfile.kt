@@ -1,4 +1,4 @@
-package com.example.dailybruh.fragment.dialog
+package com.example.dailybruh.fragment.dialog.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

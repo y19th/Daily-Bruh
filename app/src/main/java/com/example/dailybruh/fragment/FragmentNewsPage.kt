@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
@@ -18,7 +17,7 @@ import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.fragment.dialog.FragmentDialogProfile
+import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfile
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.example.dailybruh.fragment.dialog.settings.FragmentDialogSettings
 import com.google.android.material.navigation.NavigationView

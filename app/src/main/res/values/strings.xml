@@ -40,5 +40,10 @@
     <string name="sign_out_button">Выйти из профиля</string>
     <string name="arrow_next">arrow_next</string>
     <string name="popular_filter">Популярные</string>
+    <string name="nickname_header">Ваш никнейм</string>
+    <string name="change_name">Изменить имя</string>
+    <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
+    <string name="change_nickname">Изменить никнейм</string>
+    <string name="change_nickname_desc">Здесь вы можете изменить свой никнейм</string>
 
 </resources>

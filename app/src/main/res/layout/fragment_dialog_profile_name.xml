@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/drag_line"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        app:srcCompat="@drawable/item_drag_line"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="120dp"
+        android:contentDescription="@string/drag_line" />
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/drag_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/change_name"
+        android:layout_marginTop="20dp"
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lato_semibold"
+        />
+    <TextView
+        android:id="@+id/under_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="@id/header"
+        app:layout_constraintEnd_toEndOf="@id/header"
+        android:text="@string/change_name_desc"
+        android:layout_marginTop="5dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/lato_medium"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_search"
+        app:startIconDrawable="@drawable/icon_edittext_preview"
+        app:errorIconDrawable="@drawable/icon_edittext_error"
+        app:errorIconTint="@color/red_300"
+        app:layout_constraintTop_toBottomOf="@id/under_header"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="30dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/done"
+        app:layout_constraintTop_toBottomOf="@id/input_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/done_button"
+        android:minHeight="500dp"
+        android:maxHeight="800dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

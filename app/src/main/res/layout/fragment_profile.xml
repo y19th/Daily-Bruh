@@ -66,7 +66,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +81,8 @@
             android:textSize="20sp"
             android:textColor="@color/title_text_color"
             android:text="@string/name_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             />
         <TextView
             android:id="@+id/name_field"
@@ -90,16 +92,72 @@
             android:textColor="@color/title_text_color"
             android:fontFamily="@font/lato_semibold"
             tools:text="Олегофрен"
+            app:layout_constraintTop_toBottomOf="@id/name_header"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <ImageView
+            android:id="@+id/name_icon"
+            android:layout_width="14dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_arrow_right_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/arrow_next"
             />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nickname_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_layout"
+        android:layout_marginVertical="20dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/nickname_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/title_text_color"
+            android:text="@string/nickname_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView
+            android:id="@+id/nickname_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:textColor="@color/title_text_color"
+            android:fontFamily="@font/lato_semibold"
+            tools:text="y19th"
+            app:layout_constraintTop_toBottomOf="@id/nickname_header"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/nickname_icon"
+            android:layout_width="14dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_arrow_right_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/arrow_next"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ImageView
         android:id="@+id/drag_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:src="@drawable/item_drag_line"
-        app:layout_constraintTop_toBottomOf="@id/name_layout"
+        app:layout_constraintTop_toBottomOf="@id/nickname_layout"
         app:layout_constraintBottom_toTopOf="@id/saved_news_layout"
         android:paddingHorizontal="100dp"
         android:layout_marginTop="20dp"
@@ -129,7 +187,7 @@
         <ImageView
             android:id="@+id/saved_news_icon"
             android:layout_width="14dp"
-            android:layout_height="32dp"
+            android:layout_height="24dp"
             android:src="@drawable/icon_arrow_right_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/saved_news_field"
@@ -161,7 +219,7 @@
         <ImageView
             android:id="@+id/liked_news_icon"
             android:layout_width="14dp"
-            android:layout_height="32dp"
+            android:layout_height="24dp"
             android:src="@drawable/icon_arrow_right_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/liked_news_field"
