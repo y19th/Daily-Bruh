@@ -1,5 +1,6 @@
 package com.example.dailybruh.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,7 @@ class FragmentViewPagerItem(
     private fun resizeDueTextLength(): String {
         //val string = resizeDescription()
         val string = news.articles[position].desc!!
-       // resizeTitle()
+        resizeTitle()
         return string
     }
     private fun resizeDescription(): String {
@@ -54,15 +55,20 @@ class FragmentViewPagerItem(
             else return str
     }
     private fun resizeTitle() {
-        if(news.articles[position].title!!.length > 50)binding.titlePage.textSize = 24F
-        binding.titlePage.apply {
-            textSize = when (news.articles[position].title!!.length) {
-                in 0..50 -> 20F
-                in 50..75 -> 18F
-                in 75..100 -> 16F
-                else -> 20F
+        binding.apply {
+        if(news.articles[position].title!!.length > 50){
+            titlePage.textSize = 24F
+        }
+        when(Build.VERSION.SDK_INT) {               //if phone has <28 sdk
+            in 0..27 -> {                     //we resize text size due resolution
+                titlePage.textSize = 18F
+                descPage.textSize = 16F
+            }
+            else -> {
+                titlePage.textSize = 20F
+                descPage.textSize = 18F
             }
         }
-
+        }
     }
 }

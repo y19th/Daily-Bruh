@@ -16,6 +16,7 @@ import com.example.dailybruh.calendar.monthToCal
 import com.example.dailybruh.const.NEWS_DATA
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfile
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
@@ -71,6 +72,7 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
                 mainLayout.openDrawer(GravityCompat.START)
             }
             profileButton.setOnClickListener {
+                view.disableView()
                 when(Firebase.auth.currentUser) {
                     null -> FragmentDialogProfile().show(childFragmentManager,"profile_dialog")
                     else -> {
