@@ -96,15 +96,15 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
 
                 if(leng == 16) {
                     view.disableView()
-                   // readyButton.visibility = View.GONE
+                    readyButton.visibility = View.INVISIBLE
                     codeLayout.visibility = View.VISIBLE
                     codeButton.visibility = View.VISIBLE
-                /*    authOptions.createOptions(
+                    authOptions.createOptions(
                         callback,
                         phoneField.text.toString(),
                         requireActivity(),
                         60L
-                    ).verify()*/
+                    ).verify()
                 } else {
                     if(leng == 0 || leng == null)phoneLayout.error = "Номер не может быть пустым"
                     else if (leng > 16)phoneLayout.error = "Слишком большой номер"

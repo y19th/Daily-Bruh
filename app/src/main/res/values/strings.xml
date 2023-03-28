@@ -52,5 +52,6 @@
     <string name="liked_articles_desc">Здесь будут храниться новости, которые вам нравятся</string>
     <string name="auth_header">Войти в аккаунт</string>
     <string name="auth_desc">Введите свой телефон, чтобы войти в аккаунт</string>
+    <string name="publishedat_header">дата публикации</string>
 
 </resources>

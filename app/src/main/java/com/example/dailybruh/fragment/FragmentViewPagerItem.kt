@@ -37,7 +37,7 @@ class FragmentViewPagerItem(
         binding.apply {
                 titlePage.text = news.articles[position].title
                 publishedatPage.text = parseDate(news.articles[position].time)
-                authorPage.text = news.articles[position].author
+                authorPage.text = news.articles[position].id
                 bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
         }

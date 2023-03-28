@@ -9,6 +9,8 @@ import com.example.dailybruh.dataclasses.News
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -47,6 +49,7 @@ object NewsApi {
 class MoshiParse : ViewModel() {
     private val _status = MutableLiveData<String>()
     private val _news = MutableLiveData<News>()
+    private val _tempNews = MutableLiveData<News>()
     val news: LiveData<News> = _news
     val status: LiveData<String> = _status
 
@@ -55,12 +58,25 @@ class MoshiParse : ViewModel() {
         viewModelScope.launch {
             try {
                 setURLtoGetRequest(addUrl)
-                _news.value = NewsApi.retrofitService.getNews(url!!)
-                _status.value = "ok"
+                _tempNews.value = NewsApi.retrofitService.getNews(url!!)
+                setId(_tempNews.value!!)
             } catch (e : Exception) {
                 _status.value = e.message.toString()
             }
         }
+    }
+
+    private fun setId(news: News) {
+        var count = 0
+        viewModelScope.launch {
+            for (item in news.articles) {
+                item.id = "${item.title?.get(0)}${item.title?.get(1)}${item.title?.get(2)}$count"
+                count++
+            }
+
+            _news.value = news
+        }
+        _status.value = "ok"
     }
 
 }

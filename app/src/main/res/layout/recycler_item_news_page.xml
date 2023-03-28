@@ -87,15 +87,30 @@
         tools:text="Капибары — социальные животные, живущие группами по 10—20 особей. Группы состоят из доминирующего самца, нескольких взрослых самок (со своей внутренней иерархией), детёнышей и подчиненных самцов, находящихся на периферии группы. 5—10 % капибар, преимущественно самцов, живут в одиночку"
         />
 
-    <TextView
-        android:id="@+id/publishedat_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/button_layout"
-        app:layout_constraintBottom_toBottomOf="@id/button_layout"
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/publishedat_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/button_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="textStart"
+        android:textColor="@color/back_text_color"
+        android:layout_marginEnd="40dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/lato_medium"
+        android:text="@string/publishedat_header"
+        />
+
+    <TextView
+        android:id="@+id/publishedat_page"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/publishedat_header"
+        app:layout_constraintTop_toBottomOf="@id/publishedat_header"
+        app:layout_constraintBottom_toBottomOf="@id/button_layout"
+        android:textAlignment="center"
         android:textColor="@color/back_text_color"
         android:layout_marginEnd="40dp"
         android:textSize="12sp"
