@@ -1,6 +1,7 @@
 package com.example.dailybruh.database
 
 import androidx.lifecycle.MutableLiveData
+import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.News
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -17,11 +18,15 @@ private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.e
 class Database(phone: String = "00000000000") {
 
     private val userReference = database.reference.child("users").child(phone)
+    private val articlesReference = database.reference.child("articles")
     private val user = Firebase.auth.currentUser
 
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val news = MutableLiveData<News>()
+    val lastArticle = MutableLiveData<Article>()
+    val articlelikes = MutableLiveData<Long>()
+    val userLikes = MutableLiveData<String>()
 
 
 
@@ -58,7 +63,23 @@ class Database(phone: String = "00000000000") {
     fun name(name: String) {
         userReference.child("name").setValue(name)
     }
+    fun userLikes(): MutableLiveData<String> {
+        userReference.child("liked").addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userLikes.value = snapshot.value as String
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+
+
+
+    //useless
     fun news(): MutableLiveData<News> {
         userReference.child("articles").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -71,13 +92,43 @@ class Database(phone: String = "00000000000") {
         })
         return news
     }
-    fun news(articles: News) {
-        for(i in 0..100) {
-            val article = database.reference.child("articles").child(articles.articles[i].title!!)
-            article.child("id").setValue(articles.articles[i].id)
-            article.child("author").setValue(articles.articles[i].author)
-            article.child("description").setValue(articles.articles[i].desc)
-            article.child("likes").setValue(0)
-        }
+    //
+
+    fun article(id : String): MutableLiveData<Article> {
+        articlesReference.child(id).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                //lastArticle.value = snapshot.value as Article
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        return lastArticle
+    }
+
+    fun likes(id : String): MutableLiveData<Long> {
+        articlesReference.child(id).child("likes").addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                articlelikes.value = snapshot.value as Long
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                articlelikes.value = -1
+            }
+
+        })
+        return articlelikes
+    }
+
+    fun article(article: Article) {
+            articlesReference.child(article.id).apply {
+              child("title").setValue(article.title!!)
+              child("author").setValue(article.author)
+              child("likes").setValue(0)
+              child("commentaries").child("asd").setValue("fuck ouou")
+            }
+        article(article.id)
+        likes(article.id)
     }
 }

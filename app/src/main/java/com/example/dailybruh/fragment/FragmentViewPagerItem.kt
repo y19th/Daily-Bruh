@@ -2,6 +2,7 @@ package com.example.dailybruh.fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 
@@ -41,6 +43,16 @@ class FragmentViewPagerItem(
                 bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
         }
+        //
+        val database = Database()
+        database.article(news.articles[position])
+        database.likes(news.articles[position].id).observe(viewLifecycleOwner) {
+            binding.authorPage.text = it.toString()
+        }
+
+
+
+        //
     }
 
     private fun resizeDueTextLength(): String {

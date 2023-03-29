@@ -8,7 +8,7 @@ import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDilaogLikedArticlesBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentDialogProfileLikedArticles(database: Database) : BottomSheetDialogFragment() {
+class FragmentDialogProfileLikedArticles(private val database: Database) : BottomSheetDialogFragment() {
 
     private var _binding : FragmentDilaogLikedArticlesBinding? = null
     private val binding : FragmentDilaogLikedArticlesBinding get() = _binding!!
@@ -23,7 +23,6 @@ class FragmentDialogProfileLikedArticles(database: Database) : BottomSheetDialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
+        database
     }
 }
