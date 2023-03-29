@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dailybruh.R
 import com.example.dailybruh.const.NEWS_DATA
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentMainBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.navigateTo

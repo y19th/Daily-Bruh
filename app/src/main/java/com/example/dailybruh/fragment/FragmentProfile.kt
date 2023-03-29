@@ -9,8 +9,10 @@ import com.example.dailybruh.R
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
+import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -58,7 +60,13 @@ class FragmentProfile : Fragment() {
             nicknameLayout.setOnClickListener {
                 FragmentDialogProfileNickname(database).show(childFragmentManager,"nickname_edit_dialog")
             }
-            //
+            savedNewsLayout.setOnClickListener {
+                FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
+            }
+            likedNewsLayout.setOnClickListener {
+                FragmentDialogProfileLikedArticles(database).show(childFragmentManager,"liked_articles_dialog")
+            }
+            //      database scope
             database.apply {
                 nickname().observe(viewLifecycleOwner) {
                     nicknameField.text = it

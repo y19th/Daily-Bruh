@@ -1,11 +1,16 @@
 package com.example.dailybruh.fragment.dialog.profile
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.doOnAttach
+import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.DialogFragment
 import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
@@ -22,6 +27,7 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
     private val binding: FragmentDialogProfileBinding get() = _binding!!
     private lateinit var authOptions: AuthOptions
     private lateinit var credential: PhoneAuthCredential
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,13 +76,46 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
                 }
             }
 
+            phoneField.doOnTextChanged { text,start,_,end ->
+                phoneLayout.error = null
+                phoneField.apply {
+                    if(text?.length == 1 && text[0] == '8') {
+                        setText("+7")
+                        setSelection(this.text!!.length)
+                    }
+                    when(this.text?.length) {
+                            3,7,11,14 -> if(end != 0)phoneField.text?.insert(start,"-")
+                        }
+                    readyButton.text = text?.length.toString()
+                }
+            }
+
             readyButton.setOnClickListener {
-                readyButton.visibility = View.GONE
-                codeLayout.visibility = View.VISIBLE
-                codeButton.visibility = View.VISIBLE
-                view.disableView()
-                authOptions.createOptions(callback,phoneField.text.toString(),requireActivity(),60L).verify()
+
+                val leng = phoneField.text?.length
+
+                if(leng == 16) {
+                    view.disableView()
+                    readyButton.visibility = View.INVISIBLE
+                    codeLayout.visibility = View.VISIBLE
+                    codeButton.visibility = View.VISIBLE
+                    authOptions.createOptions(
+                        callback,
+                        phoneField.text.toString(),
+                        requireActivity(),
+                        60L
+                    ).verify()
+                } else {
+                    if(leng == 0 || leng == null)phoneLayout.error = "Номер не может быть пустым"
+                    else if (leng > 16)phoneLayout.error = "Слишком большой номер"
+                    else if (leng < 16)phoneLayout.error = "Слишком маленький номер"
+                }
             }
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        parentFragment?.view?.enableView()
+        super.onDismiss(dialog)
     }
 }

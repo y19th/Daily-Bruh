@@ -25,7 +25,7 @@
     <string name="hint_sort">Выберите фильтр</string>
     <string name="hint_from_date">Выберите промежуток времени</string>
     <string name="dialog_setting_from_date_header">Период</string>
-    <string name="description">Описание</string>
+    <string name="description">Описание:</string>
     <string name="app_title">Daily Bruh</string>
     <string name="url_button_desc">arrow_next</string>
     <string name="hint_phone">Телефон</string>
@@ -45,5 +45,13 @@
     <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
     <string name="change_nickname_desc">Здесь вы можете изменить свой никнейм</string>
+    <string name="date_filter">За эту неделю</string>
+    <string name="saved_articles_header">Сохраненные новости</string>
+    <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
+    <string name="liked_articles_header">Понравившиеся новости</string>
+    <string name="liked_articles_desc">Здесь будут храниться новости, которые вам нравятся</string>
+    <string name="auth_header">Войти в аккаунт</string>
+    <string name="auth_desc">Введите свой телефон, чтобы войти в аккаунт</string>
+    <string name="publishedat_header">дата публикации</string>
 
 </resources>

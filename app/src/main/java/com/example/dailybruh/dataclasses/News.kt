@@ -10,6 +10,7 @@ data class News(
 
 
 data class Article(
+    var id: String = "-",
     @Json(name = "author")val author: String?,
     @Json(name = "source")val source: Source,
     @Json(name = "url")val url: String?,
