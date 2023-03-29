@@ -65,13 +65,15 @@
     <TextView
         android:id="@+id/desc_page"
         app:layout_constraintTop_toBottomOf="@id/desc_title"
+        app:layout_constraintBottom_toTopOf="@id/button_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fontFamily="@font/jost_regular"
         android:textSize="18sp"
         android:textColor="@color/light_theme_text_color_light_black"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
         tools:text="Капибары — социальные животные, живущие группами по 10—20 особей. Группы состоят из доминирующего самца, нескольких взрослых самок (со своей внутренней иерархией), детёнышей и подчиненных самцов, находящихся на периферии группы. 5—10 % капибар, преимущественно самцов, живут в одиночку"
         />
 
@@ -80,7 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/button_layout"
         app:layout_constraintBottom_toBottomOf="@id/button_layout"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
