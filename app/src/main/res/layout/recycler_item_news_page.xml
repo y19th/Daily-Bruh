@@ -11,6 +11,31 @@
     android:clipToPadding="true"
     tools:layout_height="match_parent"
     >
+
+    <TextView
+        android:id="@+id/author_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/jost_semibold"
+        android:textAlignment="textStart"
+        android:textColor="@color/back_text_color"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Фамилия имя" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/like_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="like"
+        />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/url_photo_layout"
         android:layout_width="match_parent"
@@ -118,21 +143,6 @@
         tools:text="00:00 21 июля"
         />
 
-
-    <TextView
-        android:id="@+id/author_page"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/jost_semibold"
-        android:textAlignment="textStart"
-        android:textColor="@color/back_text_color"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Фамилия имя" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_layout"

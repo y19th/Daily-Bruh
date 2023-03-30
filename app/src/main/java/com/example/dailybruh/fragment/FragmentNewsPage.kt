@@ -14,6 +14,7 @@ import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.calendar.monthToCal
 import com.example.dailybruh.const.NEWS_DATA
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
@@ -50,7 +51,11 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
         }
         binding.apply {
             viewpagerMain.apply {
-                adapter = VerticalPagerAdapter(news, parentFragmentManager, lifecycle)
+                val database = when(Firebase.auth.currentUser){
+                    null -> Database()
+                    else -> Database(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
+                }
+                adapter = VerticalPagerAdapter(news,database, parentFragmentManager, lifecycle)
 
             }
             navView.apply {

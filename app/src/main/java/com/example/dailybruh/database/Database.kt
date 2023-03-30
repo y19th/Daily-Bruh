@@ -1,5 +1,6 @@
 package com.example.dailybruh.database
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.News
@@ -15,7 +16,10 @@ import com.google.firebase.ktx.Firebase
 
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
-class Database(phone: String = "00000000000") {
+class Database(
+    phone: String = "00000000000",
+    private val lifecycleOwner: LifecycleOwner? = null
+               ) {
 
     private val userReference = database.reference.child("users").child(phone)
     private val articlesReference = database.reference.child("articles")
@@ -24,10 +28,19 @@ class Database(phone: String = "00000000000") {
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val news = MutableLiveData<News>()
-    val lastArticle = MutableLiveData<Article>()
-    val articlelikes = MutableLiveData<Long>()
-    val userLikes = MutableLiveData<String>()
 
+
+    val lastArticle = MutableLiveData<Article>()
+    val articleHeader = MutableLiveData<String>()
+
+
+    val articlelikes = MutableLiveData<Long>()
+    val userLikes = MutableLiveData<HashMap<*,*>>()
+    val totalLiked = MutableLiveData<Long>()
+
+    init {
+        totalLiked()
+    }
 
 
     fun nickname(): MutableLiveData<String> {
@@ -63,10 +76,10 @@ class Database(phone: String = "00000000000") {
     fun name(name: String) {
         userReference.child("name").setValue(name)
     }
-    fun userLikes(): MutableLiveData<String> {
+    fun userLikes(): MutableLiveData<HashMap<*, *>> {
         userReference.child("liked").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                userLikes.value = snapshot.value as String
+                userLikes.value = snapshot.value as HashMap<*, *>
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -74,8 +87,34 @@ class Database(phone: String = "00000000000") {
             }
 
         })
+        return userLikes
     }
 
+    fun totalLiked(): MutableLiveData<Long> {
+        userReference.child("liked").child("total").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                totalLiked.value = snapshot.value as Long
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+
+        return totalLiked
+    }
+
+    fun transactionLike(article: Article) {
+        userReference.child("liked").apply {
+            if (totalLiked.value != null) {
+                child("total").setValue(totalLiked.value!! + 1)
+            } else {
+                child("total").setValue(0)
+            }
+            child("id${totalLiked.value}").setValue(article.id)
+            articlesReference.child(article.id).child("likes")
+                .setValue((articlelikes.value?.plus(1)))
+        }
+    }
 
 
 
@@ -105,6 +144,19 @@ class Database(phone: String = "00000000000") {
 
         })
         return lastArticle
+    }
+
+    fun articleHeader(id : String): MutableLiveData<String> {
+        articlesReference.child(id).child("title").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                articleHeader.value = snapshot.value as String
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        return articleHeader
     }
 
     fun likes(id : String): MutableLiveData<Long> {

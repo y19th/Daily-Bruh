@@ -14,10 +14,14 @@ import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.extension.ToastLong
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class FragmentViewPagerItem(
     private val news: News,
+    private val database: Database,
     private val position: Int
 ): Fragment() {
 
@@ -42,9 +46,17 @@ class FragmentViewPagerItem(
                 authorPage.text = news.articles[position].id
                 bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
+
+            likeButton.setOnClickListener {
+                if(Firebase.auth.currentUser?.phoneNumber != null) {
+                    database.totalLiked()
+                    database.transactionLike(news.articles[position])
+                } else {
+                    ToastLong(requireContext(),"Для оценки новости нужно авторизоваться")
+                }
+            }
         }
         //
-        val database = Database()
         database.article(news.articles[position])
         database.likes(news.articles[position].id).observe(viewLifecycleOwner) {
             binding.authorPage.text = it.toString()
