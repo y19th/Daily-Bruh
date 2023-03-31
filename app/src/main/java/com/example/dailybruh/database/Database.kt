@@ -1,10 +1,7 @@
 package com.example.dailybruh.database
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.dataclasses.Article
-import com.example.dailybruh.dataclasses.News
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -17,21 +14,20 @@ import com.google.firebase.ktx.Firebase
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
 class Database(
-    phone: String = "00000000000",
-    private val lifecycleOwner: LifecycleOwner? = null
-               ) {
+    phone: String = "00000000000"
+) {
+
+    data class DataArticle(val id: String ,val header: String,val urlPhoto : String,val urlPage: String,
+                           val author: String,var status: MutableLiveData<Int> = MutableLiveData(0))
 
     private val userReference = database.reference.child("users").child(phone)
     private val articlesReference = database.reference.child("articles")
-    private val user = Firebase.auth.currentUser
 
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
-    val news = MutableLiveData<News>()
-
 
     val lastArticle = MutableLiveData<Article>()
-    val articleHeader = MutableLiveData<String>()
+    val listOfDataArticles = MutableLiveData<MutableList<DataArticle>>()
 
 
     val articlelikes = MutableLiveData<Long>()
@@ -41,7 +37,6 @@ class Database(
     init {
         totalLiked()
     }
-
 
     fun nickname(): MutableLiveData<String> {
         userReference.child("nickname").addValueEventListener(object : ValueEventListener {
@@ -90,6 +85,7 @@ class Database(
         return userLikes
     }
 
+
     fun totalLiked(): MutableLiveData<Long> {
         userReference.child("liked").child("total").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -116,23 +112,6 @@ class Database(
         }
     }
 
-
-
-    //useless
-    fun news(): MutableLiveData<News> {
-        userReference.child("articles").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                    news.value = snapshot.value as News
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
-        return news
-    }
-    //
-
     fun article(id : String): MutableLiveData<Article> {
         articlesReference.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -145,18 +124,27 @@ class Database(
         })
         return lastArticle
     }
-
-    fun articleHeader(id : String): MutableLiveData<String> {
-        articlesReference.child(id).child("title").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                articleHeader.value = snapshot.value as String
+    fun listOfDataArticles(hashMap: HashMap<*, *>,pos: Int): MutableLiveData<MutableList<DataArticle>> {
+        if(listOfDataArticles.value == null) {
+            listOfDataArticles.value = MutableList(hashMap.size - 1 ) { DataArticle("","","","","") }
+        }
+        articlesReference.child(hashMap["id$pos"].toString()).get()
+            .addOnSuccessListener { snapshot ->
+                listOfDataArticles.value?.add(
+                    pos, DataArticle(
+                        hashMap["id$pos"].toString(),
+                        snapshot.child("title").value.toString(),
+                        snapshot.child("urlPhoto").value.toString(),
+                        snapshot.child("urlPage").value.toString(),
+                        snapshot.child("author").value.toString()
+                    )
+                )
+            }.addOnCompleteListener {
+                listOfDataArticles.value!!.forEach{
+                    it.status.value = 1
+                }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
-        return articleHeader
+        return listOfDataArticles
     }
 
     fun likes(id : String): MutableLiveData<Long> {
@@ -177,6 +165,8 @@ class Database(
             articlesReference.child(article.id).apply {
               child("title").setValue(article.title!!)
               child("author").setValue(article.author)
+              child("urlPhoto").setValue(article.image)
+              child("urlPage").setValue(article.url)
               child("likes").setValue(0)
               child("commentaries").child("asd").setValue("fuck ouou")
             }

@@ -32,8 +32,12 @@ class NewsPageRecyclerAdapter(private val database: Database,
             binding.apply {
                 holder.apply {
                     database.userLikes().observe(lifecycleOwner) {
-                        database.articleHeader(it["id$position"].toString()).observe(lifecycleOwner) { head ->
-                            header.text = head
+                        database.listOfDataArticles(it,position).value!![position].status.observe(lifecycleOwner) {
+                            val list = database.listOfDataArticles.value!![position]
+
+                            header.text = list.header
+                            bindImage(urlPhoto, list.urlPhoto)
+                            authorPage.text = list.author
                         }
                     }
 
