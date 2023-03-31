@@ -1,5 +1,6 @@
 package com.example.dailybruh.database
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.dataclasses.Article
 import com.google.firebase.database.DataSnapshot
@@ -14,7 +15,8 @@ import com.google.firebase.ktx.Firebase
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
 class Database(
-    phone: String = "00000000000"
+    phone: String = "00000000000",
+    private val lifecycleOwner: LifecycleOwner? = null
 ) {
 
     data class DataArticle(val id: String ,val header: String,val urlPhoto : String,val urlPage: String,
@@ -29,6 +31,7 @@ class Database(
     val lastArticle = MutableLiveData<Article>()
     val listOfDataArticles = MutableLiveData<MutableList<DataArticle>>()
 
+    private val isLiked = MutableLiveData<Boolean>()
 
     val articlelikes = MutableLiveData<Long>()
     val userLikes = MutableLiveData<HashMap<*,*>>()
@@ -85,7 +88,12 @@ class Database(
         return userLikes
     }
 
-
+    fun isLiked(id: String): MutableLiveData<Boolean> {
+        userLikes().observe(lifecycleOwner!!) {
+            isLiked.value = it.containsValue(id)
+        }
+        return isLiked
+    }
     fun totalLiked(): MutableLiveData<Long> {
         userReference.child("liked").child("total").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -108,7 +116,20 @@ class Database(
             }
             child("id${totalLiked.value}").setValue(article.id)
             articlesReference.child(article.id).child("likes")
-                .setValue((articlelikes.value?.plus(1)))
+                .setValue(articlelikes.value?.plus(1))
+        }
+    }
+
+    fun transactionUnlike(article: Article) {
+        userReference.child("liked").apply {
+            if(totalLiked.value != null) {
+                child("total").setValue(totalLiked.value!! - 1)
+            } else {
+                child("total").setValue(0)
+            }
+            child("id${totalLiked.value}").removeValue()
+            articlesReference.child(article.id).child("likes")
+                .setValue(articlelikes.value?.minus(1))
         }
     }
 
