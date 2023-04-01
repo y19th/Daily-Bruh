@@ -3,6 +3,8 @@ package com.example.dailybruh.database
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.dataclasses.Article
+import com.example.dailybruh.dataclasses.ArticleLikes
+import com.example.dailybruh.dataclasses.DataArticle
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -19,9 +21,6 @@ class Database(
     private val lifecycleOwner: LifecycleOwner? = null
 ) {
 
-    data class DataArticle(val id: String ,val header: String,val urlPhoto : String,val urlPage: String,
-                           val author: String,var status: MutableLiveData<Int> = MutableLiveData(0))
-
     private val userReference = database.reference.child("users").child(phone)
     private val articlesReference = database.reference.child("articles")
 
@@ -33,7 +32,10 @@ class Database(
 
     private val isLiked = MutableLiveData<Boolean>()
 
-    val articlelikes = MutableLiveData<Long>()
+    val articlelikes = MutableLiveData<HashMap<String,Long>>()
+
+    val likes = MutableLiveData<ArticleLikes>()
+
     val userLikes = MutableLiveData<HashMap<*,*>>()
     val totalLiked = MutableLiveData<Long>()
 
@@ -116,7 +118,7 @@ class Database(
             }
             child("id${totalLiked.value}").setValue(article.id)
             articlesReference.child(article.id).child("likes")
-                .setValue(articlelikes.value?.plus(1))
+                .setValue(articlelikes.value?.get(article.id)?.plus(1))
         }
     }
 
@@ -127,23 +129,10 @@ class Database(
             } else {
                 child("total").setValue(0)
             }
-            child("id${totalLiked.value}").removeValue()
+            child("id${totalLiked.value?.minus(1)}").removeValue()
             articlesReference.child(article.id).child("likes")
                 .setValue(articlelikes.value?.minus(1))
         }
-    }
-
-    fun article(id : String): MutableLiveData<Article> {
-        articlesReference.child(id).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                //lastArticle.value = snapshot.value as Article
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
-        return lastArticle
     }
     fun listOfDataArticles(hashMap: HashMap<*, *>,pos: Int): MutableLiveData<MutableList<DataArticle>> {
         if(listOfDataArticles.value == null) {
@@ -168,14 +157,25 @@ class Database(
         return listOfDataArticles
     }
 
-    fun likes(id : String): MutableLiveData<Long> {
+    fun likes(id : String): MutableLiveData<HashMap<String, Long>> {
         articlesReference.child(id).child("likes").addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                articlelikes.value = snapshot.value as Long
+            /*override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.value == null) {
+                    articlelikes.value?.set(id, 0)
+                }
+                else articlelikes.value?.set(id,snapshot.value as Long)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
-                articlelikes.value = -1
+                articlelikes.value?.set(id,-1)
+            }*/
+            override fun onDataChange(snapshot: DataSnapshot) {
+                likes.value = ArticleLikes(id = id,num = snapshot.value as Long)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
             }
 
         })
@@ -183,15 +183,37 @@ class Database(
     }
 
     fun article(article: Article) {
-            articlesReference.child(article.id).apply {
-              child("title").setValue(article.title!!)
-              child("author").setValue(article.author)
-              child("urlPhoto").setValue(article.image)
-              child("urlPage").setValue(article.url)
-              child("likes").setValue(0)
-              child("commentaries").child("asd").setValue("fuck ouou")
+        if(articlelikes.value == null)HashMap<String,Long>(3)
+        articlesReference.child(article.id).get().addOnSuccessListener {
+            when(it.value) {
+                null -> standardParams(article)
+                else -> {
+                  //  articlelikes.value?.set(article.id,(it.value as HashMap<*,*>)["likes"] as Long)
+                    likes.value = ArticleLikes(article.id,(it.value as HashMap<*,*>)["likes"] as Long)
+                    likes.value!!.status.value = 1
+                }
             }
-        article(article.id)
-        likes(article.id)
+        }
+        /*likes(article.id).observe(lifecycleOwner!!) {
+            articlesReference.child(article.id).child("likes").setValue(articlelikes.value)
+        }*/
+        /*articlesReference.child(article.id).child("likes").get().addOnSuccessListener {
+            articlesReference.child(article.id).child("likes").setValue(articlelikes.value)
+        }*/
+        /*articlesReference.child(article.id).child("likes").get().addOnCompleteListener {
+            articlesReference.child(article.id).child("likes").setValue(it.result.value)
+        }*/
+    }
+
+    private fun standardParams(article: Article) {
+
+        articlesReference.child(article.id).apply {
+            child("title").setValue(article.title!!)
+            child("author").setValue(article.author)
+            child("urlPhoto").setValue(article.image)
+            child("urlPage").setValue(article.url)
+            child("likes").setValue(0)
+            child("commentaries").child("asd").setValue("fuck ouou")
+        }
     }
 }

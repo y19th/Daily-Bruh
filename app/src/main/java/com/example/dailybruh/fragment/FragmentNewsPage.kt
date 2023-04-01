@@ -52,7 +52,7 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
         binding.apply {
             viewpagerMain.apply {
                 val database = when(Firebase.auth.currentUser){
-                    null -> Database()
+                    null -> Database(lifecycleOwner = viewLifecycleOwner)
                     else -> Database(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
                 }
                 adapter = VerticalPagerAdapter(news,database, parentFragmentManager, lifecycle)

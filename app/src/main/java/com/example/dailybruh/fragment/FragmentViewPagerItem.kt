@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
@@ -31,6 +32,8 @@ class FragmentViewPagerItem(
     private val binding: RecyclerItemNewsPageBinding
     get() = _binding!!
 
+    private var likes = MutableLiveData<Long>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,9 +51,10 @@ class FragmentViewPagerItem(
         binding.apply {
                 titlePage.text = news.articles[position].title
                 publishedatPage.text = parseDate(news.articles[position].time)
-                authorPage.text = news.articles[position].id
+                authorPage.text = news.articles[position].author
                 bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
+                likes.observe(viewLifecycleOwner) { likeCount.text = it.toString() }
 
             database.isLiked(news.articles[position].id).observe(viewLifecycleOwner) { isLiked ->
 
@@ -89,10 +93,17 @@ class FragmentViewPagerItem(
                 }
             }
         }
+
+
         database.article(news.articles[position])
-        database.likes(news.articles[position].id).observe(viewLifecycleOwner) {
-            binding.authorPage.text = it.toString()
+       /* database.articlelikes.observe(viewLifecycleOwner) {
+            likes.value = it[news.articles[position].id]
+        }*/
+        database.likes.value?.status?.observe(viewLifecycleOwner) {
+            if(database.likes.value!!.id == news.articles[position].id)likes.value = it.toLong()
         }
+
+
     }
 
     private fun resizeDueTextLength(): String {
@@ -112,7 +123,7 @@ class FragmentViewPagerItem(
             titlePage.textSize = 24F
         }
         when(Build.VERSION.SDK_INT) {               //if phone has <28 sdk
-            in 0..27 -> {                     //we resize text size due resolution
+            in 23..27 -> {                     //we resize text size due resolution
                 titlePage.textSize = 18F
                 descPage.textSize = 16F
             }
