@@ -27,7 +27,6 @@ class Database(
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
 
-    val lastArticle = MutableLiveData<Article>()
     val listOfDataArticles = MutableLiveData<MutableList<DataArticle>>()
 
     private val isLiked = MutableLiveData<Boolean>()
@@ -118,7 +117,9 @@ class Database(
             }
             child("id${totalLiked.value}").setValue(article.id)
             articlesReference.child(article.id).child("likes")
-                .setValue(articlelikes.value?.get(article.id)?.plus(1))
+                .setValue(likes.value?.likes?.plus(1)).addOnSuccessListener {
+                    likes.value?.let { it.likes = it.likes + 1 }
+                }
         }
     }
 
@@ -131,7 +132,9 @@ class Database(
             }
             child("id${totalLiked.value?.minus(1)}").removeValue()
             articlesReference.child(article.id).child("likes")
-                .setValue(articlelikes.value?.minus(1))
+                .setValue(likes.value?.likes?.minus(1)).addOnSuccessListener {
+                    likes.value?.let { it.likes = it.likes - 1 }
+                }
         }
     }
     fun listOfDataArticles(hashMap: HashMap<*, *>,pos: Int): MutableLiveData<MutableList<DataArticle>> {
@@ -156,53 +159,16 @@ class Database(
             }
         return listOfDataArticles
     }
-
-    fun likes(id : String): MutableLiveData<HashMap<String, Long>> {
-        articlesReference.child(id).child("likes").addValueEventListener(object: ValueEventListener {
-            /*override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.value == null) {
-                    articlelikes.value?.set(id, 0)
-                }
-                else articlelikes.value?.set(id,snapshot.value as Long)
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                articlelikes.value?.set(id,-1)
-            }*/
-            override fun onDataChange(snapshot: DataSnapshot) {
-                likes.value = ArticleLikes(id = id,num = snapshot.value as Long)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-        return articlelikes
-    }
-
     fun article(article: Article) {
-        if(articlelikes.value == null)HashMap<String,Long>(3)
         articlesReference.child(article.id).get().addOnSuccessListener {
             when(it.value) {
                 null -> standardParams(article)
                 else -> {
-                  //  articlelikes.value?.set(article.id,(it.value as HashMap<*,*>)["likes"] as Long)
                     likes.value = ArticleLikes(article.id,(it.value as HashMap<*,*>)["likes"] as Long)
                     likes.value!!.status.value = 1
                 }
             }
         }
-        /*likes(article.id).observe(lifecycleOwner!!) {
-            articlesReference.child(article.id).child("likes").setValue(articlelikes.value)
-        }*/
-        /*articlesReference.child(article.id).child("likes").get().addOnSuccessListener {
-            articlesReference.child(article.id).child("likes").setValue(articlelikes.value)
-        }*/
-        /*articlesReference.child(article.id).child("likes").get().addOnCompleteListener {
-            articlesReference.child(article.id).child("likes").setValue(it.result.value)
-        }*/
     }
 
     private fun standardParams(article: Article) {

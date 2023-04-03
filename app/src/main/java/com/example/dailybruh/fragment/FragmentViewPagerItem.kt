@@ -2,12 +2,9 @@ package com.example.dailybruh.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -49,12 +46,14 @@ class FragmentViewPagerItem(
         val unfilledHeart = AppCompatResources.getDrawable(requireContext(),R.drawable.icon_heart_unfilled)
 
         binding.apply {
-                titlePage.text = news.articles[position].title
-                publishedatPage.text = parseDate(news.articles[position].time)
-                authorPage.text = news.articles[position].author
-                bindImage(urlPhoto, news.articles[position].image)
-                descPage.text = resizeDueTextLength()
-                likes.observe(viewLifecycleOwner) { likeCount.text = it.toString() }
+            titlePage.text = news.articles[position].title
+            publishedatPage.text = parseDate(news.articles[position].time)
+            authorPage.text = news.articles[position].author
+            bindImage(urlPhoto, news.articles[position].image)
+            descPage.text = resizeDueTextLength()
+            likes.observe(viewLifecycleOwner) {
+                likeCount.text = it.toString()
+            }
 
             database.isLiked(news.articles[position].id).observe(viewLifecycleOwner) { isLiked ->
 
@@ -96,11 +95,8 @@ class FragmentViewPagerItem(
 
 
         database.article(news.articles[position])
-       /* database.articlelikes.observe(viewLifecycleOwner) {
-            likes.value = it[news.articles[position].id]
-        }*/
-        database.likes.value?.status?.observe(viewLifecycleOwner) {
-            if(database.likes.value!!.id == news.articles[position].id)likes.value = it.toLong()
+        database.likes.observe(viewLifecycleOwner) {
+            if(database.likes.value!!.id == news.articles[position].id)likes.value = it.likes
         }
 
 
