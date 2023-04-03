@@ -56,5 +56,7 @@
     <string name="profile_settings_text">Настройки профиля</string>
     <string name="saved_news_header">здесь будут ваши сохраненные новости</string>
     <string name="liked_news_header">здесь будут ваши любимые новости</string>
+    <string name="oops_text">Ой-ой</string>
+    <string name="no_liked_articles_text">Кажется вам не понравилась еще ни одна новость</string>
 
 </resources>

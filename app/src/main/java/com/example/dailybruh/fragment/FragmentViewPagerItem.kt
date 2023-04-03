@@ -98,12 +98,6 @@ class FragmentViewPagerItem(
         database.likes.observe(viewLifecycleOwner) {
             if(database.likes.value!!.id == news.articles[position].id)likes.value = it.likes
         }
-        /*database.likes.value?.status?.observe(viewLifecycleOwner) {
-            if(database.likes.value!!.id == news.articles[position].id)
-                likes.value = database.likes.value!!.likes
-        }*/
-
-
     }
 
     private fun resizeDueTextLength(): String {

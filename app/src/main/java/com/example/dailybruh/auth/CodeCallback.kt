@@ -20,6 +20,7 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
 
     override fun onVerificationCompleted(p0: PhoneAuthCredential) {
         //TODO(make transition between fragments if instant auth)
+        //TODO(make resending fun)
     }
 
     override fun onVerificationFailed(exc: FirebaseException) {

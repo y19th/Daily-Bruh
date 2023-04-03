@@ -48,6 +48,14 @@
             android:id="@+id/profile_to_newspage"
             app:destination="@id/newspage"
             />
+        <action
+            android:id="@+id/profile_to_liked_articles"
+            app:destination="@id/liked_articles"
+            />
     </fragment>
+    <fragment
+        android:id="@+id/liked_articles"
+        android:name="com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles"
+        android:label="FragmentDialogProfileLikedArticles" />
 
 </navigation>

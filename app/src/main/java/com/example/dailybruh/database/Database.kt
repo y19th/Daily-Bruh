@@ -19,7 +19,8 @@ private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.e
 class Database(
     phone: String = "00000000000",
     private val lifecycleOwner: LifecycleOwner? = null
-) {
+) : java.io.Serializable {
+
 
     private val userReference = database.reference.child("users").child(phone)
     private val articlesReference = database.reference.child("articles")

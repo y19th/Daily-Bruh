@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.dailybruh.R
+import com.example.dailybruh.const.DATABASE
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.extension.navigateToWithSerializable
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
@@ -64,9 +67,9 @@ class FragmentProfile : Fragment() {
                 FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
             }
             likedNewsLayout.setOnClickListener {
-                FragmentDialogProfileLikedArticles(database).show(childFragmentManager,"liked_articles_dialog")
+                //FragmentDialogProfileLikedArticles(database).show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
+                view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
             }
-            //      database scope
             database.apply {
                 nickname().observe(viewLifecycleOwner) {
                     nicknameField.text = it
@@ -75,7 +78,6 @@ class FragmentProfile : Fragment() {
                     nameField.text = it
                 }
             }
-            //
         }
     }
 

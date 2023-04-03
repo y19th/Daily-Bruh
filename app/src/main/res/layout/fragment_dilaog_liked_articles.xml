@@ -37,7 +37,7 @@
         android:layout_marginTop="20dp"
         android:textSize="26sp"
         android:textColor="@color/black"
-        android:fontFamily="@font/lato_semibold"
+        android:fontFamily="@font/jost_semibold"
         />
     <TextView
         android:id="@+id/under_header"
@@ -49,7 +49,7 @@
         android:text="@string/liked_articles_desc"
         android:layout_marginTop="5dp"
         android:textSize="14sp"
-        android:fontFamily="@font/lato_medium"
+        android:fontFamily="@font/jost_regular"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -61,6 +61,53 @@
         android:paddingBottom="15dp"
         app:layout_constraintTop_toBottomOf="@id/under_header"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/recycler_item_saved_news" />
+        tools:listitem="@layout/recycler_item_saved_news"
+        tools:visibility="invisible"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/under_header"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/oops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jost_semibold"
+        android:textSize="46sp"
+        android:text="@string/oops_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_liked_articles_text"
+        app:layout_constraintTop_toBottomOf="@id/oops"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/jost_regular"
+        android:layout_marginHorizontal="20dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon_sad_face"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/icon_sad_face"
+        app:layout_constraintTop_toBottomOf="@id/no_items"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
