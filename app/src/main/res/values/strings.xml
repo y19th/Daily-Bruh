@@ -31,16 +31,16 @@
     <string name="hint_phone">Телефон</string>
     <string name="hint_ver_code">Код подтверждения</string>
     <string name="firebase_error_network">Подключение к сети отсутствует</string>
-    <string name="phone">Номер телефона</string>
+    <string name="phone">номер телефона</string>
     <string name="back_button">back button</string>
     <string name="back_button_text">Новости</string>
-    <string name="name_header">Ваше имя</string>
+    <string name="name_header">ваше имя</string>
     <string name="saved_news">Сохраненные новости</string>
     <string name="liked_news">Понравившиеся новости</string>
     <string name="sign_out_button">Выйти из профиля</string>
     <string name="arrow_next">arrow_next</string>
     <string name="popular_filter">Популярные</string>
-    <string name="nickname_header">Ваш никнейм</string>
+    <string name="nickname_header">ваш никнейм</string>
     <string name="change_name">Изменить имя</string>
     <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
@@ -53,5 +53,8 @@
     <string name="auth_header">Войти в аккаунт</string>
     <string name="auth_desc">Введите свой телефон, чтобы войти в аккаунт</string>
     <string name="publishedat_header">дата публикации</string>
+    <string name="profile_settings_text">Настройки профиля</string>
+    <string name="saved_news_header">здесь будут ваши сохраненные новости</string>
+    <string name="liked_news_header">здесь будут ваши любимые новости</string>
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_light_pink"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,145 +31,183 @@
             app:layout_constraintBottom_toBottomOf="@id/back_button"
             app:layout_constraintStart_toEndOf="@id/back_button"
             android:text="@string/back_button_text"
-            android:fontFamily="@font/lato_semibold"
+            android:fontFamily="@font/jost_semibold"
             android:textColor="@color/back_text_color"
             android:textSize="16sp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/phone_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/back_button_layout"
-        android:layout_marginTop="100dp"
-        android:paddingHorizontal="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/phone_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/title_text_color"
-            android:text="@string/phone"
-            />
-        <TextView
-            android:id="@+id/phone_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:textColor="@color/title_text_color"
-            android:fontFamily="@font/lato_semibold"
-            tools:text="+792142812"
-            />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/name_layout"
+        android:id="@+id/profile_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/phone_layout"
-        android:layout_marginVertical="20dp"
         android:paddingHorizontal="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/name_header"
+        app:layout_constraintTop_toBottomOf="@id/back_button_layout"
+        app:layout_constraintStart_toStartOf="@id/back_button_layout"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_settings_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:fontFamily="@font/jost_medium"
             android:textColor="@color/title_text_color"
-            android:text="@string/name_header"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        <TextView
-            android:id="@+id/name_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:text="@string/profile_settings_text"
             android:textSize="26sp"
-            android:textColor="@color/title_text_color"
-            android:fontFamily="@font/lato_semibold"
-            tools:text="Олегофрен"
-            app:layout_constraintTop_toBottomOf="@id/name_header"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        <ImageView
-            android:id="@+id/name_icon"
-            android:layout_width="14dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_arrow_right_1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="@string/arrow_next"
+            app:layout_constraintBottom_toTopOf="@id/phone_layout"
             />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/drag_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/profile_settings_text"
+            app:cardElevation="1dp"
+            android:layout_marginBottom="15dp"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:src="@drawable/item_drag_line"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/phone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/phone_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:textColor="@color/title_text_color"
+                android:fontFamily="@font/jost_semibold"
+                tools:text="+792142812"
+                />
+            <TextView
+                android:id="@+id/phone_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/title_text_color"
+                android:fontFamily="@font/jost_light"
+                android:text="@string/phone"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/phone_layout"
+            android:layout_marginVertical="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:textColor="@color/title_text_color"
+                android:fontFamily="@font/jost_semibold"
+                tools:text="Олегофрен"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/name_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/title_text_color"
+                android:fontFamily="@font/jost_light"
+                android:text="@string/name_header"
+                app:layout_constraintTop_toBottomOf="@id/name_field"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <ImageView
+                android:id="@+id/name_icon"
+                android:layout_width="14dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_arrow_right_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/arrow_next"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nickname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/name_layout"
+            android:layout_marginVertical="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/nickname_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:textColor="@color/title_text_color"
+                android:fontFamily="@font/jost_semibold"
+                tools:text="y19th"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/nickname_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/jost_light"
+                android:textColor="@color/title_text_color"
+                android:text="@string/nickname_header"
+                app:layout_constraintTop_toBottomOf="@id/nickname_field"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <ImageView
+                android:id="@+id/nickname_icon"
+                android:layout_width="14dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_arrow_right_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/arrow_next"
+                />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nickname_layout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_drag_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/name_layout"
-        android:layout_marginVertical="20dp"
-        android:paddingHorizontal="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/nickname_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/title_text_color"
-            android:text="@string/nickname_header"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        <TextView
-            android:id="@+id/nickname_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:textColor="@color/title_text_color"
-            android:fontFamily="@font/lato_semibold"
-            tools:text="y19th"
-            app:layout_constraintTop_toBottomOf="@id/nickname_header"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-        <ImageView
-            android:id="@+id/nickname_icon"
-            android:layout_width="14dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_arrow_right_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="@string/arrow_next"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <ImageView
-        android:id="@+id/drag_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:src="@drawable/item_drag_line"
-        app:layout_constraintTop_toBottomOf="@id/nickname_layout"
+        app:layout_constraintTop_toBottomOf="@id/profile_settings"
         app:layout_constraintBottom_toTopOf="@id/saved_news_layout"
-        android:paddingHorizontal="100dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/drag_line"
-        />
+        app:cardElevation="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/item_drag_line"
+            />
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/saved_news_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/drag_line"
+        app:layout_constraintTop_toBottomOf="@id/card_drag_line"
         android:layout_marginVertical="40dp"
         android:layout_marginHorizontal="20dp"
         android:orientation="horizontal"
@@ -180,10 +218,21 @@
             android:layout_height="wrap_content"
             android:text="@string/saved_news"
             android:textSize="26sp"
-            android:fontFamily="@font/lato_semibold"
+            android:fontFamily="@font/jost_semibold"
             android:textColor="@color/back_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/saved_news_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/jost_light"
+            android:textColor="@color/title_text_color"
+            android:text="@string/saved_news_header"
+            app:layout_constraintTop_toBottomOf="@id/saved_news_field"
+            app:layout_constraintStart_toStartOf="parent"
             />
         <ImageView
             android:id="@+id/saved_news_icon"
@@ -191,8 +240,8 @@
             android:layout_height="24dp"
             android:src="@drawable/icon_arrow_right_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/saved_news_field"
-            app:layout_constraintBottom_toBottomOf="@id/saved_news_field"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/arrow_next"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,10 +261,21 @@
             android:layout_height="wrap_content"
             android:text="@string/liked_news"
             android:textSize="26sp"
-            android:fontFamily="@font/lato_semibold"
+            android:fontFamily="@font/jost_semibold"
             android:textColor="@color/back_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/liked_news_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/jost_light"
+            android:textColor="@color/title_text_color"
+            android:text="@string/liked_news_header"
+            app:layout_constraintTop_toBottomOf="@id/liked_news_field"
+            app:layout_constraintStart_toStartOf="parent"
             />
         <ImageView
             android:id="@+id/liked_news_icon"
@@ -223,8 +283,8 @@
             android:layout_height="24dp"
             android:src="@drawable/icon_arrow_right_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/liked_news_field"
-            app:layout_constraintBottom_toBottomOf="@id/liked_news_field"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/arrow_next"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -235,9 +295,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="40dp"
+
         android:text="@string/sign_out_button"
         android:textColor="@color/red_300"
+        android:fontFamily="@font/jost_semibold"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         />
 
