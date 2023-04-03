@@ -31,8 +31,6 @@ class Database(
 
     private val isLiked = MutableLiveData<Boolean>()
 
-    val articlelikes = MutableLiveData<HashMap<String,Long>>()
-
     val likes = MutableLiveData<ArticleLikes>()
 
     val userLikes = MutableLiveData<HashMap<*,*>>()
@@ -118,7 +116,8 @@ class Database(
             child("id${totalLiked.value}").setValue(article.id)
             articlesReference.child(article.id).child("likes")
                 .setValue(likes.value?.likes?.plus(1)).addOnSuccessListener {
-                    likes.value?.let { it.likes = it.likes + 1 }
+                    likes.value?.let { it.likes + 1 }
+
                 }
         }
     }
@@ -133,7 +132,7 @@ class Database(
             child("id${totalLiked.value?.minus(1)}").removeValue()
             articlesReference.child(article.id).child("likes")
                 .setValue(likes.value?.likes?.minus(1)).addOnSuccessListener {
-                    likes.value?.let { it.likes = it.likes - 1 }
+                    likes.value?.let { it.likes - 1 }
                 }
         }
     }
@@ -159,7 +158,22 @@ class Database(
             }
         return listOfDataArticles
     }
+    fun likes(id : String): MutableLiveData<ArticleLikes> {
+        articlesReference.child(id).child("likes").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                likes.value = ArticleLikes(id,snapshot.value as Long)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                likes.value?.status?.value = -1
+            }
+
+        })
+        return likes
+    }
+
     fun article(article: Article) {
+        likes(article.id)
         articlesReference.child(article.id).get().addOnSuccessListener {
             when(it.value) {
                 null -> standardParams(article)

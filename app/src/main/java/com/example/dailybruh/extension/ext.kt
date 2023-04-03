@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
+import com.example.dailybruh.dataclasses.ArticleLikes
 
 fun View.navigateTo(id: Int) {
     this.findNavController().navigate(id)
