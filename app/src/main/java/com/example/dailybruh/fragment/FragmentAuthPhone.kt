@@ -1,30 +1,25 @@
-package com.example.dailybruh.fragment.dialog.profile
+package com.example.dailybruh.fragment
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.doOnAttach
-import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
 import com.example.dailybruh.auth.verify
-import com.example.dailybruh.databinding.FragmentDialogProfileBinding
+import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
 import com.example.dailybruh.extension.*
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
-class FragmentDialogProfile : BottomSheetDialogFragment() {
+class FragmentAuthPhone : Fragment() {
 
-    private var _binding: FragmentDialogProfileBinding? = null
-    private val binding: FragmentDialogProfileBinding get() = _binding!!
+    private var _binding: FragmentAuthPhoneBinding? = null
+    private val binding: FragmentAuthPhoneBinding get() = _binding!!
     private lateinit var authOptions: AuthOptions
     private lateinit var credential: PhoneAuthCredential
 
@@ -34,12 +29,12 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDialogProfileBinding.inflate(inflater,container,false)
+        _binding = FragmentAuthPhoneBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.apply {
+       /* binding.apply {
             authOptions = AuthOptions(requireContext())
 
             val callback = object : CodeCallback(requireContext()) {
@@ -111,11 +106,6 @@ class FragmentDialogProfile : BottomSheetDialogFragment() {
                     else if (leng < 16)phoneLayout.error = "Слишком маленький номер"
                 }
             }
-        }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        parentFragment?.view?.enableView()
-        super.onDismiss(dialog)
+        }*/
     }
 }

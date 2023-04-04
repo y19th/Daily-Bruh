@@ -19,7 +19,7 @@ import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfile
+import com.example.dailybruh.extension.navigateToWithSerializable
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.example.dailybruh.fragment.dialog.settings.FragmentDialogSettings
 import com.google.android.material.navigation.NavigationView
@@ -79,11 +79,9 @@ class FragmentNewsPage : Fragment(),NavigationView.OnNavigationItemSelectedListe
             profileButton.setOnClickListener {
                 view.disableView()
                 when(Firebase.auth.currentUser) {
-                    null -> FragmentDialogProfile().show(childFragmentManager,"profile_dialog")
+                    null -> view.navigateToWithSerializable(R.id.newspage_to_auth_phone,news,NEWS_DATA)
                     else -> {
-                        val bundle = Bundle()
-                        bundle.putSerializable(NEWS_DATA,news)
-                        view.navigateTo(R.id.newspage_to_profile,bundle)
+                        view.navigateToWithSerializable(R.id.newspage_to_profile,news,NEWS_DATA)
                     }
                 }
 

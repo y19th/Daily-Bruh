@@ -1,5 +1,6 @@
 package com.example.dailybruh.fragment.dialog.profile
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,13 @@ import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
 import com.example.dailybruh.const.DATABASE
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDilaogLikedArticlesBinding
+import com.example.dailybruh.extension.changeHeight
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentDialogProfileLikedArticles : Fragment() {
+class FragmentDialogProfileLikedArticles(private val database: Database,
+                                         private val maxHeight: Int
+) : BottomSheetDialogFragment() {
 
     private var _binding : FragmentDilaogLikedArticlesBinding? = null
     private val binding : FragmentDilaogLikedArticlesBinding get() = _binding!!
@@ -22,11 +28,18 @@ class FragmentDialogProfileLikedArticles : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDilaogLikedArticlesBinding.inflate(inflater,container,false)
+        binding.mainLayout.apply {
+            maxHeight = this@FragmentDialogProfileLikedArticles.maxHeight
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val database = arguments?.getSerializable(DATABASE) as Database         //todo(make this shit undeprecated)
+       // val database = arguments?.getSerializable(DATABASE) as Database         //todo(make this shit undeprecated)
+
+        binding.header.text = binding.mainLayout.maxHeight.toString()
+
+
         binding.recyclerview.apply {
             database.totalLiked().observe(viewLifecycleOwner) {
                 when(it) {

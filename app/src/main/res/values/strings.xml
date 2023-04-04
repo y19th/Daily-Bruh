@@ -50,13 +50,14 @@
     <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
     <string name="liked_articles_header">Понравившиеся новости</string>
     <string name="liked_articles_desc">Здесь будут храниться новости, которые вам нравятся</string>
-    <string name="auth_header">Войти в аккаунт</string>
-    <string name="auth_desc">Введите свой телефон, чтобы войти в аккаунт</string>
+    <string name="auth_header">Введите свой номер</string>
+    <string name="auth_desc">и мы отправим вам код подтверждения</string>
     <string name="publishedat_header">дата публикации</string>
     <string name="profile_settings_text">Настройки профиля</string>
     <string name="saved_news_header">здесь будут ваши сохраненные новости</string>
     <string name="liked_news_header">здесь будут ваши любимые новости</string>
     <string name="oops_text">Ой-ой</string>
     <string name="no_liked_articles_text">Кажется вам не понравилась еще ни одна новость</string>
+    <string name="auth_back_button">Вернуться назад</string>
 
 </resources>

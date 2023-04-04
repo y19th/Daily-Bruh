@@ -1,5 +1,7 @@
 package com.example.dailybruh.fragment
 
+import android.app.ActionBar.LayoutParams
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedA
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -37,18 +40,7 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
-            when (user) {
-                null -> {
-                    phoneField.text = "have no number"
-                    nameField.text = "have no name"
-                    nicknameField.text = "have no nickname"
-                }
-                else -> {
-                    phoneField.text = user.phoneNumber
-                    nameField.text = "Олегофрен"
-                    nicknameField.text = "y19th"
-                }
-            }
+            //phoneField.text = user?.phoneNumber
             backButtonLayout.setOnClickListener {
                 view.navigateTo(R.id.profile_to_newspage, requireArguments())
             }
@@ -67,8 +59,14 @@ class FragmentProfile : Fragment() {
                 FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
             }
             likedNewsLayout.setOnClickListener {
-                //FragmentDialogProfileLikedArticles(database).show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
-                view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
+                val maxHeight = (view.height * 0.95).toInt()
+                val dimen = resources.getDimension(R.dimen.peek_height)
+
+                phoneField.text = maxHeight.toString()
+                FragmentDialogProfileLikedArticles(database,maxHeight).apply {
+
+                }.show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
+                //view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
             }
             database.apply {
                 nickname().observe(viewLifecycleOwner) {
@@ -80,5 +78,4 @@ class FragmentProfile : Fragment() {
             }
         }
     }
-
 }

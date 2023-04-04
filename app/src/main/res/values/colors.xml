@@ -21,8 +21,11 @@
     <color name="background_view_pager">#FFFFFF</color>
 
 
-    <color name="background_light_pink">#FFEAEA</color>
+    <color name="background_light_pink">#FAF3F3</color>
     <color name="light_theme_text_color_light_black">#2D2D2D</color>
     <color name="light_theme_frame_color_orange">#A42121</color>
+    <color name="light_red">#DFC0C0</color>
+    <color name="red">#B04242</color>
+    <color name="light_grey">#EAE4E4</color>
 
 </resources>

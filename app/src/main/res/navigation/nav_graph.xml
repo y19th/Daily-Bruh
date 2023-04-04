@@ -25,6 +25,9 @@
         <action
             android:id="@+id/newspage_to_profile"
             app:destination="@+id/profile"/>
+        <action
+            android:id="@+id/newspage_to_auth_phone"
+            app:destination="@id/auth_phone" />
     </fragment>
 
     <fragment
@@ -57,5 +60,9 @@
         android:id="@+id/liked_articles"
         android:name="com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles"
         android:label="FragmentDialogProfileLikedArticles" />
+    <fragment
+        android:id="@+id/auth_phone"
+        android:name="com.example.dailybruh.fragment.FragmentAuthPhone"
+        android:label="FragmentDialogProfile" />
 
 </navigation>
