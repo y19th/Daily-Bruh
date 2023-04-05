@@ -63,6 +63,10 @@
     <fragment
         android:id="@+id/auth_phone"
         android:name="com.example.dailybruh.fragment.FragmentAuthPhone"
-        android:label="FragmentDialogProfile" />
+        android:label="FragmentDialogProfile" >
+        <action
+            android:id="@+id/auth_phone_to_newspage"
+            app:destination="@id/newspage" />
+    </fragment>
 
 </navigation>

@@ -3,8 +3,10 @@ package com.example.dailybruh.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.text.set
+import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
@@ -34,78 +36,105 @@ class FragmentAuthPhone : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       /* binding.apply {
+        binding.apply {
             authOptions = AuthOptions(requireContext())
 
             val callback = object : CodeCallback(requireContext()) {
                 override fun stepOnCodeSent() {
-                    Toast.makeText(context,"Code sent",Toast.LENGTH_LONG).show()
+                    ToastLong(requireContext(),"Code sent")
                     view.enableView()
-                    phoneLayout.isEnabled = false
                 }
-
                 override fun onSuccessAuth() {
                     parentFragment?.view?.navigateTo(R.id.newspage_to_profile, parentFragment!!.requireArguments())
                     ToastLong(requireContext(),"Success !!!!")
                 }
 
                 override fun onFailedAuth() {
-                    codeButton.isEnabled = true
-                    codeLayout.error = "Неверный код"
                     ToastLong(requireContext(),"Failed!")
                 }
             }
 
-            codeButton.setOnClickListener {
-                codeButton.isEnabled = false
-                credential = PhoneAuthProvider.getCredential(callback.verificationId(),codeField.text.toString())
-                authOptions.signInWithCred(credential)
-            }
-
-            codeField.doOnTextChanged { _, _, _, _ ->
-                codeLayout.error = null
-                codeButton.isEnabled = true
-                if(codeField.text?.length == 0) {
-                    codeButton.isEnabled = false
-                    codeLayout.error = "Код не может быть пустым"
-                }
-            }
-
-            phoneField.doOnTextChanged { text,start,_,end ->
-                phoneLayout.error = null
+            phoneField.doOnTextChanged { text, start, _, end ->
+                error(enabled = false)
                 phoneField.apply {
-                    if(text?.length == 1 && text[0] == '8') {
+                    if (text?.length == 1 && text[0] == '8') {
                         setText("+7")
-                        setSelection(this.text!!.length)
                     }
-                    when(this.text?.length) {
-                            3,7,11,14 -> if(end != 0)phoneField.text?.insert(start,"-")
-                        }
-                    readyButton.text = text?.length.toString()
+                    when (this.text?.length) {
+                        3, 7, 11, 14 -> if (end != 0 && start != 0) phoneField.editableText.insert(start,"-")
+                    }
                 }
             }
-
-            readyButton.setOnClickListener {
-
-                val leng = phoneField.text?.length
-
-                if(leng == 16) {
-                    view.disableView()
-                    readyButton.visibility = View.INVISIBLE
-                    codeLayout.visibility = View.VISIBLE
-                    codeButton.visibility = View.VISIBLE
-                    authOptions.createOptions(
-                        callback,
-                        phoneField.text.toString(),
-                        requireActivity(),
-                        60L
-                    ).verify()
-                } else {
-                    if(leng == 0 || leng == null)phoneLayout.error = "Номер не может быть пустым"
-                    else if (leng > 16)phoneLayout.error = "Слишком большой номер"
-                    else if (leng < 16)phoneLayout.error = "Слишком маленький номер"
+            continueButton.setOnClickListener {
+                when(phoneField.text!!.length) {
+                    16 -> {
+                        view.disableView()
+                        authOptions.createOptions(
+                            callback,
+                            phoneField.text.toString(),
+                            requireActivity(),
+                            60L
+                        ).verify()
+                    }
+                    0 -> { error("Необходимо ввести номер",true) }
+                    in 1..15 -> { error("Номер должен состоять из 11 цифр",true) }
+                    else -> { error("Слишком большой номер",true) }
                 }
             }
-        }*/
+            backButtonLayout.setOnClickListener {
+                view.navigateTo(R.id.auth_phone_to_newspage,requireArguments())
+            }
+            keyboardGridLayout.children.forEach {
+                it.setOnClickListener(onClickListener(it.tag.toString()))
+            }
+            keyboardButtonErase.setOnClickListener {
+                phoneField.apply { text = "${text?.dropLast(1)}" }
+            }
+        }
+    }
+
+    private fun onClickListener(tag : String): OnClickListener {
+        return OnClickListener {
+            binding.phoneField.apply {
+                if(editableText != null)editableText.append(tag)
+                else text = tag
+            }
+        }
+    }
+    private fun error(message: String = "",enabled: Boolean) {
+        binding.apply {
+            when (enabled) {
+                true -> {
+                    phoneErrorText.apply {
+                        text = message
+                    }.visibility = View.VISIBLE
+                }
+                false -> {
+                    phoneErrorText.apply {
+                        text = null
+                    }.visibility = View.GONE
+                }
+            }
+        }
     }
 }
+
+
+
+
+/* binding.apply {
+     codeButton.setOnClickListener {
+         codeButton.isEnabled = false
+         credential = PhoneAuthProvider.getCredential(callback.verificationId(),codeField.text.toString())
+         authOptions.signInWithCred(credential)
+     }
+
+     codeField.doOnTextChanged { _, _, _, _ ->
+         codeLayout.error = null
+         codeButton.isEnabled = true
+         if(codeField.text?.length == 0) {
+             codeButton.isEnabled = false
+             codeLayout.error = "Код не может быть пустым"
+         }
+     }
+ }*/

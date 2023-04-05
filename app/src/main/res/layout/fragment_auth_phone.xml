@@ -79,11 +79,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/jost_semibold"
-            android:text="+7-961-075-54-47"
             android:textSize="32sp"
             android:letterSpacing="0.1"
             android:textColor="@color/title_text_color"
             tools:text="+7-961-075-54-47"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/phone_error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone_underscore"
+            android:fontFamily="@font/jost_semibold"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:visibility="gone"
+            tools:text="you have to write correct phone number"
+            tools:visibility="visible"
             />
 
         <androidx.appcompat.widget.AppCompatImageView
