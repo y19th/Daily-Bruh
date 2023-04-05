@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/back_button_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/auth_phone_header"
+        android:text="@string/auth_code_header"
         android:layout_marginTop="40dp"
         android:textSize="20sp"
         android:fontFamily="@font/jost_semibold"
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_light"
-        android:text="@string/auth_phone_desc"
+        android:text="@string/auth_code_desc"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/header"
         app:layout_constraintHorizontal_bias="0.516"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/phone_layout"
+        android:id="@+id/code_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/under_header"
@@ -72,7 +72,7 @@
         >
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/phone_field"
+            android:id="@+id/code_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -80,36 +80,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/jost_semibold"
             android:textSize="32sp"
-            android:letterSpacing="0.1"
+            android:letterSpacing="1"
+            android:maxLines="1"
+            android:maxLength="6"
             android:textColor="@color/title_text_color"
-            tools:text="+7-961-075-54-47"
+            tools:text="111111"
             />
-
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/phone_error_text"
+            android:id="@+id/code_error_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/code_underscore"
             android:fontFamily="@font/jost_semibold"
-            android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="16sp"
+            android:textAlignment="center"
             android:visibility="gone"
             android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/phone_underscore"
-            tools:text="you have to write correct phone number"
-            tools:visibility="visible" />
+            tools:text="you have to write correct code number"
+            tools:visibility="visible"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/phone_underscore"
+            android:id="@+id/code_underscore"
             android:layout_width="0dp"
             android:layout_height="1dp"
             app:srcCompat="@drawable/item_drag_line_light_grey"
-            app:layout_constraintTop_toBottomOf="@id/phone_field"
-            app:layout_constraintStart_toStartOf="@id/phone_field"
-            app:layout_constraintEnd_toEndOf="@id/phone_field"
+            app:layout_constraintTop_toBottomOf="@id/code_field"
+            app:layout_constraintStart_toStartOf="@id/code_field"
+            app:layout_constraintEnd_toEndOf="@id/code_field"
 
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

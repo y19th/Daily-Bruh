@@ -67,6 +67,20 @@
         <action
             android:id="@+id/auth_phone_to_newspage"
             app:destination="@id/newspage" />
+        <action
+            android:id="@+id/auth_phone_to_auth_vercode"
+            app:destination="@id/auth_vercode" />
+    </fragment>
+    <fragment
+        android:id="@+id/auth_vercode"
+        android:name="com.example.dailybruh.fragment.FragmentAuthVerCode"
+        android:label="FragmentAuthVerCode" >
+        <action
+            android:id="@+id/auth_vercode_to_auth_phone"
+            app:destination="@id/auth_phone" />
+        <action
+            android:id="@+id/auth_vercode_to_profile"
+            app:destination="@id/profile" />
     </fragment>
 
 </navigation>

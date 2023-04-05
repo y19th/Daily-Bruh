@@ -1,7 +1,10 @@
 package com.example.dailybruh.auth
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.extension.ToastShort
 import com.google.firebase.FirebaseException
@@ -44,7 +47,7 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
 
     abstract fun stepOnCodeSent()
 
-    abstract fun onSuccessAuth()
+    abstract fun onSuccessAuth(view: View, navigationId: Int, arguments: Bundle = Bundle())
 
     abstract fun onFailedAuth()
 }

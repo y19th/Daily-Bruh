@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.core.text.set
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -13,17 +12,17 @@ import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
 import com.example.dailybruh.auth.verify
+import com.example.dailybruh.const.AUTH_OPTIONS
+import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
 import com.example.dailybruh.extension.*
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
 
 class FragmentAuthPhone : Fragment() {
 
     private var _binding: FragmentAuthPhoneBinding? = null
     private val binding: FragmentAuthPhoneBinding get() = _binding!!
     private lateinit var authOptions: AuthOptions
-    private lateinit var credential: PhoneAuthCredential
 
 
     override fun onCreateView(
@@ -43,10 +42,18 @@ class FragmentAuthPhone : Fragment() {
                 override fun stepOnCodeSent() {
                     ToastLong(requireContext(),"Code sent")
                     view.enableView()
+                    requireArguments().apply {
+                        putSerializable(AUTH_OPTIONS,authOptions)
+                    }.putString(VERIFICATION_ID,this.verificationId())
+                    view.navigateTo(R.id.auth_phone_to_auth_vercode,requireArguments())
+
                 }
-                override fun onSuccessAuth() {
-                    parentFragment?.view?.navigateTo(R.id.newspage_to_profile, parentFragment!!.requireArguments())
-                    ToastLong(requireContext(),"Success !!!!")
+                override fun onSuccessAuth(
+                    view: View,
+                    navigationId: Int,
+                    arguments: Bundle) {
+                    view.navigateTo(navigationId, arguments)
+                    ToastLong(requireContext(), "Success !!!!")
                 }
 
                 override fun onFailedAuth() {
@@ -118,23 +125,3 @@ class FragmentAuthPhone : Fragment() {
         }
     }
 }
-
-
-
-
-/* binding.apply {
-     codeButton.setOnClickListener {
-         codeButton.isEnabled = false
-         credential = PhoneAuthProvider.getCredential(callback.verificationId(),codeField.text.toString())
-         authOptions.signInWithCred(credential)
-     }
-
-     codeField.doOnTextChanged { _, _, _, _ ->
-         codeLayout.error = null
-         codeButton.isEnabled = true
-         if(codeField.text?.length == 0) {
-             codeButton.isEnabled = false
-             codeLayout.error = "Код не может быть пустым"
-         }
-     }
- }*/
