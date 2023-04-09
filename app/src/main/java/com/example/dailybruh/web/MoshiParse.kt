@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dailybruh.const.constNews
 import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.News
 import com.squareup.moshi.Json
@@ -70,13 +71,15 @@ class MoshiParse : ViewModel() {
         var count = 0
         viewModelScope.launch {
             for (item in news.articles) {
-                item.id = "${item.title?.get(0)}${item.title?.get(1)}${item.title?.get(2)}$count"
+
+                item.id = "${item.title?.get(0)}${item.title?.get(1)}${item.title?.get(2)}${count}_${item.time}"
                 count++
             }
 
             _news.value = news
         }
         _status.value = "ok"
+        constNews.value = news
     }
 
 }

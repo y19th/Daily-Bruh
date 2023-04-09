@@ -42,10 +42,11 @@ class FragmentAuthPhone : Fragment() {
                 override fun stepOnCodeSent() {
                     ToastLong(requireContext(),"Code sent")
                     view.enableView()
-                    requireArguments().apply {
+                    val bundle = Bundle()
+                    bundle.apply {
                         putSerializable(AUTH_OPTIONS,authOptions)
                     }.putString(VERIFICATION_ID,this.verificationId())
-                    view.navigateTo(R.id.auth_phone_to_auth_vercode,requireArguments())
+                    view.navigateTo(R.id.auth_phone_to_auth_vercode,bundle)
 
                 }
                 override fun onSuccessAuth(
@@ -88,8 +89,8 @@ class FragmentAuthPhone : Fragment() {
                     else -> { error("Слишком большой номер",true) }
                 }
             }
-            backButtonLayout.setOnClickListener {
-                view.navigateTo(R.id.auth_phone_to_newspage,requireArguments())
+            backButton.backButtonLayout.setOnClickListener {
+                view.navigateTo(R.id.auth_phone_to_newspage)
             }
             keyboardGridLayout.children.forEach {
                 it.setOnClickListener(onClickListener(it.tag.toString()))

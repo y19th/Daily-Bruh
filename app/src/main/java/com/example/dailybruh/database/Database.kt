@@ -41,6 +41,10 @@ class Database(
         totalLiked()
     }
 
+
+    // user scope
+    //
+
     fun nickname(): MutableLiveData<String> {
         userReference.child("nickname").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -74,6 +78,13 @@ class Database(
     fun name(name: String) {
         userReference.child("name").setValue(name)
     }
+
+    //
+
+
+    // Data scope
+    //
+
     fun userLikes(): MutableLiveData<HashMap<*, *>> {
         userReference.child("liked").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -174,11 +185,11 @@ class Database(
     }
 
     fun article(article: Article) {
-        likes(article.id)
         articlesReference.child(article.id).get().addOnSuccessListener {
             when(it.value) {
                 null -> standardParams(article)
                 else -> {
+                    likes(article.id)
                     likes.value = ArticleLikes(article.id,(it.value as HashMap<*,*>)["likes"] as Long)
                     likes.value!!.status.value = 1
                 }
@@ -197,4 +208,6 @@ class Database(
             child("commentaries").child("asd").setValue("fuck ouou")
         }
     }
+
+    //
 }

@@ -59,7 +59,11 @@
     <fragment
         android:id="@+id/liked_articles"
         android:name="com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles"
-        android:label="FragmentDialogProfileLikedArticles" />
+        android:label="FragmentDialogProfileLikedArticles" >
+        <action
+            android:id="@+id/liked_articles_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
     <fragment
         android:id="@+id/auth_phone"
         android:name="com.example.dailybruh.fragment.FragmentAuthPhone"

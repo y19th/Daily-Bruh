@@ -59,8 +59,8 @@ class FragmentAuthVerCode: Fragment() {
                     }
                 }
             }
-            backButtonLayout.setOnClickListener {
-                view.navigateTo(R.id.auth_vercode_to_auth_phone,requireArguments())
+            backButton.backButtonLayout.setOnClickListener {
+                view.navigateTo(R.id.auth_vercode_to_auth_phone)
             }
             keyboardGridLayout.children.forEach {
                 it.setOnClickListener(onClickListener(it.tag.toString()))

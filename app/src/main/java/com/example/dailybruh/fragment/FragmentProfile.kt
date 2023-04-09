@@ -1,13 +1,10 @@
 package com.example.dailybruh.fragment
 
-import android.app.ActionBar.LayoutParams
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import com.example.dailybruh.R
 import com.example.dailybruh.const.DATABASE
 import com.example.dailybruh.database.Database
@@ -18,7 +15,6 @@ import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedA
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -40,14 +36,14 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
-            //phoneField.text = user?.phoneNumber
+            phoneField.text = user?.phoneNumber
             backButtonLayout.setOnClickListener {
-                view.navigateTo(R.id.profile_to_newspage, requireArguments())
+                view.navigateTo(R.id.profile_to_newspage)
             }
             signOutButton.setOnClickListener {
                 //user?.let { Firebase.auth.signOut() } // need if app has anonymous auth
                 Firebase.auth.signOut()
-                view.navigateTo(R.id.profile_to_newspage, requireArguments())
+                view.navigateTo(R.id.profile_to_newspage)
             }
             nameLayout.setOnClickListener {
                 FragmentDialogProfileName(database).show(childFragmentManager,"name_edit_dialog")
@@ -59,14 +55,8 @@ class FragmentProfile : Fragment() {
                 FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
             }
             likedNewsLayout.setOnClickListener {
-                val maxHeight = (view.height * 0.95).toInt()
-                val dimen = resources.getDimension(R.dimen.peek_height)
-
-                phoneField.text = maxHeight.toString()
-                FragmentDialogProfileLikedArticles(database,maxHeight).apply {
-
-                }.show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
-                //view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
+                //FragmentDialogProfileLikedArticles(database,maxHeight).show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
+                view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
             }
             database.apply {
                 nickname().observe(viewLifecycleOwner) {
