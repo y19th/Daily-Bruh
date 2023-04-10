@@ -85,7 +85,7 @@
             android:id="@+id/url_button_icon"
             android:layout_width="9dp"
             android:layout_height="15dp"
-            android:src="@drawable/icon_arrow_right_1"
+            android:src="@drawable/icon_arrow_right_black"
             app:layout_constraintStart_toEndOf="@id/url_button"
             app:layout_constraintTop_toTopOf="@id/url_button"
             app:layout_constraintBottom_toBottomOf="@id/url_button"

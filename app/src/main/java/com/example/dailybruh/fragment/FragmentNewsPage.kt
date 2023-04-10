@@ -15,6 +15,7 @@ import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.extension.navigateToWithSerializable
+import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -50,6 +51,9 @@ class FragmentNewsPage : Fragment() {
                     null -> view.navigateTo(R.id.newspage_to_auth_phone)
                     else -> view.navigateTo(R.id.newspage_to_profile)
                 }
+            }
+            navMenuButton.setOnClickListener {
+                FragmentDialogSearch().show(childFragmentManager,"dialog_search")
             }
         }
     }

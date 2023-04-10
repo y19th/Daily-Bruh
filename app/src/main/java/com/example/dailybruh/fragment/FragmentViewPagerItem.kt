@@ -113,19 +113,19 @@ class FragmentViewPagerItem(
     }
     private fun resizeTitle() {
         binding.apply {
-        if(news.articles[position].title!!.length > 50){
-            titlePage.textSize = 24F
-        }
-        when(Build.VERSION.SDK_INT) {               //if phone has <28 sdk
-            in 23..27 -> {                     //we resize text size due resolution
-                titlePage.textSize = 18F
-                descPage.textSize = 16F
+            when(Build.VERSION.SDK_INT) {               //if phone has <28 sdk
+                in 23..27 -> {                     //we resize text size due resolution
+                    titlePage.textSize = 18F
+                    descPage.textSize = 14F
+                }
+                else -> {
+                    titlePage.textSize = 20F
+                    descPage.textSize = 16F
+                }
             }
-            else -> {
-                titlePage.textSize = 20F
-                descPage.textSize = 18F
+            if(news.articles[position].title!!.length > 50) {
+                titlePage.textSize = 16F
             }
-        }
         }
     }
 }
