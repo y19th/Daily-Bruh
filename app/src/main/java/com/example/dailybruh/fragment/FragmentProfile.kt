@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
-import com.example.dailybruh.const.DATABASE
+import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.database.Database
+import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.extension.navigateToWithSerializable
-import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
@@ -23,7 +22,8 @@ class FragmentProfile : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding get() = _binding!!
     private val user = Firebase.auth.currentUser
-    private val database = Database(user?.phoneNumber!!)
+    private val database = if(constDatabase.value!!.phone == STANDARD_PHONE)Database().newInstance(user?.phoneNumber!!)
+                           else constDatabase.value!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +41,6 @@ class FragmentProfile : Fragment() {
                 view.navigateTo(R.id.profile_to_newspage)
             }
             signOutButton.setOnClickListener {
-                //user?.let { Firebase.auth.signOut() } // need if app has anonymous auth
                 Firebase.auth.signOut()
                 view.navigateTo(R.id.profile_to_newspage)
             }
@@ -55,15 +54,14 @@ class FragmentProfile : Fragment() {
                 FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
             }
             likedNewsLayout.setOnClickListener {
-                //FragmentDialogProfileLikedArticles(database,maxHeight).show(childFragmentManager,"liked_articles_dialog") // for bottomsheetfragment
-                view.navigateToWithSerializable(R.id.profile_to_liked_articles,database, DATABASE)
+                view.navigateTo(R.id.profile_to_liked_articles)
             }
             database.apply {
                 nickname().observe(viewLifecycleOwner) {
-                    nicknameField.text = it
+                    nicknameField.text = it ?: "user"
                 }
                 name().observe(viewLifecycleOwner) {
-                    nameField.text = it
+                    nameField.text = it ?: "no name"
                 }
             }
         }

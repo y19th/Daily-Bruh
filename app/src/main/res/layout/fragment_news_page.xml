@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/popular_filter"
                     android:textSize="11sp"
-                    android:fontFamily="@font/jost_bold"
+                    android:fontFamily="@font/jost_regular"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/date_filter"
                     android:textSize="11sp"
-                    android:fontFamily="@font/jost_bold"
+                    android:fontFamily="@font/jost_regular"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -107,11 +107,11 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager_main"
-            android:layout_marginTop="107dp"
+            android:layout_marginTop="97dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="31dp"
+            android:layout_marginBottom="26dp"
             app:layout_constraintTop_toBottomOf="@id/filter_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -142,7 +142,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@drawable/item_rouned_rectangle_light_black_fat"
             android:layout_marginTop="6dp"
             android:layout_marginHorizontal="10dp"
@@ -152,12 +152,12 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/nav_menu_button"
                 android:layout_width="25dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="25dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tool_bar"
                 app:layout_constraintBottom_toBottomOf="@id/tool_bar"
-                android:background="@drawable/icon_menu"
+                android:background="@drawable/icon_search"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -169,13 +169,13 @@
                 android:textColor="@color/light_theme_text_color_light_black"
                 android:textAlignment="gravity"
                 android:gravity="center"
-                android:fontFamily="@font/lato_bold"
-                android:textSize="20sp"
+                android:fontFamily="@font/jost_regular"
+                android:textSize="18sp"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/profile_button"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/nav_menu_button"
                 app:layout_constraintBottom_toBottomOf="@id/nav_menu_button"

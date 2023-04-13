@@ -12,6 +12,7 @@ import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.VERIFICATION_ID
+import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthVercodeBinding
 import com.example.dailybruh.extension.navigateTo
 import com.google.firebase.auth.PhoneAuthCredential
@@ -53,7 +54,7 @@ class FragmentAuthVerCode: Fragment() {
                         error("Слишком мало символов", true)
                     }
                     else -> {
-                        authOptions.setCurrentSetUp(view, navId = R.id.auth_vercode_to_profile,requireArguments())
+                        authOptions.setCurrentSetUp(view, viewLifecycleOwner)
                         credential = PhoneAuthProvider.getCredential(verId,codeField.text.toString())
                         authOptions.signInWithCred(credential)
                     }

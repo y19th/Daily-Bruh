@@ -8,15 +8,19 @@ import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
 import com.example.dailybruh.auth.verify
 import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.VERIFICATION_ID
+import com.example.dailybruh.database.Database
+import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
 import com.example.dailybruh.extension.*
-import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FragmentAuthPhone : Fragment() {
 
@@ -40,7 +44,6 @@ class FragmentAuthPhone : Fragment() {
 
             val callback = object : CodeCallback(requireContext()) {
                 override fun stepOnCodeSent() {
-                    ToastLong(requireContext(),"Code sent")
                     view.enableView()
                     val bundle = Bundle()
                     bundle.apply {
@@ -51,14 +54,18 @@ class FragmentAuthPhone : Fragment() {
                 }
                 override fun onSuccessAuth(
                     view: View,
-                    navigationId: Int,
+                    lifecycleOwner: LifecycleOwner,
                     arguments: Bundle) {
-                    view.navigateTo(navigationId, arguments)
-                    ToastLong(requireContext(), "Success !!!!")
+                    Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!).name.observe(lifecycleOwner) {
+                        when(it) {
+                            null -> view.navigateTo(R.id.auth_vercode_to_auth_name)
+                            else -> view.navigateTo(R.id.auth_vercode_to_profile)
+                        }
+                    }
                 }
 
                 override fun onFailedAuth() {
-                    ToastLong(requireContext(),"Failed!")
+                    toastLong(requireContext(),"Failed!")
                 }
             }
 

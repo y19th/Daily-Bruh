@@ -14,7 +14,7 @@ import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
-import com.example.dailybruh.extension.ToastLong
+import com.example.dailybruh.extension.toastLong
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -35,7 +35,7 @@ class FragmentViewPagerItem(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = RecyclerItemNewsPageBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -54,49 +54,47 @@ class FragmentViewPagerItem(
             likes.observe(viewLifecycleOwner) {
                 likeCount.text = it.toString()
             }
+            database.isLiked(news.articles[position].id)
+                .observe(viewLifecycleOwner) { isLiked ->
 
-            database.isLiked(news.articles[position].id).observe(viewLifecycleOwner) { isLiked ->
-
-                when (isLiked) {
-                    true -> {
-                        likeButton.setImageDrawable(filledHeart)
-                        likeButton.setOnClickListener {
-                            if (Firebase.auth.currentUser?.phoneNumber != null) {
-                                database.transactionUnlike(news.articles[position])
-                               // likeButton.setImageDrawable(unfilledHeart)
-                                likeButton.tag = "unfilled"
-                            } else {
-                                ToastLong(
-                                    requireContext(),
-                                    "Для оценки новости нужно авторизироваться"
-                                )
+                    when (isLiked) {
+                        true -> {
+                            likeButton.setImageDrawable(filledHeart)
+                            likeButton.setOnClickListener {
+                                if (Firebase.auth.currentUser?.phoneNumber != null) {
+                                    database.transactionUnlike(news.articles[position])
+                                    // likeButton.setImageDrawable(unfilledHeart)
+                                    likeButton.tag = "unfilled"
+                                } else {
+                                    toastLong(
+                                        requireContext(),
+                                        "Для оценки новости нужно авторизироваться"
+                                    )
+                                }
                             }
                         }
-                    }
-                    false -> {
-                        likeButton.setImageDrawable(unfilledHeart)
-                        likeButton.setOnClickListener {
-                            likeButton.drawable
-                            if (Firebase.auth.currentUser?.phoneNumber != null) {
-                                database.transactionLike(news.articles[position])
-                                //likeButton.setImageDrawable(filledHeart)
-                                likeButton.tag = "filled"
-                            } else {
-                                ToastLong(
-                                    requireContext(),
-                                    "Для оценки новости нужно авторизоваться"
-                                )
+                        false -> {
+                            likeButton.setImageDrawable(unfilledHeart)
+                            likeButton.setOnClickListener {
+                                likeButton.drawable
+                                if (Firebase.auth.currentUser?.phoneNumber != null) {
+                                    database.transactionLike(news.articles[position])
+                                    //likeButton.setImageDrawable(filledHeart)
+                                    likeButton.tag = "filled"
+                                } else {
+                                    toastLong(
+                                        requireContext(),
+                                        "Для оценки новости нужно авторизоваться"
+                                    )
+                                }
                             }
                         }
                     }
                 }
+            database.article(news.articles[position])
+            database.likes.observe(viewLifecycleOwner) {
+                if (database.likes.value!!.id == news.articles[position].id) likes.value = it.likes
             }
-        }
-
-
-        database.article(news.articles[position])
-        database.likes.observe(viewLifecycleOwner) {
-            if(database.likes.value!!.id == news.articles[position].id)likes.value = it.likes
         }
     }
 

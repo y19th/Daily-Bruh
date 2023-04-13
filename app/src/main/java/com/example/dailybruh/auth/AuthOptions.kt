@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import com.example.dailybruh.extension.ToastLong
+import androidx.lifecycle.LifecycleOwner
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -27,8 +26,7 @@ class AuthOptions(private val context: Context) : java.io.Serializable {
     private val activity: Activity get() = _activity!!
 
     private lateinit var currentView: View
-    private var navigationId: Int = 0
-    private lateinit var currentBundle: Bundle
+    private lateinit var lifecycleOwner: LifecycleOwner
 
     var user : FirebaseUser? = null
 
@@ -58,17 +56,17 @@ class AuthOptions(private val context: Context) : java.io.Serializable {
                     user = task.result?.user
                     callbacks.onSuccessAuth(
                         view = currentView,
-                        navigationId = navigationId,
-                        arguments = currentBundle)
+                        lifecycleOwner = lifecycleOwner
+                        )
                 } else {
                     callbacks.onFailedAuth()
                 }
             }
     }
-    fun setCurrentSetUp(view: View,navId: Int,bundle: Bundle) {
+    fun setCurrentSetUp(view: View,owner: LifecycleOwner) {
         currentView = view
-        navigationId = navId
-        currentBundle = bundle
+        lifecycleOwner = owner
+
     }
 }
 

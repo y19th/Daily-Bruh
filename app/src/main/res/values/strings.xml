@@ -33,14 +33,14 @@
     <string name="firebase_error_network">Подключение к сети отсутствует</string>
     <string name="phone">номер телефона</string>
     <string name="back_button">back button</string>
-    <string name="back_button_text">Новости</string>
-    <string name="name_header">ваше имя</string>
+    <string name="back_button_text">К новостям</string>
+    <string name="name_header">имя</string>
     <string name="saved_news">Сохраненные новости</string>
     <string name="liked_news">Понравившиеся новости</string>
     <string name="sign_out_button">Выйти из профиля</string>
     <string name="arrow_next">arrow_next</string>
     <string name="popular_filter">Популярные</string>
-    <string name="nickname_header">ваш никнейм</string>
+    <string name="nickname_header">никнейм</string>
     <string name="change_name">Изменить имя</string>
     <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
@@ -48,18 +48,22 @@
     <string name="date_filter">За эту неделю</string>
     <string name="saved_articles_header">Сохраненные новости</string>
     <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
-    <string name="liked_articles_header">Понравившиеся новости</string>
-    <string name="liked_articles_desc">Здесь будут храниться новости, которые вам нравятся</string>
+    <string name="liked_articles_header">Новости, которые вам понравились</string>
+    <string name="liked_articles_desc">мы добавили их сюда, чтоб вы всегда могли посмотреть понравившиеся вам новости</string>
     <string name="auth_phone_header">Введите свой номер</string>
     <string name="auth_phone_desc">и мы отправим вам код подтверждения</string>
     <string name="publishedat_header">дата публикации</string>
     <string name="profile_settings_text">Настройки профиля</string>
-    <string name="saved_news_header">здесь будут ваши сохраненные новости</string>
-    <string name="liked_news_header">здесь будут ваши любимые новости</string>
+    <string name="saved_news_header">здесь можно посмотреть сохраненные новости</string>
+    <string name="liked_news_header">здесь можно посмотреть понравившиеся новости</string>
     <string name="oops_text">Ой-ой</string>
     <string name="no_liked_articles_text">Кажется вам не понравилась еще ни одна новость</string>
     <string name="auth_back_button">Вернуться назад</string>
     <string name="auth_code_header">Введите код подтверждения</string>
     <string name="auth_code_desc">который мы прислали вам на телефон</string>
+    <string name="header_auth_name">Теперь давайте познакомимся</string>
+    <string name="underheader_auth_name">как вас зовут?</string>
+    <string name="continue_text">продолжить</string>
+    <string name="text_your_name">Введите ваше имя</string>
 
 </resources>

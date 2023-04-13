@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.const.NEWS_DATA
+import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
+import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
@@ -39,9 +41,17 @@ class FragmentNewsPage : Fragment() {
         binding.apply {
             viewpagerMain.apply {
                 val database = when(Firebase.auth.currentUser){
-                    null -> Database(lifecycleOwner = viewLifecycleOwner)
-                    else -> Database(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
+                    null -> Database().newInstance(lifecycleOwner = viewLifecycleOwner)
+                    else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
                 }
+
+//                val database = if(constDatabase.value?.phone == STANDARD_PHONE || constDatabase.value?.phone == null) {   //have trouble with
+//                    when(Firebase.auth.currentUser) {                                                                     //observing user likes
+//                        null -> Database().newInstance(lifecycleOwner = viewLifecycleOwner)
+//                        else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
+//                   }
+//                } else constDatabase.value!!
+
                 adapter = VerticalPagerAdapter(news,database, parentFragmentManager, lifecycle)
 
             }

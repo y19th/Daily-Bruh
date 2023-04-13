@@ -3,10 +3,9 @@ package com.example.dailybruh.auth
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.example.dailybruh.R
-import com.example.dailybruh.extension.ToastShort
+import com.example.dailybruh.extension.toastShort
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -28,10 +27,10 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
 
     override fun onVerificationFailed(exc: FirebaseException) {
         when(exc) {
-            is FirebaseAuthInvalidCredentialsException -> ToastShort(context,"Invalid credential")
-            is FirebaseTooManyRequestsException -> ToastShort(context,"Too many requests")
-            is FirebaseNetworkException -> ToastShort(context,context.getString(R.string.firebase_error_network))
-            else -> ToastShort(context,"$exc exception")
+            is FirebaseAuthInvalidCredentialsException -> toastShort(context,"Invalid credential")
+            is FirebaseTooManyRequestsException -> toastShort(context,"Too many requests")
+            is FirebaseNetworkException -> toastShort(context,context.getString(R.string.firebase_error_network))
+            else -> toastShort(context,"$exc exception")
         }
     }
 
@@ -47,7 +46,7 @@ abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.On
 
     abstract fun stepOnCodeSent()
 
-    abstract fun onSuccessAuth(view: View, navigationId: Int, arguments: Bundle = Bundle())
+    abstract fun onSuccessAuth(view: View, lifecycleOwner: LifecycleOwner, arguments: Bundle = Bundle())
 
     abstract fun onFailedAuth()
 }

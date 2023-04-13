@@ -2,6 +2,7 @@ package com.example.dailybruh.database
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.ArticleLikes
 import com.example.dailybruh.dataclasses.DataArticle
@@ -14,16 +15,24 @@ import com.google.firebase.ktx.Firebase
 
 
 
+internal val constDatabase: MutableLiveData<Database> by lazy {
+    MutableLiveData<Database>()
+}
+
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
+
+
 class Database(
-    phone: String = "00000000000",
+    _phone: String = STANDARD_PHONE,
     private val lifecycleOwner: LifecycleOwner? = null
 ) : java.io.Serializable {
 
 
-    private val userReference = database.reference.child("users").child(phone)
+
+    private val userReference = database.reference.child("users").child(_phone)
     private val articlesReference = database.reference.child("articles")
+    val phone = _phone
 
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
@@ -38,9 +47,18 @@ class Database(
     val totalLiked = MutableLiveData<Long>()
 
     init {
-        totalLiked()
+        if(phone != STANDARD_PHONE) {
+            createLiked()
+            name()
+            nickname()
+        }
     }
 
+
+    fun newInstance(phone: String = STANDARD_PHONE,lifecycleOwner: LifecycleOwner? = null): Database {
+        constDatabase.value = Database(phone,lifecycleOwner)
+        return constDatabase.value!!
+    }
 
     // user scope
     //
@@ -79,6 +97,12 @@ class Database(
         userReference.child("name").setValue(name)
     }
 
+    private fun createLiked() {
+        userReference.child("liked").get().addOnSuccessListener {
+            if(it.value == null) userReference.child("liked").child("total").setValue(0)
+            else totalLiked()
+        }
+    }
     //
 
 
@@ -170,7 +194,7 @@ class Database(
             }
         return listOfDataArticles
     }
-    fun likes(id : String): MutableLiveData<ArticleLikes> {
+    private fun likes(id : String): MutableLiveData<ArticleLikes> {
         articlesReference.child(id).child("likes").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 likes.value = ArticleLikes(id,snapshot.value as Long)

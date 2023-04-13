@@ -28,6 +28,10 @@
         <action
             android:id="@+id/newspage_to_auth_phone"
             app:destination="@id/auth_phone" />
+
+        <action
+            android:id="@+id/newspage_to_auth_name"
+            app:destination="@id/auth_name" />
     </fragment>
 
     <fragment
@@ -80,6 +84,10 @@
         android:name="com.example.dailybruh.fragment.FragmentAuthVerCode"
         android:label="FragmentAuthVerCode" >
         <action
+            android:id="@+id/auth_vercode_to_auth_name"
+            app:destination="@id/auth_name"/>
+
+        <action
             android:id="@+id/auth_vercode_to_auth_phone"
             app:destination="@id/auth_phone" />
         <action
@@ -87,4 +95,14 @@
             app:destination="@id/profile" />
     </fragment>
 
+    <fragment android:id="@+id/auth_name"
+        android:name="com.example.dailybruh.fragment.FragmentAuthName"
+        android:label="FragmentAuthName"
+        >
+<!--        <action android:id="@+id/auth_name_to_auth_nickname"-->
+<!--            app:destination="@id/auth_phone"/>-->
+        <action android:id="@+id/auth_name_to_profile"
+            app:destination="@id/profile"
+            />
+    </fragment>
 </navigation>
