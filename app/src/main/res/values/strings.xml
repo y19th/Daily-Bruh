@@ -66,4 +66,15 @@
     <string name="continue_text">продолжить</string>
     <string name="text_your_name">Введите ваше имя</string>
 
+    <array name="popular_filter">
+        <item>популярные</item>
+        <item>новейшие</item>
+        <item>самые актуальные</item>
+    </array>
+    <array name="date_filter">
+        <item>за сегодня</item>
+        <item>за неделю</item>
+        <item>за месяц</item>
+    </array>
+
 </resources>
