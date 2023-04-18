@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
-import com.example.dailybruh.const.NEWS_DATA
-import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.extension.navigateToWithSerializable
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -65,6 +64,14 @@ class FragmentNewsPage : Fragment() {
             navMenuButton.setOnClickListener {
                 FragmentDialogSearch().show(childFragmentManager,"dialog_search")
             }
+            popularFilterField.setAdapter(R.array.popular_filter)
+            dateFilterField.setAdapter(R.array.date_filter)
         }
+    }
+
+    private fun AutoCompleteTextView.setAdapter(arrayId: Int) {
+        this.apply {
+            setDropDownBackgroundDrawable(ResourcesCompat.getDrawable(resources,R.drawable.item_filter_background_inset,null))
+        }.setAdapter(ArrayAdapter(requireContext(),R.layout.menu_list_item,resources.getStringArray(arrayId)))
     }
 }
