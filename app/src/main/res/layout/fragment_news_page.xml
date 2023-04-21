@@ -38,7 +38,6 @@
                android:showDividers="middle"
                app:endIconDrawable="@drawable/icon_arrow_bottom"
                app:endIconMinSize="20dp"
-
                app:endIconTint="@color/red"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"

@@ -17,14 +17,13 @@
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/HeaderText"
         app:layout_constraintTop_toBottomOf="@id/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/auth_phone_header"
         android:layout_marginTop="40dp"
         android:textSize="20sp"
-        android:fontFamily="@font/jost_semibold"
-        android:textColor="@color/title_text_color"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -91,21 +90,18 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/continue_button"
+        style="@style/RedContinueButton"
         android:layout_width="0dp"
-        android:layout_height="65dp"
-        app:layout_constraintTop_toBottomOf="@id/under_header"
-        app:layout_constraintStart_toStartOf="@id/keyboard_layout"
-        app:layout_constraintEnd_toEndOf="@id/keyboard_layout"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_text"
         app:layout_constraintBottom_toTopOf="@id/keyboard_layout"
-        app:layout_constraintVertical_bias="0.8"
-        android:background="@drawable/item_rounded_rectangle_red"
-        android:text="Продолжить"
-        android:fontFamily="@font/jost_semibold"
-        android:textSize="26sp"
-        android:textColor="@color/white"
-        />
+        app:layout_constraintEnd_toEndOf="@id/keyboard_layout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/keyboard_layout"
+        app:layout_constraintTop_toBottomOf="@id/under_header"
+        app:layout_constraintVertical_bias="0.798" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/keyboard_layout"
