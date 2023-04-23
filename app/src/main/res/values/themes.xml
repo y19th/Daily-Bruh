@@ -17,7 +17,7 @@
         <item name="windowNoTitle">true</item>
 
         <!-- bottomsheetdialog theme-->
-        <item name="bottomSheetDialogTheme">@style/UserBottomSheetDialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialogStyle</item>
 <!--        <item name="android:windowSoftInputMode">adjustResize</item>-->
     </style>
 </resources>

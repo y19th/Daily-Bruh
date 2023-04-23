@@ -4,29 +4,25 @@
         <item name="android:fontFamily">@font/droid_serif</item>
         <item name="android:textSize">20sp</item>
     </style>
-    <style name="AppBottomSheetDialogTheme"
+    <style name="CustomBottomSheetDialogStyle"
         parent="Theme.Material3.DayNight.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
-    </style>
-
-    <style name="UserBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:colorBackground">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.3</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:colorAccent">@color/white</item>
     </style>
 
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/item_background_dialog</item>
-        <item name="android:windowSoftInputMode">adjustPan</item>
         <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
 
 
     <style name="RedContinueButton" parent="Widget.MaterialComponents.Button">

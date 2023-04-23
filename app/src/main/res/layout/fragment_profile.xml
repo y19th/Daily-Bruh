@@ -289,17 +289,17 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_out_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="20dp"
-
         android:text="@string/sign_out_button"
         android:textColor="@color/red_300"
+        android:background="@color/transparent"
+        android:layout_marginHorizontal="40dp"
         android:fontFamily="@font/jost_semibold"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

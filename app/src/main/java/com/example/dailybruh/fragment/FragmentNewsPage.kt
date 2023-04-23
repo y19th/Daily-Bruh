@@ -36,7 +36,6 @@ class FragmentNewsPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        news = constNews.value!!
         binding.apply {
             viewpagerMain.apply {
                 val database = when(Firebase.auth.currentUser){
@@ -50,8 +49,10 @@ class FragmentNewsPage : Fragment() {
 //                        else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
 //                   }
 //                } else constDatabase.value!!
-
-                adapter = VerticalPagerAdapter(news,database, parentFragmentManager, lifecycle)
+                constNews.observe(viewLifecycleOwner) {
+                    adapter = VerticalPagerAdapter(database, parentFragmentManager, lifecycle)
+                }
+                //adapter = VerticalPagerAdapter(database, parentFragmentManager, lifecycle)
 
             }
             profileButton.setOnClickListener {

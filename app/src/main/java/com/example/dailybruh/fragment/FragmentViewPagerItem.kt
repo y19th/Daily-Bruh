@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
+import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
@@ -20,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class FragmentViewPagerItem(
-    private val news: News,
     private val database: Database,
     private val position: Int
 ): Fragment() {
@@ -30,6 +30,7 @@ class FragmentViewPagerItem(
     get() = _binding!!
 
     private var likes = MutableLiveData<Long>()
+    private val news = constNews.value!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +45,7 @@ class FragmentViewPagerItem(
 
         val filledHeart = AppCompatResources.getDrawable(requireContext(),R.drawable.icon_heart_filled)
         val unfilledHeart = AppCompatResources.getDrawable(requireContext(),R.drawable.icon_heart_unfilled)
+
 
         binding.apply {
             titlePage.text = news.articles[position].title
