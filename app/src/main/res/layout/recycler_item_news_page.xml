@@ -207,14 +207,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/down_underscore"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:srcCompat="@drawable/item_drag_line_light_grey"
-        app:layout_constraintTop_toBottomOf="@id/button_layout"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="2dp"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
