@@ -48,7 +48,7 @@
                    android:id="@+id/popular_filter_field"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:textSize="11sp"
+                   android:textSize="12sp"
                    android:fontFamily="@font/jost_regular"
                    android:ellipsize="end"
                    android:inputType="none"
