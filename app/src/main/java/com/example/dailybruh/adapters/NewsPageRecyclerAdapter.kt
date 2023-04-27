@@ -3,16 +3,10 @@ package com.example.dailybruh.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dailybruh.R
-import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
-import com.example.dailybruh.dataclasses.News
-
 class NewsPageRecyclerAdapter(private val database: Database,
                               private val lifecycleOwner: LifecycleOwner,
                               private val totalLiked: Long
@@ -31,15 +25,11 @@ class NewsPageRecyclerAdapter(private val database: Database,
 
             binding.apply {
                 holder.apply {
-                    database.userLikes().observe(lifecycleOwner) {
-                        database.listOfDataArticles(it,position).value!![position].status.observe(lifecycleOwner) {
-                            val list = database.listOfDataArticles.value!![position]
-                            header.text = list.header
-                            bindImage(urlPhoto, list.urlPhoto)
-                            authorPage.text = list.author
+                        database.getArticleByPos(pos = position).observe(lifecycleOwner) {
+                                header.text = it.header
+                                bindImage(urlPhoto, it.urlPhoto)
+                                authorPage.text = it.author
                         }
-                    }
-
                 }
             }
     }

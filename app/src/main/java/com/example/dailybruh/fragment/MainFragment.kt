@@ -29,13 +29,14 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDefaultSettings()
+        recentRequest = Request("everything","Apple", null,null, sorting.value,
+            language.value)
         binding.apply {
             val observer = Observer<String> {
                 view.navigateTo(R.id.newspage)
             }
             model.apply {
-                getNews(Request("everything","Apple", null,null, sorting.value,
-                    language.value).request)
+                getNews(recentRequest!!.request)
                 status.observe(viewLifecycleOwner, observer)
             }
         }

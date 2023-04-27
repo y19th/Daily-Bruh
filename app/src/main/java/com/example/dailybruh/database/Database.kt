@@ -26,7 +26,7 @@ private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.e
 class Database(
     _phone: String = STANDARD_PHONE,
     private val lifecycleOwner: LifecycleOwner? = null
-) : java.io.Serializable {
+) {
 
 
 
@@ -36,8 +36,6 @@ class Database(
 
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
-
-    val listOfDataArticles = MutableLiveData<MutableList<DataArticle>>()
 
     private val isLiked = MutableLiveData<Boolean>()
 
@@ -51,6 +49,7 @@ class Database(
             createLiked()
             name()
             nickname()
+            userLikes()
         }
     }
 
@@ -122,7 +121,6 @@ class Database(
         })
         return userLikes
     }
-
     fun isLiked(id: String): MutableLiveData<Boolean> {
         userLikes().observe(lifecycleOwner!!) {
             isLiked.value = it.containsValue(id)
@@ -172,28 +170,21 @@ class Database(
                 }
         }
     }
-    fun listOfDataArticles(hashMap: HashMap<*, *>,pos: Int): MutableLiveData<MutableList<DataArticle>> {
-        if(listOfDataArticles.value == null) {
-            listOfDataArticles.value = MutableList(hashMap.size - 1 ) { DataArticle("","","","","") }
+    fun getArticleByPos(pos: Int): MutableLiveData<DataArticle> {
+        val article = MutableLiveData<DataArticle>()
+        articlesReference.child(userLikes.value!!["id$pos"].toString()).get().addOnSuccessListener { snapshot ->
+            article.value = DataArticle(
+                "id${pos}",
+                snapshot.child("title").value.toString(),
+                snapshot.child("urlPhoto").value.toString(),
+                snapshot.child("urlPage").value.toString(),
+                snapshot.child("author").value.toString()
+            )
         }
-        articlesReference.child(hashMap["id$pos"].toString()).get()
-            .addOnSuccessListener { snapshot ->
-                listOfDataArticles.value?.add(
-                    pos, DataArticle(
-                        hashMap["id$pos"].toString(),
-                        snapshot.child("title").value.toString(),
-                        snapshot.child("urlPhoto").value.toString(),
-                        snapshot.child("urlPage").value.toString(),
-                        snapshot.child("author").value.toString()
-                    )
-                )
-            }.addOnCompleteListener {
-                listOfDataArticles.value!!.forEach{
-                    it.status.value = 1
-                }
-            }
-        return listOfDataArticles
+        return article
     }
+
+
     private fun likes(id : String): MutableLiveData<ArticleLikes> {
         articlesReference.child(id).child("likes").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

@@ -21,7 +21,8 @@
     <color name="background_view_pager">#FFFFFF</color>
 
 
-    <color name="background_light_pink">#FAF3F3</color>
+    <!--#FAF3F3-->
+    <color name="background_light_pink">#FFEFEF</color>
     <color name="light_theme_text_color_light_black">#686666</color>
     <color name="grey">#303030</color>
     <color name="light_theme_frame_color_orange">#A42121</color>
@@ -29,5 +30,8 @@
     <color name="red">#B04242</color>
     <color name="light_grey">#EAE4E4</color>
     <color name="white_">#FEFBFB</color>
+    <color name="divider_white">#FFFEFE</color>
+    <color name="background_text_field_white">#FFFEFE</color>
+    <color name="stroke_grey">#BDB8B8</color>
 
 </resources>

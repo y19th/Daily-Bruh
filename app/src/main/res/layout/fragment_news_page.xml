@@ -38,7 +38,6 @@
                android:showDividers="middle"
                app:endIconDrawable="@drawable/icon_arrow_bottom"
                app:endIconMinSize="20dp"
-
                app:endIconTint="@color/red"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +48,7 @@
                    android:id="@+id/popular_filter_field"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:textSize="11sp"
+                   android:textSize="12sp"
                    android:fontFamily="@font/jost_regular"
                    android:ellipsize="end"
                    android:inputType="none"
@@ -174,10 +173,10 @@
                 app:layout_constraintEnd_toStartOf="@id/profile_button"
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/app_title"
-                android:textColor="@color/light_theme_text_color_light_black"
+                android:textColor="@color/grey"
                 android:textAlignment="gravity"
                 android:gravity="center"
-                android:fontFamily="@font/jost_regular"
+                android:fontFamily="@font/jost_semibold"
                 android:textSize="18sp"
                 />
             <androidx.appcompat.widget.AppCompatButton

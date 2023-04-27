@@ -8,8 +8,8 @@
     <string name="url_text">Открыть полностью</string>
     <string name="drag_line">drag_line</string>
     <string name="hint_search">Введите запрос</string>
-    <string name="dialog_search_header">Поисковик</string>
-    <string name="dialog_search_under_header">Введите ключевую фразу, для поиска новостей</string>
+    <string name="dialog_search_header">Поиск</string>
+    <string name="dialog_search_under_header">введите ключевую фразу для поиска новостей</string>
     <string name="dialog_search_error_message">Запрос должен состоять из не менее 2 символов</string>
     <string name="hint_language">Выберите язык</string>
     <string name="done">Готово</string>
@@ -65,6 +65,7 @@
     <string name="underheader_auth_name">как вас зовут?</string>
     <string name="continue_text">продолжить</string>
     <string name="text_your_name">Введите ваше имя</string>
+    <string name="hint_search_dialog">введите ваш запрос...</string>
 
     <array name="popular_filter">
         <item>популярные</item>

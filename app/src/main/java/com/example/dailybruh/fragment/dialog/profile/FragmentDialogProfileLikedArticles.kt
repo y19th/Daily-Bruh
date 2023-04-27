@@ -30,14 +30,12 @@ class FragmentDialogProfileLikedArticles : Fragment() {
         val database = constDatabase.value!!
         binding.apply {
             recyclerview.apply {
-                database.totalLiked().observe(viewLifecycleOwner) {
-                    when(it) {
+                    when(database.totalLiked.value!!) {
                         0L -> binding.errorLayout.visibility = View.VISIBLE
                         else -> binding.errorLayout.visibility = View.GONE
                     }
-                    adapter = NewsPageRecyclerAdapter(database, viewLifecycleOwner,it)
+                    adapter = NewsPageRecyclerAdapter(database, viewLifecycleOwner,database.totalLiked.value!!)
                     layoutManager = LinearLayoutManager(context)
-                }
             }
             backButton.backButtonLayout.setOnClickListener {
                 view.navigateTo(R.id.liked_articles_to_profile)
