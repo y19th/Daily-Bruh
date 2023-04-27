@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="@id/header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:errorIconDrawable="@drawable/icon_error_mark"
-        app:helperText="@string/text_your_name"
+        app:helperText="@string/hint_dialog_input_field_name"
         app:layout_constraintVertical_bias="0.14"
         >
         <androidx.appcompat.widget.AppCompatEditText

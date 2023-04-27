@@ -42,7 +42,7 @@
     <string name="popular_filter">Популярные</string>
     <string name="nickname_header">никнейм</string>
     <string name="change_name">Изменить имя</string>
-    <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
+    <string name="change_name_desc">здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
     <string name="change_nickname_desc">здесь вы можете изменить свой никнейм</string>
     <string name="date_filter">За эту неделю</string>
@@ -64,8 +64,9 @@
     <string name="header_auth_name">Теперь давайте познакомимся</string>
     <string name="underheader_auth_name">как вас зовут?</string>
     <string name="continue_text">продолжить</string>
-    <string name="text_your_name">Введите ваше имя</string>
-    <string name="hint_search_dialog">введите ваш запрос...</string>
+    <string name="hint_dialog_input_field_name">введите ваше новое имя…</string>
+    <string name="hint_dialog_input_field_nickname">введите ваш новый никнейм…</string>
+    <string name="hint_search_dialog">введите ваш запрос…</string>
 
     <array name="popular_filter">
         <item>популярные</item>

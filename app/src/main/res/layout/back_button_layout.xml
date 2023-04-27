@@ -11,16 +11,15 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="20dp"
         >
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/back_button"
             android:layout_width="18dp"
             android:layout_height="32dp"
             android:src="@drawable/icon_arrow_left"
-            android:contentDescription="@string/back_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/back_button"

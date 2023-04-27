@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import com.example.dailybruh.R
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDialogProfileNicknameBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -29,18 +30,24 @@ class FragmentDialogProfileNickname(val database: Database) : BottomSheetDialogF
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
+
+            inputLayout.inputField.hint = getString(R.string.hint_dialog_input_field_nickname)
+
             doneButton.setOnClickListener {
-                when (inputField.text?.length) {
-                    null, 0 -> inputLayout.error = "Поле не должно быть пустым"
-                    in 1..10 -> {
-                        database.nickname(inputField.text.toString())
-                        dismiss()
+                inputLayout.apply {
+                    when (inputField.text?.length) {
+                        null, 0 -> inputLayout.error = "Поле не должно быть пустым"
+                        in 1..10 -> {
+                            database.nickname(inputField.text.toString())
+                            dismiss()
+                        }
+
+                        else -> inputLayout.error = "Поле должно содержать не больше 10 символов"
                     }
-                    else -> inputLayout.error = "Поле должно содержать не больше 10 символов"
+                    inputField.doOnTextChanged { text, start, before, count ->
+                        inputLayout.error = null
+                    }
                 }
-            }
-            inputField.doOnTextChanged { text, start, before, count ->
-                inputLayout.error = null
             }
         }
     }

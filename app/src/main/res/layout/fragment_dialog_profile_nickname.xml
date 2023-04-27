@@ -47,27 +47,13 @@
         style="@style/BigUnderHeaderText"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <include layout="@layout/layout_input_field"
         android:id="@+id/input_layout"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/under_header"
-        app:startIconDrawable="@drawable/icon_search"
-        style="@style/InputLayout"
-        app:startIconTint="@color/red"
-        >
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_field"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            style="@style/InputField"
-            android:textSize="16sp"
-            android:hint="@string/hint_search_dialog"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/done_button"
