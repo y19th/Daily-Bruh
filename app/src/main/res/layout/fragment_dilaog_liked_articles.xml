@@ -25,12 +25,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/liked_articles_header"
         android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/jost_semibold"
-        android:gravity="center"
+        style="@style/MediumHeaderText"
         />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/under_header"
         android:layout_width="0dp"
         android:layout_height="45dp"
@@ -39,9 +36,7 @@
         app:layout_constraintEnd_toEndOf="@id/header"
         android:text="@string/liked_articles_desc"
         android:layout_marginTop="2dp"
-        android:textSize="12sp"
-        android:fontFamily="@font/jost_regular"
-        android:gravity="center"
+        style="@style/MediumUnderHeaderText"
         />
 
     <androidx.recyclerview.widget.RecyclerView

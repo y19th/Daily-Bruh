@@ -44,7 +44,7 @@
     <string name="change_name">Изменить имя</string>
     <string name="change_name_desc">Здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
-    <string name="change_nickname_desc">Здесь вы можете изменить свой никнейм</string>
+    <string name="change_nickname_desc">здесь вы можете изменить свой никнейм</string>
     <string name="date_filter">За эту неделю</string>
     <string name="saved_articles_header">Сохраненные новости</string>
     <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
