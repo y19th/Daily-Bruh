@@ -1,16 +1,21 @@
 package com.example.dailybruh.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentMainBinding
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.web.*
+import com.example.dailybruh.web.MoshiParse
+import com.example.dailybruh.web.Request
+import com.example.dailybruh.web.language
+import com.example.dailybruh.web.recentRequest
+import com.example.dailybruh.web.setDefaultSettings
+import com.example.dailybruh.web.sorting
 
 
 class MainFragment : Fragment() {

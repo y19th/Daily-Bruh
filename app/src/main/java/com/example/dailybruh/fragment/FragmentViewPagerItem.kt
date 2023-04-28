@@ -14,7 +14,6 @@ import com.example.dailybruh.calendar.parseDate
 import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
-import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.toastLong
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

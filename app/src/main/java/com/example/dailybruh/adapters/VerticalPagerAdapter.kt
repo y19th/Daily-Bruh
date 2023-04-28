@@ -5,7 +5,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.fragment.FragmentViewPagerItem
 
 

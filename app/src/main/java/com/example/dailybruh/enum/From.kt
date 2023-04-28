@@ -1,7 +1,6 @@
 package com.example.dailybruh.enum
 
 import android.icu.util.Calendar
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

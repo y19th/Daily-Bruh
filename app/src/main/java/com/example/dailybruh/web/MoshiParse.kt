@@ -5,13 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dailybruh.const.constNews
-import com.example.dailybruh.dataclasses.Article
 import com.example.dailybruh.dataclasses.News
-import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -51,7 +47,6 @@ class MoshiParse : ViewModel() {
     private val _status = MutableLiveData<String>()
     private val _news = MutableLiveData<News>()
     private val _tempNews = MutableLiveData<News>()
-    val news: LiveData<News> = _news
     val status: LiveData<String> = _status
 
 

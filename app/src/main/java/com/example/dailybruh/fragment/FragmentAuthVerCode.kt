@@ -1,5 +1,6 @@
 package com.example.dailybruh.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.VERIFICATION_ID
-import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthVercodeBinding
 import com.example.dailybruh.extension.navigateTo
 import com.google.firebase.auth.PhoneAuthCredential
@@ -40,11 +40,15 @@ class FragmentAuthVerCode: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        verId = requireArguments().getString(VERIFICATION_ID)!!
-       authOptions = requireArguments().getSerializable(AUTH_OPTIONS) as AuthOptions
+        authOptions = if(Build.VERSION.SDK_INT >= 33) {
+            requireArguments().getSerializable(AUTH_OPTIONS,AuthOptions::class.java)!!
+        } else {
+            requireArguments().getSerializable(AUTH_OPTIONS) as AuthOptions
+        }
         binding.apply {
 
 
-            codeField.doOnTextChanged { text, start, _, end ->
+            codeField.doOnTextChanged { _, _, _, _ ->
                 error(enabled = false)
             }
 

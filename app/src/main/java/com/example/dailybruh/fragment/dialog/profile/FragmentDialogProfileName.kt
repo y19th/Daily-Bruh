@@ -9,8 +9,6 @@ import com.example.dailybruh.R
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDialogProfileNameBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class FragmentDialogProfileName(val database: Database):  BottomSheetDialogFragment() {
 
@@ -21,7 +19,7 @@ class FragmentDialogProfileName(val database: Database):  BottomSheetDialogFragm
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDialogProfileNameBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -42,7 +40,7 @@ class FragmentDialogProfileName(val database: Database):  BottomSheetDialogFragm
 
                         else -> inputLayout.error = "Поле должно содержать не больше 10 символов"
                     }
-                    inputField.doOnTextChanged { text, start, before, count ->
+                    inputField.doOnTextChanged { _, _, _, _ ->
                         inputLayout.error = null
                     }
                 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ToolBarTextAppearance" >
-        <item name="android:fontFamily">@font/droid_serif</item>
-        <item name="android:textSize">20sp</item>
-    </style>
+
     <style name="CustomBottomSheetDialogStyle"
         parent="Theme.Material3.DayNight.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
@@ -16,13 +13,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
-
-    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-    </style>
-
 
 
     <style name="RedContinueButton" parent="Widget.MaterialComponents.Button">

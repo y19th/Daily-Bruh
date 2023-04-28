@@ -1,15 +1,12 @@
 package com.example.dailybruh.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
@@ -17,12 +14,10 @@ import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
-import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.enum.From
 import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.extension.toastLong
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
 import com.example.dailybruh.web.MoshiParse
 import com.example.dailybruh.web.from
@@ -34,7 +29,6 @@ import com.google.firebase.ktx.Firebase
 class FragmentNewsPage : Fragment() {
 
     private lateinit var binding: FragmentNewsPageBinding
-    private lateinit var news: News
     private val model: MoshiParse by viewModels()
 
     override fun onCreateView(
@@ -79,7 +73,7 @@ class FragmentNewsPage : Fragment() {
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
-                setOnItemClickListener { adapterView, view, clickedItem, l ->
+                setOnItemClickListener { _, _, clickedItem, _ ->
                     when (clickedItem) {
                         0 -> {
                             changeSortParam(Sort.POPULARITY)
@@ -119,7 +113,6 @@ class FragmentNewsPage : Fragment() {
         this.apply {
             setDropDownBackgroundDrawable(ResourcesCompat.getDrawable(resources,R.drawable.item_filter_background_inset,null))
         }.setAdapter(ArrayAdapter(requireContext(),R.layout.menu_list_item,resources.getStringArray(arrayId)))
-        val ada = ArrayAdapter(requireContext(),R.layout.menu_list_item,resources.getStringArray(arrayId))
 
     }
     private fun changeSortParam(sort: Sort) {

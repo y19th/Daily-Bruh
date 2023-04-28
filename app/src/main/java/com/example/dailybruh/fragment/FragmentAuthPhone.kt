@@ -16,9 +16,11 @@ import com.example.dailybruh.auth.verify
 import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
-import com.example.dailybruh.extension.*
+import com.example.dailybruh.extension.disableView
+import com.example.dailybruh.extension.enableView
+import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.extension.toastLong
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -40,7 +42,7 @@ class FragmentAuthPhone : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
-            authOptions = AuthOptions(requireContext())
+            authOptions = AuthOptions()
 
             val callback = object : CodeCallback(requireContext()) {
                 override fun stepOnCodeSent() {

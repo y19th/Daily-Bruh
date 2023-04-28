@@ -1,8 +1,6 @@
 package com.example.dailybruh.auth
 
 import android.app.Activity
-import android.content.Context
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import com.google.firebase.auth.FirebaseUser
@@ -13,22 +11,21 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
 
-class AuthOptions(private val context: Context) : java.io.Serializable {
+class AuthOptions : java.io.Serializable {
 
-    lateinit var options: PhoneAuthOptions
+    private lateinit var options: PhoneAuthOptions
 
     private var _phone: String? = null
     private var _activity: Activity? = null
     private var _callbacks: CodeCallback? = null
 
     private val callbacks: CodeCallback get() = _callbacks!!
-    private val phone: String get() = _phone!!
     private val activity: Activity get() = _activity!!
 
     private lateinit var currentView: View
     private lateinit var lifecycleOwner: LifecycleOwner
 
-    var user : FirebaseUser? = null
+    private var user : FirebaseUser? = null
 
     fun createOptions(callbacks: CodeCallback,
                       phoneNumber: String,

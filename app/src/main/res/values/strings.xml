@@ -1,51 +1,25 @@
 <resources>
     <string name="app_name">Daily Bruh</string>
     <string name="article_photo">article_photo</string>
-    <string name="daily_news">Новости дня</string>
-    <string name="week_news">Новости недели</string>
-    <string name="month_news">Новости месяца</string>
-    <string name="search_news">Поиск</string>
     <string name="url_text">Открыть полностью</string>
     <string name="drag_line">drag_line</string>
-    <string name="hint_search">Введите запрос</string>
     <string name="dialog_search_header">Поиск</string>
     <string name="dialog_search_under_header">введите ключевую фразу для поиска новостей</string>
     <string name="dialog_search_error_message">Запрос должен состоять из не менее 2 символов</string>
-    <string name="hint_language">Выберите язык</string>
-    <string name="done">Готово</string>
-    <string name="settings">Настройки</string>
-    <string name="dialog_settings_header">Настройки</string>
-    <string name="dialog_setting_under_header">Здесь вы можете изменить настройки поиска</string>
-    <array name="languages">
-        <item>Русский</item>
-        <item>Английский</item>
-    </array>
-    <string name="dialog_setting_language_header">Язык поисковика</string>
-    <string name="dialog_setting_sort_header">Фильтры</string>
-    <string name="hint_sort">Выберите фильтр</string>
-    <string name="hint_from_date">Выберите промежуток времени</string>
-    <string name="dialog_setting_from_date_header">Период</string>
     <string name="description">Описание:</string>
     <string name="app_title">Daily Bruh</string>
     <string name="url_button_desc">arrow_next</string>
-    <string name="hint_phone">Телефон</string>
-    <string name="hint_ver_code">Код подтверждения</string>
     <string name="firebase_error_network">Подключение к сети отсутствует</string>
     <string name="phone">номер телефона</string>
-    <string name="back_button">back button</string>
-    <string name="back_button_text">К новостям</string>
     <string name="name_header">имя</string>
     <string name="saved_news">Сохраненные новости</string>
     <string name="liked_news">Понравившиеся новости</string>
     <string name="sign_out_button">Выйти из профиля</string>
-    <string name="arrow_next">arrow_next</string>
-    <string name="popular_filter">Популярные</string>
     <string name="nickname_header">никнейм</string>
     <string name="change_name">Изменить имя</string>
     <string name="change_name_desc">здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
     <string name="change_nickname_desc">здесь вы можете изменить свой никнейм</string>
-    <string name="date_filter">За эту неделю</string>
     <string name="saved_articles_header">Сохраненные новости</string>
     <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
     <string name="liked_articles_header">Новости, которые вам понравились</string>

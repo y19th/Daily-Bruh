@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="blue_400">#5C6BC0</color>
-    <color name="blue_500">#3F51B5</color>
     <color name="red_500">#F44336</color>
     <color name="red_300">#E57373</color>
     <color name="white_100">#E3E3E3</color>
-    <color name="background_color">#E8EAF6</color>
     <color name="background_color_2">#D54C4B4B</color>
     <color name="black">#FF000000</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="white">#FFFFFFFF</color>
     <color name="title_text_color">#191919</color>
-    <color name="preview_text_color">#222222</color>
-    <color name="url_color">#E57373</color>
-    <color name="pressed_url_color">#3F51B5</color>
-    <color name="drag_line_color">#777777</color>
     <color name="back_text_color">#373636</color>
-    <color name="background_url_button_color">#808080</color>
-    <color name="background_view_pager">#FFFFFF</color>
 
 
     <!--#FAF3F3-->
     <color name="background_light_pink">#FFEFEF</color>
     <color name="light_theme_text_color_light_black">#686666</color>
     <color name="grey">#303030</color>
-    <color name="light_theme_frame_color_orange">#A42121</color>
-    <color name="light_red">#DFC0C0</color>
     <color name="red">#B04242</color>
     <color name="light_grey">#EAE4E4</color>
     <color name="white_">#FEFBFB</color>

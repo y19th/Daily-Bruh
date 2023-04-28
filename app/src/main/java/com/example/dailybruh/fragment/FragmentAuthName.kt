@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
-import com.example.dailybruh.database.Database
 import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthNameBinding
 import com.example.dailybruh.extension.navigateTo
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class FragmentAuthName: Fragment() {
 

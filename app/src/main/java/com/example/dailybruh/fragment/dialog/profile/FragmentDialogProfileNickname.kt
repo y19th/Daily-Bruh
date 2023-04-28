@@ -9,8 +9,6 @@ import com.example.dailybruh.R
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDialogProfileNicknameBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class FragmentDialogProfileNickname(val database: Database) : BottomSheetDialogFragment() {
 
@@ -22,7 +20,7 @@ class FragmentDialogProfileNickname(val database: Database) : BottomSheetDialogF
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDialogProfileNicknameBinding.inflate(inflater, container, false)
         return binding.root
     }
