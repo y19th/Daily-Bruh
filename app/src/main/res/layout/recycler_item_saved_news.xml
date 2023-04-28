@@ -9,9 +9,6 @@
     android:layout_margin="10dp"
     android:background="@drawable/item_rounded_rectangle_white"
     >
-
-
-
     <TextView
         android:id="@+id/author_page"
         android:layout_width="match_parent"
@@ -38,14 +35,13 @@
         android:layout_marginTop="5dp"
         app:cardElevation="4dp"
         >
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/url_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/article_photo"
             tools:src="@drawable/icon_edittext_error"
             tools:layout_height="200dp"
             />
@@ -59,19 +55,15 @@
         app:layout_constraintEnd_toStartOf="@id/icon_arrow_next"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginVertical="10dp"
-        android:textColor="@color/grey"
-        android:textSize="20sp"
-        android:fontFamily="@font/jost_bold"
-        android:gravity="start"
+        android:layout_marginEnd="15dp"
+        style="@style/RecyclerHeaderText"
         tools:text="Заголовок"
         />
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon_arrow_next"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/icon_arrow_right_black"
         app:layout_constraintTop_toBottomOf="@id/url_photo_layout"
         app:layout_constraintEnd_toEndOf="@id/url_photo_layout"
         app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/ArrowImageView"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

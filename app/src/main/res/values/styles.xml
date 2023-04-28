@@ -57,6 +57,11 @@
         <item name="android:textSize">20sp</item>>
     </style>
 
+    <style name="RecyclerHeaderText" parent="HeaderText">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="UnderHeaderText">
         <item name="android:fontFamily">@font/jost_light</item>
         <item name="android:textColor">@color/black</item>
@@ -69,17 +74,65 @@
     <style name="MediumUnderHeaderText" parent="UnderHeaderText">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="ProfileHeaderText" parent="StandardText">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/jost_semibold</item>
+        <item name="android:gravity">start</item>
+    </style>
+    <style name="ProfileUnderHeaderText" parent="StandardText">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/jost_light</item>
+        <item name="android:gravity">start</item>
+    </style>
+    <style name="SmallProfileUnderHeaderText" parent="ProfileUnderHeaderText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="StandardRecyclerText" parent="StandardText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:gravity">start</item>
+    </style>
+    
+    <style name="SmallRecyclerText" parent="StandardRecyclerText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BigRecyclerText" parent="StandardRecyclerText">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/jost_bold</item>
+    </style>
+
+    <style name="MediumRecyclerText" parent="StandardRecyclerText">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
 
     <style name="ErrorText" parent="HeaderText">
         <item name="android:textColor">@color/red</item>
         <item name="android:textSize">16sp</item>
         <item name="android:visibility">gone</item>
-
     </style>
 
-    <style name="CardView.ArticlePhoto">
-
+    <style name="BackButtonText" parent="StandardText">
+        <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="DividerImageView">
+        <item name="android:src">@drawable/item_divider_white</item>
+        <item name="android:layout_height">4dp</item>
+    </style>
+
+    <style name="ArrowImageView">
+        <item name="srcCompat">@drawable/icon_arrow_right_black</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">10dp</item>
+    </style>
+
+    <style name="ArrowImageViewLeft" parent="ArrowImageView">
+        <item name="android:rotation">180</item>
+    </style>
+
 
     <style name="InputLayout">
         <item name="boxBackgroundColor">@color/background_text_field_white</item>

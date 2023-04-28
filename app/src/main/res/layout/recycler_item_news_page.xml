@@ -10,6 +10,7 @@
     android:background="@drawable/item_stroke_white"
     app:layout_constraintBottom_toBottomOf="parent"
     android:clipToPadding="true"
+    android:paddingHorizontal="20dp"
     tools:layout_height="match_parent"
     >
 
@@ -17,18 +18,15 @@
         android:id="@+id/author_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/jost_semibold"
-        android:textAlignment="textStart"
-        android:textColor="@color/back_text_color"
-        android:textSize="14sp"
+        style="@style/SmallRecyclerText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Фамилия имя" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/like_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,8 +35,8 @@
         app:layout_constraintBottom_toBottomOf="@id/author_page"
         app:layout_constraintEnd_toStartOf="@id/save_button"
         android:layout_marginEnd="10dp"
-        android:contentDescription="@string/liked_news" />
-    <TextView
+        />
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/like_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,11 +65,10 @@
         app:layout_constraintTop_toBottomOf="@id/author_page"
         app:cardCornerRadius="10dp"
         android:background="@drawable/item_rouned_rectangle_light_black_fat"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
         app:cardElevation="4dp"
         >
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/url_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,45 +81,35 @@
         />
     </androidx.cardview.widget.CardView>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
         app:layout_constraintTop_toBottomOf="@id/url_photo_layout"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/light_theme_text_color_light_black"
-        android:textSize="20sp"
-        android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/jost_bold"
         android:layout_marginTop="20dp"
+        style="@style/BigRecyclerText"
         tools:text="Котенок дважды украл деньги из бара"
         />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/desc_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
-        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/title_page"
         app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="@font/jost_medium"
-        android:textColor="@color/light_theme_text_color_light_black"
+        style="@style/MediumRecyclerText"
         android:layout_marginTop="15dp"
-        android:layout_marginHorizontal="20dp"
         />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/desc_page"
-        app:layout_constraintTop_toBottomOf="@id/desc_title"
-        app:layout_constraintBottom_toTopOf="@id/upper_underscore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fontFamily="@font/jost_regular"
-        android:textSize="17sp"
-        android:textColor="@color/light_theme_text_color_light_black"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="12dp"
+        style="@style/StandardRecyclerText"
+        app:layout_constraintTop_toBottomOf="@id/desc_title"
+        app:layout_constraintBottom_toTopOf="@id/upper_underscore"
         tools:text="Капибары — социальные животные, живущие группами по 10—20 особей. Группы состоят из доминирующего самца, нескольких взрослых самок (со своей внутренней иерархией), детёнышей и подчиненных самцов, находящихся на периферии группы. 5—10 % капибар, преимущественно самцов, живут в одиночку"
         />
     <androidx.appcompat.widget.AppCompatImageView
@@ -133,7 +120,6 @@
         app:layout_constraintBottom_toTopOf="@id/button_layout"
         android:layout_marginBottom="15dp"
         android:paddingHorizontal="2dp"
-
         />
 
 
@@ -143,15 +129,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/button_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="textStart"
-        android:textColor="@color/back_text_color"
-        android:layout_marginEnd="40dp"
-        android:textSize="12sp"
-        android:fontFamily="@font/lato_medium"
+        android:layout_marginEnd="20dp"
+        style="@style/SmallRecyclerText"
         android:text="@string/publishedat_header"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/publishedat_page"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -159,11 +142,8 @@
         app:layout_constraintStart_toStartOf="@id/publishedat_header"
         app:layout_constraintTop_toBottomOf="@id/publishedat_header"
         app:layout_constraintBottom_toBottomOf="@id/button_layout"
-        android:textAlignment="center"
-        android:textColor="@color/back_text_color"
-        android:layout_marginEnd="40dp"
-        android:textSize="12sp"
-        android:fontFamily="@font/lato_medium"
+        style="@style/SmallRecyclerText"
+        android:layout_marginEnd="20dp"
         tools:text="00:00 21 июля"
         />
 
@@ -176,29 +156,23 @@
         android:background="@drawable/item_rounded_rectangle_light_black_medium"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="15dp"
         android:paddingHorizontal="8dp"
         >
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/url_button"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:fontFamily="@font/lato_light"
-            android:textAlignment="gravity"
-            android:gravity="center"
+            style="@style/SmallRecyclerText"
             android:padding="5dp"
             android:text="@string/url_text"
-            android:textColor="@color/light_theme_text_color_light_black"
-            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/url_button_icon"
-            android:layout_width="8dp"
-            android:layout_height="10dp"
-            android:src="@drawable/icon_arrow_right_red"
+            style="@style/ArrowImageView"
+            android:tint="@color/red"
             app:layout_constraintStart_toEndOf="@id/url_button"
             app:layout_constraintTop_toTopOf="@id/url_button"
             app:layout_constraintBottom_toBottomOf="@id/url_button"

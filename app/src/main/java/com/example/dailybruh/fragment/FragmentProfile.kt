@@ -37,7 +37,7 @@ class FragmentProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
             phoneField.text = user?.phoneNumber
-            backButtonLayout.setOnClickListener {
+            backButton.backButtonLayout.setOnClickListener {
                 view.navigateTo(R.id.profile_to_newspage)
             }
             signOutButton.setOnClickListener {

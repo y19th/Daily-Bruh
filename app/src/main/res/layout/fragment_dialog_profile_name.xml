@@ -19,8 +19,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/drag_line"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            app:srcCompat="@drawable/item_divider_white"
+            style="@style/DividerImageView"
             />
     </androidx.cardview.widget.CardView>
 

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/back_button"
-        layout="@layout/back_button_layout"
+        layout="@layout/layout_back_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
