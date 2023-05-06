@@ -44,6 +44,7 @@ class Database(
     val userLikes = MutableLiveData<HashMap<*,*>>()
     val totalLiked = MutableLiveData<Long>()
 
+
     init {
         if(phone != STANDARD_PHONE) {
             createLiked()
