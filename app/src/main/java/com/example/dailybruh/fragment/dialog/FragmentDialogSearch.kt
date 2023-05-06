@@ -8,16 +8,20 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentDialogSearchBinding
-import com.example.dailybruh.web.MoshiParse
+import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.Request
+import com.example.dailybruh.web.from
+import com.example.dailybruh.web.sorting
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentDialogSearch: BottomSheetDialogFragment() {
+class FragmentDialogSearch(
+    private val viewModel: NewsViewModel
+): BottomSheetDialogFragment() {
 
     private var _binding: FragmentDialogSearchBinding? = null
     private val binding: FragmentDialogSearchBinding
     get() = _binding!!
-    private val model: MoshiParse by viewModels()
+//    private val model: NewsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,18 +39,17 @@ class FragmentDialogSearch: BottomSheetDialogFragment() {
                     inputLayout.error = null
             }
             readyButton.setOnClickListener {
-
                 when(inputField.text!!.length) {
                     in 0..2 -> inputLayout.error = getString(R.string.dialog_search_error_message)
                     else -> {
-                        model.apply {
+                        viewModel.apply {
                             getNews(
                                 Request(
                                     "everything",
                                     inputField.text.toString(),
+                                    from.value,
                                     null,
-                                    null,
-                                    null,
+                                    sorting.value,
                                     "en"
                                 ).request
                             )

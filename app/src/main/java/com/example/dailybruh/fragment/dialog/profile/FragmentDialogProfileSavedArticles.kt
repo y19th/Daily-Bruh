@@ -18,7 +18,7 @@ class FragmentDialogProfileSavedArticles(database: Database): BottomSheetDialogF
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDialogSavedArticlesBinding.inflate(inflater,container,false)
         return binding.root
     }

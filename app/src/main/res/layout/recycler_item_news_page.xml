@@ -136,7 +136,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/publishedat_page"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/publishedat_header"
@@ -144,6 +144,7 @@
         app:layout_constraintBottom_toBottomOf="@id/button_layout"
         style="@style/SmallRecyclerText"
         android:layout_marginEnd="20dp"
+        android:maxLines="1"
         tools:text="00:00 21 июля"
         />
 

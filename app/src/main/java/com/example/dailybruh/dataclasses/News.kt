@@ -4,9 +4,10 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class News(
-    @Json(name = "totalResults")val total: Int,
-    @Json(name = "status")val status: String,
-    @Json(name = "articles")val articles: List<Article>): Serializable
+    @Json(name = "totalResults")val total: Int = 0,
+    @Json(name = "status")val status: String = "null",
+    @Json(name = "articles")val articles: List<Article> = listOf()
+): Serializable
 
 
 data class Article(

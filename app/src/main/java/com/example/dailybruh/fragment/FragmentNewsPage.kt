@@ -9,6 +9,9 @@ import android.widget.AutoCompleteTextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.const.constNews
@@ -19,24 +22,25 @@ import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
-import com.example.dailybruh.web.MoshiParse
+import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.from
 import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.launch
 
-class FragmentNewsPage : Fragment() {
+class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
 
-    private lateinit var binding: FragmentNewsPageBinding
-    private val model: MoshiParse by viewModels()
+    private val viewModel: NewsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNewsPageBinding.inflate(inflater,container,false)
+        _binding = FragmentNewsPageBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -49,17 +53,12 @@ class FragmentNewsPage : Fragment() {
                     else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
                 }
 
-//                val database = if(constDatabase.value?.phone == STANDARD_PHONE || constDatabase.value?.phone == null) {   //have trouble with
-//                    when(Firebase.auth.currentUser) {                                                                     //observing user likes
-//                        null -> Database().newInstance(lifecycleOwner = viewLifecycleOwner)
-//                        else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
-//                   }
-//                } else constDatabase.value!!
-                constNews.observe(viewLifecycleOwner) {
-                    adapter = VerticalPagerAdapter(database, parentFragmentManager, lifecycle)
+                viewLifecycleOwner.lifecycleScope.launch(CoroutineName("setNews")) {
+                        viewModel.getNews(recentRequest!!.request)
                 }
-                //adapter = VerticalPagerAdapter(database, parentFragmentManager, lifecycle)
-
+                viewModel.status.observe(viewLifecycleOwner) {
+                    adapter = VerticalPagerAdapter(database,parentFragmentManager,viewLifecycleOwner.lifecycle,viewModel.news)
+                }
             }
             profileButton.setOnClickListener {
                 view.disableView()
@@ -69,7 +68,7 @@ class FragmentNewsPage : Fragment() {
                 }
             }
             navMenuButton.setOnClickListener {
-                FragmentDialogSearch().show(childFragmentManager,"dialog_search")
+                FragmentDialogSearch(viewModel).show(childFragmentManager,"dialog_search")
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
@@ -118,12 +117,11 @@ class FragmentNewsPage : Fragment() {
     private fun changeSortParam(sort: Sort) {
         sorting(sort.get())
         recentRequest!!.changeSort(sort.getParam())
-        model.getNews(recentRequest!!.request)
+        viewModel.getNews(recentRequest!!.request)
     }
     private fun changeFromParam(from: From) {
         from(from.get())
         recentRequest!!.changeFrom(from.getParam())
-        model.getNews(recentRequest!!.request)
+        viewModel.getNews(recentRequest!!.request)
     }
-
 }

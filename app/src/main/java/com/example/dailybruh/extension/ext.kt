@@ -52,6 +52,10 @@ private fun enableDisableView(view: View,enabled:Boolean) {
         }
     }
 }
+fun String?.ifNull(replace: String): String {
+    return if(this?.isEmpty() == true || this == null) replace
+    else this
+}
 
 fun toastLong(context: Context, message: String) {
     Toast.makeText(context,message,Toast.LENGTH_LONG).show()
