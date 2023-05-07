@@ -1,22 +1,22 @@
-package com.example.dailybruh.fragment.dialog.profile
+package com.example.dailybruh.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
-import com.example.dailybruh.database.constDatabase
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDilaogLikedArticlesBinding
 import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.viewmodel.DatabaseViewModel
 
-class FragmentDialogProfileLikedArticles : Fragment() {
+class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticlesBinding>() {
 
-    private var _binding : FragmentDilaogLikedArticlesBinding? = null
-    private val binding : FragmentDilaogLikedArticlesBinding get() = _binding!!
-
+    private val databaseViewModel: DatabaseViewModel by viewModels()
+    private lateinit var database : Database
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,15 +27,21 @@ class FragmentDialogProfileLikedArticles : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val database = constDatabase.value!!
+        database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
         binding.apply {
             recyclerview.apply {
-                    when(database.totalLiked.value!!) {
+                database.totalLiked.observe(viewLifecycleOwner) {
+                    when (it) {
                         0L -> binding.errorLayout.visibility = View.VISIBLE
                         else -> binding.errorLayout.visibility = View.GONE
                     }
-                    adapter = NewsPageRecyclerAdapter(database, viewLifecycleOwner,database.totalLiked.value!!)
+                    adapter = NewsPageRecyclerAdapter(
+                        database,
+                        viewLifecycleOwner,
+                        database.totalLiked.value!!
+                    )
                     layoutManager = LinearLayoutManager(context)
+                }
             }
             backButton.backButtonLayout.setOnClickListener {
                 view.navigateTo(R.id.liked_articles_to_profile)

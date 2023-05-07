@@ -1,4 +1,4 @@
-package com.example.dailybruh.fragment
+package com.example.dailybruh.fragment.auth
 
 import android.os.Build
 import android.os.Bundle
@@ -8,21 +8,17 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.databinding.FragmentAuthVercodeBinding
 import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.fragment.StandardFragment
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
-class FragmentAuthVerCode: Fragment() {
-
-    private var _binding: FragmentAuthVercodeBinding? = null
-    private val binding: FragmentAuthVercodeBinding
-    get() = _binding!!
+class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
 
     private lateinit var credential: PhoneAuthCredential
     private lateinit var verId: String

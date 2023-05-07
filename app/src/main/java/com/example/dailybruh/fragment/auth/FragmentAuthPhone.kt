@@ -1,4 +1,4 @@
-package com.example.dailybruh.fragment
+package com.example.dailybruh.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.dailybruh.R
 import com.example.dailybruh.auth.AuthOptions
@@ -21,13 +20,12 @@ import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.extension.toastLong
+import com.example.dailybruh.fragment.StandardFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FragmentAuthPhone : Fragment() {
+class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>() {
 
-    private var _binding: FragmentAuthPhoneBinding? = null
-    private val binding: FragmentAuthPhoneBinding get() = _binding!!
     private lateinit var authOptions: AuthOptions
 
 
@@ -58,7 +56,7 @@ class FragmentAuthPhone : Fragment() {
                     view: View,
                     lifecycleOwner: LifecycleOwner,
                     arguments: Bundle) {
-                    Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!).name.observe(lifecycleOwner) {
+                    Database(Firebase.auth.currentUser!!.phoneNumber!!).name.observe(lifecycleOwner) {
                         when(it) {
                             null -> view.navigateTo(R.id.auth_vercode_to_auth_name)
                             else -> view.navigateTo(R.id.auth_vercode_to_profile)

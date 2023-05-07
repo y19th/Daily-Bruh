@@ -41,7 +41,7 @@
         />
     <fragment
         android:id="@+id/dialog_search"
-        android:name="com.example.dailybruh.fragment.dialog.FragmentDialogSearch"
+        android:name="com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch"
         android:label="FragmentDialogSearch"
         >
     </fragment>
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/liked_articles"
-        android:name="com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileLikedArticles"
+        android:name="com.example.dailybruh.fragment.FragmentProfileLikedArticles"
         android:label="FragmentDialogProfileLikedArticles" >
         <action
             android:id="@+id/liked_articles_to_profile"
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/auth_phone"
-        android:name="com.example.dailybruh.fragment.FragmentAuthPhone"
+        android:name="com.example.dailybruh.fragment.auth.FragmentAuthPhone"
         android:label="FragmentDialogProfile" >
         <action
             android:id="@+id/auth_phone_to_newspage"
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/auth_vercode"
-        android:name="com.example.dailybruh.fragment.FragmentAuthVerCode"
+        android:name="com.example.dailybruh.fragment.auth.FragmentAuthVerCode"
         android:label="FragmentAuthVerCode" >
         <action
             android:id="@+id/auth_vercode_to_auth_name"
@@ -96,7 +96,7 @@
     </fragment>
 
     <fragment android:id="@+id/auth_name"
-        android:name="com.example.dailybruh.fragment.FragmentAuthName"
+        android:name="com.example.dailybruh.fragment.auth.FragmentAuthName"
         android:label="FragmentAuthName"
         >
 <!--        <action android:id="@+id/auth_name_to_auth_nickname"-->

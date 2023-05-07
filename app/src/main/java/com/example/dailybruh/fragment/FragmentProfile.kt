@@ -4,27 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
-import com.example.dailybruh.const.STANDARD_PHONE
-import com.example.dailybruh.database.Database
-import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
+import com.example.dailybruh.interfaces.ProfilePresenterInterface
+import com.example.dailybruh.interfaces.ProfileViewInterface
+import com.example.dailybruh.presenter.ProfilePresenter
+import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FragmentProfile : Fragment() {
+class FragmentProfile : StandardFragment<FragmentProfileBinding>(),ProfileViewInterface {
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding: FragmentProfileBinding get() = _binding!!
     private val user = Firebase.auth.currentUser
-    private val database = if(constDatabase.value!!.phone == STANDARD_PHONE)Database().newInstance(user?.phoneNumber!!)
-                           else constDatabase.value!!
-
+    private val databaseViewModel: DatabaseViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +32,11 @@ class FragmentProfile : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
+        val presenter: ProfilePresenterInterface = ProfilePresenter(profileInterface = this, database = database)
+        presenter.loadData()
+
         binding.apply {
             phoneField.text = user?.phoneNumber
             backButton.backButtonLayout.setOnClickListener {
@@ -45,10 +47,18 @@ class FragmentProfile : Fragment() {
                 view.navigateTo(R.id.profile_to_newspage)
             }
             nameLayout.setOnClickListener {
-                FragmentDialogProfileName(database).show(childFragmentManager,"name_edit_dialog")
+                FragmentDialogProfileName(
+                    database, update = {newText ->
+                        nameField.text = newText
+                    }
+                ).show(childFragmentManager,"name_edit_dialog")
             }
             nicknameLayout.setOnClickListener {
-                FragmentDialogProfileNickname(database).show(childFragmentManager,"nickname_edit_dialog")
+                FragmentDialogProfileNickname(
+                    database, update = {    newText ->
+                        nicknameField.text = newText
+                    }
+                ).show(childFragmentManager,"nickname_edit_dialog")
             }
             savedNewsLayout.setOnClickListener {
                 FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
@@ -56,14 +66,14 @@ class FragmentProfile : Fragment() {
             likedNewsLayout.setOnClickListener {
                 view.navigateTo(R.id.profile_to_liked_articles)
             }
-            database.apply {
-                nickname().observe(viewLifecycleOwner) {
-                    nicknameField.text = it ?: "user"
-                }
-                name().observe(viewLifecycleOwner) {
-                    nameField.text = it ?: "no name"
-                }
-            }
         }
+    }
+
+    override fun setName(result: String) {
+        binding.nameField.text = result
+    }
+
+    override fun setNickname(result: String) {
+        binding.nicknameField.text = result
     }
 }

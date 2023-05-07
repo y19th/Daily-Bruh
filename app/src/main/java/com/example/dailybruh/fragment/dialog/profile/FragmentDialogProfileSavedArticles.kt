@@ -11,9 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class FragmentDialogProfileSavedArticles(database: Database): BottomSheetDialogFragment() {
 
     private var _binding: FragmentDialogSavedArticlesBinding? = null
-    private val binding: FragmentDialogSavedArticlesBinding get() = _binding!!
-
-
+    private val binding: FragmentDialogSavedArticlesBinding get() = requireNotNull(_binding)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +21,9 @@ class FragmentDialogProfileSavedArticles(database: Database): BottomSheetDialogF
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     }

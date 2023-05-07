@@ -1,11 +1,10 @@
-package com.example.dailybruh.fragment.dialog
+package com.example.dailybruh.fragment.dialog.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentDialogSearchBinding
 import com.example.dailybruh.viewmodel.NewsViewModel
@@ -19,10 +18,7 @@ class FragmentDialogSearch(
 ): BottomSheetDialogFragment() {
 
     private var _binding: FragmentDialogSearchBinding? = null
-    private val binding: FragmentDialogSearchBinding
-    get() = _binding!!
-//    private val model: NewsViewModel by viewModels()
-
+    private val binding: FragmentDialogSearchBinding get() = requireNotNull(_binding)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

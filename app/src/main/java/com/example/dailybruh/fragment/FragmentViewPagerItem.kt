@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.dailybruh.R
@@ -22,19 +21,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
 class FragmentViewPagerItem(
     private val database: Database,
     private val position: Int,
-    private val newsFlow: StateFlow<News>
-): Fragment() {
-
-    private var _binding: RecyclerItemNewsPageBinding? = null
-    private val binding: RecyclerItemNewsPageBinding
-    get() = _binding!!
+    private val news: News
+): StandardFragment<RecyclerItemNewsPageBinding>() {
 
     private var likes = MutableLiveData<Long>()
     private val newsy = constNews.value!!
@@ -55,17 +49,16 @@ class FragmentViewPagerItem(
 
 
         binding.apply {
-
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main + CoroutineName("setUI")) {
-                titlePage.text = newsFlow.value.articles[position].title
-                publishedatPage.text = parseDate(newsFlow.value.articles[position].time)
-                authorPage.text = newsFlow.value.articles[position].author.ifNull("Без автора")
-                bindImage(urlPhoto, newsFlow.value.articles[position].image)
+                titlePage.text = news.articles[position].title
+                publishedatPage.text = parseDate(news.articles[position].time)
+                authorPage.text = news.articles[position].author.ifNull("Без автора")
+                bindImage(urlPhoto, news.articles[position].image)
                 descPage.text = resizeDueTextLength()
                 likes.observe(viewLifecycleOwner) {
                     likeCount.text = it.toString()
                 }
-                database.isLiked(newsFlow.value.articles[position].id)
+                database.isLiked(news.articles[position].id)
                     .observe(viewLifecycleOwner) { isLiked ->
 
                         when (isLiked) {
@@ -73,7 +66,7 @@ class FragmentViewPagerItem(
                                 likeButton.setImageDrawable(filledHeart)
                                 likeButton.setOnClickListener {
                                     if (Firebase.auth.currentUser?.phoneNumber != null) {
-                                        database.transactionUnlike(newsFlow.value.articles[position])
+                                        database.transactionUnlike(news.articles[position])
                                         // likeButton.setImageDrawable(unfilledHeart)
                                         likeButton.tag = "unfilled"
                                     } else {
@@ -90,7 +83,7 @@ class FragmentViewPagerItem(
                                 likeButton.setOnClickListener {
                                     likeButton.drawable
                                     if (Firebase.auth.currentUser?.phoneNumber != null) {
-                                        database.transactionLike(newsFlow.value.articles[position])
+                                        database.transactionLike(news.articles[position])
                                         //likeButton.setImageDrawable(filledHeart)
                                         likeButton.tag = "filled"
                                     } else {
@@ -103,9 +96,9 @@ class FragmentViewPagerItem(
                             }
                         }
                     }
-                database.article(newsFlow.value.articles[position])
+                database.article(news.articles[position])
                 database.likes.observe(viewLifecycleOwner) {
-                    if (database.likes.value!!.id == newsFlow.value.articles[position].id) likes.value =
+                    if (database.likes.value!!.id == news.articles[position].id) likes.value =
                         it.likes
                 }
             }

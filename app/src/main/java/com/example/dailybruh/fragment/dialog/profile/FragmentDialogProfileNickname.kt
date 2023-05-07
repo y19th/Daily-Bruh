@@ -10,11 +10,13 @@ import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDialogProfileNicknameBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentDialogProfileNickname(val database: Database) : BottomSheetDialogFragment() {
+class FragmentDialogProfileNickname(
+    private val database: Database,
+    private val update: (String) -> Unit
+) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDialogProfileNicknameBinding? = null
-    private val binding: FragmentDialogProfileNicknameBinding get() = _binding!!
-
+    private val binding: FragmentDialogProfileNicknameBinding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +39,7 @@ class FragmentDialogProfileNickname(val database: Database) : BottomSheetDialogF
                         null, 0 -> inputLayout.error = "Поле не должно быть пустым"
                         in 1..10 -> {
                             database.nickname(inputField.text.toString())
+                            update.invoke(inputField.text.toString())
                             dismiss()
                         }
 

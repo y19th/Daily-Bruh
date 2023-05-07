@@ -1,21 +1,21 @@
-package com.example.dailybruh.fragment
+package com.example.dailybruh.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
-import com.example.dailybruh.database.constDatabase
 import com.example.dailybruh.databinding.FragmentAuthNameBinding
 import com.example.dailybruh.extension.navigateTo
+import com.example.dailybruh.fragment.StandardFragment
+import com.example.dailybruh.viewmodel.DatabaseViewModel
 
-class FragmentAuthName: Fragment() {
+class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>() {
 
-    private var _binding: FragmentAuthNameBinding? = null
-    private val binding get() = _binding!!
-    private val database = constDatabase.value!!
+    private val databaseViewModel: DatabaseViewModel by viewModels()
+    private val database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
 
     override fun onCreateView(
         inflater: LayoutInflater,

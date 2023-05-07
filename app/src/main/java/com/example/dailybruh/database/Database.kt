@@ -1,5 +1,6 @@
 package com.example.dailybruh.database
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.const.STANDARD_PHONE
@@ -11,31 +12,35 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.concurrent.CancellationException
+import java.util.concurrent.Executors
+import kotlin.coroutines.coroutineContext
 
-
-
-
-internal val constDatabase: MutableLiveData<Database> by lazy {
-    MutableLiveData<Database>()
-}
 
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
-
-
 class Database(
     _phone: String = STANDARD_PHONE,
-    private val lifecycleOwner: LifecycleOwner? = null
+    private var lifecycleOwner: LifecycleOwner? = null,
+    private var lifecycle: Lifecycle? = null
 ) {
 
 
 
-    private val userReference = database.reference.child("users").child(_phone)
+    val userReference = database.reference.child("users").child(_phone)
     private val articlesReference = database.reference.child("articles")
     val phone = _phone
 
     val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
+
+    var userName: String? = null
+    var userNickname: String? = null
 
     private val isLiked = MutableLiveData<Boolean>()
 
@@ -43,6 +48,8 @@ class Database(
 
     val userLikes = MutableLiveData<HashMap<*,*>>()
     val totalLiked = MutableLiveData<Long>()
+
+    private val singleThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
 
 
     init {
@@ -53,11 +60,9 @@ class Database(
             userLikes()
         }
     }
-
-
-    fun newInstance(phone: String = STANDARD_PHONE,lifecycleOwner: LifecycleOwner? = null): Database {
-        constDatabase.value = Database(phone,lifecycleOwner)
-        return constDatabase.value!!
+    fun setLifecycle(lOwner: LifecycleOwner? = null,lcycle: Lifecycle? = null) {
+        lifecycleOwner = lOwner?.let { lOwner }
+        lifecycle = lcycle?.let { lcycle }
     }
 
     // user scope
@@ -79,6 +84,40 @@ class Database(
     fun nickname(nick: String) {
         userReference.child("nickname").setValue(nick)
     }
+
+    suspend fun getName() = withContext(
+        coroutineContext + singleThread + CoroutineName("getName")
+    ) {
+        try {
+            launch {
+                userReference.child("name").get().addOnCompleteListener {
+                    userName = it.result.value as String?
+                    userName = userName
+                    this.cancel()
+                }
+            }
+        } catch (e: CancellationException) {
+            singleThread.close()
+        }
+        return@withContext userName
+    }
+
+    suspend fun getNickname() = withContext(
+        coroutineContext + singleThread + CoroutineName("getNickname")
+    ) {
+        try {
+            launch {
+                userReference.child("nickname").get().addOnCompleteListener {
+                    userNickname = it.result.value as String?
+                    this.cancel()
+                }
+            }
+        } catch (e : CancellationException) {
+            singleThread.close()
+        }
+        return@withContext userNickname
+    }
+
 
     fun name(): MutableLiveData<String> {
         userReference.child("name").addValueEventListener(object : ValueEventListener {

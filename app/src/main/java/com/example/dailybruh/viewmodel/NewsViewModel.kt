@@ -11,12 +11,12 @@ import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.web.NewsApi
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
@@ -29,25 +29,22 @@ class NewsViewModel : ViewModel() {
 
 
     fun getNews(addUrl: String) {
-        viewModelScope.launch(Dispatchers.IO + CoroutineName("getNews")) {
+        viewModelScope.launch(Dispatchers.Main + CoroutineName("getNews")) {
             try {
                 val result = NewsApi.retrofitService.getNews(getURL(addUrl))
                 result.setId()
-                _news.update {currentState ->
-
-                    currentState.copy(
-                        total = result.total,
-                        status = result.status,
-                        articles = result.articles
-                    )
-                }
-                withContext(Dispatchers.Main) {
-                    _status.value = "ok"
+                _news.collect {
+                    _news.update { currentState ->
+                        currentState.copy(
+                            total = result.total,
+                            status = result.status,
+                            articles = result.articles
+                        )
+                    }
+                    this.cancel()
                 }
             } catch (e : Exception) {
-                withContext(Dispatchers.Main) {
-                    _status.value = e.message
-                }
+                _status.value = e.message
             }
         }
     }

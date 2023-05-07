@@ -7,21 +7,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
-import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.enum.From
 import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.fragment.dialog.FragmentDialogSearch
+import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
+import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.from
 import com.example.dailybruh.web.recentRequest
@@ -29,11 +26,15 @@ import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
 
-    private val viewModel: NewsViewModel by viewModels()
+    private val newsModel: NewsViewModel by viewModels()
+    private val databaseViewModel: DatabaseViewModel by viewModels()
+    private lateinit var database: Database
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,19 +47,21 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
         binding.apply {
             viewpagerMain.apply {
-                val database = when(Firebase.auth.currentUser){
-                    null -> Database().newInstance(lifecycleOwner = viewLifecycleOwner)
-                    else -> Database().newInstance(Firebase.auth.currentUser!!.phoneNumber!!,viewLifecycleOwner)
+                viewLifecycleOwner.lifecycleScope.launch(CoroutineName("setNews")) {
+                    newsModel.getNews(recentRequest!!.request)
+                    newsModel.news.map {
+                        adapter = VerticalPagerAdapter(
+                            database = database,
+                            fragmentManager = parentFragmentManager,
+                            lifecycle = viewLifecycleOwner.lifecycle,
+                            news = it
+                        )
+                    }.stateIn(this)
                 }
 
-                viewLifecycleOwner.lifecycleScope.launch(CoroutineName("setNews")) {
-                        viewModel.getNews(recentRequest!!.request)
-                }
-                viewModel.status.observe(viewLifecycleOwner) {
-                    adapter = VerticalPagerAdapter(database,parentFragmentManager,viewLifecycleOwner.lifecycle,viewModel.news)
-                }
             }
             profileButton.setOnClickListener {
                 view.disableView()
@@ -68,10 +71,11 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
                 }
             }
             navMenuButton.setOnClickListener {
-                FragmentDialogSearch(viewModel).show(childFragmentManager,"dialog_search")
+                FragmentDialogSearch(newsModel).show(childFragmentManager,"dialog_search")
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
+                hint = Sort.POPULARITY.get()
                 setOnItemClickListener { _, _, clickedItem, _ ->
                     when (clickedItem) {
                         0 -> {
@@ -91,6 +95,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
 
             dateFilterField.apply {
                 setAdapter(R.array.date_filter)
+                hint = From.FROM_MONTH.get()
                 setOnItemClickListener { _,_,clickedItem,_ ->
                     when(clickedItem) {
                         0 -> {
@@ -117,11 +122,11 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
     private fun changeSortParam(sort: Sort) {
         sorting(sort.get())
         recentRequest!!.changeSort(sort.getParam())
-        viewModel.getNews(recentRequest!!.request)
+        newsModel.getNews(recentRequest!!.request)
     }
     private fun changeFromParam(from: From) {
         from(from.get())
         recentRequest!!.changeFrom(from.getParam())
-        viewModel.getNews(recentRequest!!.request)
+        newsModel.getNews(recentRequest!!.request)
     }
 }
