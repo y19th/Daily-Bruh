@@ -37,7 +37,7 @@ class FragmentDialogProfileName(
                     when (inputField.text?.length) {
                         null, 0 -> inputLayout.error = "Поле не должно быть пустым"
                         in 1..10 -> {
-                            database.name(inputField.text.toString())
+                            database.changeName(inputField.text.toString())
                             update.invoke(inputField.text.toString())
                             dismiss()
                         }

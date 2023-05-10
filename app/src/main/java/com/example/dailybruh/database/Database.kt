@@ -12,14 +12,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.concurrent.CancellationException
-import java.util.concurrent.Executors
-import kotlin.coroutines.coroutineContext
 
 
 private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -30,17 +22,11 @@ class Database(
     private var lifecycle: Lifecycle? = null
 ) {
 
-
-
     val userReference = database.reference.child("users").child(_phone)
     private val articlesReference = database.reference.child("articles")
     val phone = _phone
 
-    val nickname = MutableLiveData<String>()
     val name = MutableLiveData<String>()
-
-    var userName: String? = null
-    var userNickname: String? = null
 
     private val isLiked = MutableLiveData<Boolean>()
 
@@ -49,14 +35,12 @@ class Database(
     val userLikes = MutableLiveData<HashMap<*,*>>()
     val totalLiked = MutableLiveData<Long>()
 
-    private val singleThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+//    private val singleThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
 
 
     init {
         if(phone != STANDARD_PHONE) {
             createLiked()
-            name()
-            nickname()
             userLikes()
         }
     }
@@ -68,71 +52,10 @@ class Database(
     // user scope
     //
 
-    fun nickname(): MutableLiveData<String> {
-        userReference.child("nickname").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nickname.value = snapshot.value as String?
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
-        return nickname
-    }
-
-    fun nickname(nick: String) {
+    fun changeNickname(nick: String) {
         userReference.child("nickname").setValue(nick)
     }
-
-    suspend fun getName() = withContext(
-        coroutineContext + singleThread + CoroutineName("getName")
-    ) {
-        try {
-            launch {
-                userReference.child("name").get().addOnCompleteListener {
-                    userName = it.result.value as String?
-                    userName = userName
-                    this.cancel()
-                }
-            }
-        } catch (e: CancellationException) {
-            singleThread.close()
-        }
-        return@withContext userName
-    }
-
-    suspend fun getNickname() = withContext(
-        coroutineContext + singleThread + CoroutineName("getNickname")
-    ) {
-        try {
-            launch {
-                userReference.child("nickname").get().addOnCompleteListener {
-                    userNickname = it.result.value as String?
-                    this.cancel()
-                }
-            }
-        } catch (e : CancellationException) {
-            singleThread.close()
-        }
-        return@withContext userNickname
-    }
-
-
-    fun name(): MutableLiveData<String> {
-        userReference.child("name").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                name.value = snapshot.value as String?
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
-        return name
-    }
-
-    fun name(name: String) {
+    fun changeName(name: String) {
         userReference.child("name").setValue(name)
     }
 

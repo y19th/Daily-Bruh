@@ -38,7 +38,7 @@ class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>() {
             }
             continueButton.setOnClickListener {
                 if(inputField.editableText.isEmpty())inputLayout.error = "unable to have zero-chars name"
-                else database.name(inputField.text.toString())
+                else database.changeName(inputField.text.toString())
             }
         }
     }

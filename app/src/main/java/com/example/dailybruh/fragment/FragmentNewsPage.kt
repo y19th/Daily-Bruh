@@ -13,11 +13,14 @@ import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
+import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.enum.From
 import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
+import com.example.dailybruh.interfaces.MainPageView
+import com.example.dailybruh.presenter.MainPagePresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.from
@@ -30,11 +33,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
+class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageView {
 
     private val newsModel: NewsViewModel by viewModels()
     private val databaseViewModel: DatabaseViewModel by viewModels()
-    private lateinit var database: Database
+    private lateinit var presenter: MainPagePresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,22 +50,13 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
+        presenter = MainPagePresenter(
+            viewState = this,
+            viewLifecycleOwner = viewLifecycleOwner,
+            newsViewModel = newsModel,
+            databaseViewModel = databaseViewModel
+        ).also { it.loadData() }
         binding.apply {
-            viewpagerMain.apply {
-                viewLifecycleOwner.lifecycleScope.launch(CoroutineName("setNews")) {
-                    newsModel.getNews(recentRequest!!.request)
-                    newsModel.news.map {
-                        adapter = VerticalPagerAdapter(
-                            database = database,
-                            fragmentManager = parentFragmentManager,
-                            lifecycle = viewLifecycleOwner.lifecycle,
-                            news = it
-                        )
-                    }.stateIn(this)
-                }
-
-            }
             profileButton.setOnClickListener {
                 view.disableView()
                 when (Firebase.auth.currentUser) {
@@ -128,5 +122,18 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>() {
         from(from.get())
         recentRequest!!.changeFrom(from.getParam())
         newsModel.getNews(recentRequest!!.request)
+    }
+
+    override fun setNews(news: News,database: Database) {
+        binding.viewpagerMain.adapter = VerticalPagerAdapter(
+            database = database,
+            fragmentManager = parentFragmentManager,
+            lifecycle = viewLifecycleOwner.lifecycle,
+            news = news
+        )
+    }
+
+    override fun setLikes(map: HashMap<*, *>?) {
+           
     }
 }

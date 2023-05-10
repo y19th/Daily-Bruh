@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
+import com.example.dailybruh.const.BASE_ARTICLE
+import com.example.dailybruh.const.BASE_ENDPOINT
 import com.example.dailybruh.databinding.FragmentMainBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.viewmodel.NewsViewModel
@@ -29,7 +31,8 @@ class MainFragment : StandardFragment<FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDefaultSettings()
-        recentRequest = Request("everything","Apple", null,null, sorting.value,
+        recentRequest = Request(
+            BASE_ENDPOINT, BASE_ARTICLE, null,null, sorting.value,
             language.value)
         view.navigateTo(R.id.newspage)
     }
