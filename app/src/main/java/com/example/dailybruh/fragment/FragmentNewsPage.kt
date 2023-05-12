@@ -124,16 +124,13 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
         newsModel.getNews(recentRequest!!.request)
     }
 
-    override fun setNews(news: News,database: Database) {
+    override fun setNews(news: News, database: Database, likesMap: HashMap<String,String>) {
         binding.viewpagerMain.adapter = VerticalPagerAdapter(
             database = database,
             fragmentManager = parentFragmentManager,
             lifecycle = viewLifecycleOwner.lifecycle,
-            news = news
+            news = news,
+            likesMap = likesMap
         )
-    }
-
-    override fun setLikes(map: HashMap<*, *>?) {
-           
     }
 }

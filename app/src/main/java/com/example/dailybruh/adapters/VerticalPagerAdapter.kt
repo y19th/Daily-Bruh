@@ -11,11 +11,12 @@ import com.example.dailybruh.fragment.FragmentViewPagerItem
 class VerticalPagerAdapter(private val database: Database,
                            fragmentManager: FragmentManager,
                            lifecycle: Lifecycle,
-                           private val news: News
+                           private val news: News,
+                           private val likesMap: HashMap<String,String>
                            ) : FragmentStateAdapter(fragmentManager,lifecycle) {
 
     override fun getItemCount(): Int = news.total
 
-    override fun createFragment(position: Int): Fragment = FragmentViewPagerItem(database,position,news)
+    override fun createFragment(position: Int): Fragment = FragmentViewPagerItem(database,position,news,likesMap)
 
 }

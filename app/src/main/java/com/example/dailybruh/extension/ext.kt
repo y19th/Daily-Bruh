@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
+import com.google.firebase.database.GenericTypeIndicator
 
 fun View.navigateTo(id: Int) {
     this.findNavController().navigate(id)
@@ -55,6 +56,18 @@ private fun enableDisableView(view: View,enabled:Boolean) {
 fun String?.ifNull(replace: String): String {
     return if(this?.isEmpty() == true || this == null) replace
     else this
+}
+
+fun CharSequence.inc(): String {
+    return this.toString().toLong().inc().toString()
+}
+
+fun CharSequence.dec(): String {
+    return this.toString().toLong().dec().toString()
+}
+
+fun <T> T.toGenerics(): GenericTypeIndicator<T> {
+    return object : GenericTypeIndicator<T>() {}
 }
 
 fun toastLong(context: Context, message: String) {

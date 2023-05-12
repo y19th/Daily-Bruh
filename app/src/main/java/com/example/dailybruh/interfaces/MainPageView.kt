@@ -5,8 +5,5 @@ import com.example.dailybruh.dataclasses.News
 
 interface MainPageView {
 
-    fun setNews(news: News,database: Database)
-
-    fun setLikes(map: HashMap<*,*>?)
-
+    fun setNews(news: News, database: Database, likesMap: HashMap<String,String>)
 }

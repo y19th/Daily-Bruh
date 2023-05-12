@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.example.dailybruh.const.BASE_ARTICLE
 import com.example.dailybruh.const.BASE_ENDPOINT
+import com.example.dailybruh.extension.toGenerics
 import com.example.dailybruh.interfaces.MainPagePresenterInterface
 import com.example.dailybruh.interfaces.MainPageView
 import com.example.dailybruh.viewmodel.DatabaseViewModel
@@ -19,29 +20,31 @@ class MainPagePresenter(
     private val viewState: MainPageView,
     private val viewLifecycleOwner: LifecycleOwner,
     private val newsViewModel: NewsViewModel,
-    private val databaseViewModel: DatabaseViewModel
+    databaseViewModel: DatabaseViewModel
 ): MainPagePresenterInterface {
 
     val database = databaseViewModel.withLifecycle(lifecycle = viewLifecycleOwner.lifecycle).value
-    var userLiked: HashMap<*, *>? = null
+    var userLiked: HashMap<String,String> = hashMapOf()
 
-    override fun loadData() {
+    override fun sendData() {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {
             newsViewModel.also {
                 it.getNews(recentRequest?.request ?: Request(BASE_ENDPOINT, BASE_ARTICLE).request)
             }.news.map {
                 viewState.setNews(
                     news = it,
-                    database = database
+                    database = database,
+                    likesMap = userLiked
                 )
             }.stateIn(this)
         }
     }
 
-    private fun getLiked() {
+    override fun loadData() {
         database.userReference.child("liked").get().addOnCompleteListener {
-            userLiked = it.result.value as HashMap<*, *>?
-            viewState.setLikes(userLiked)
+            val map = hashMapOf<String,String>().toGenerics()
+            userLiked = it.result.getValue(map) ?: hashMapOf()
+            sendData()
         }
     }
 }
