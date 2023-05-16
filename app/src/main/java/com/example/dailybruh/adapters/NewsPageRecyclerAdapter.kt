@@ -7,9 +7,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
-class NewsPageRecyclerAdapter(private val database: Database,
-                              private val lifecycleOwner: LifecycleOwner,
-                              private val totalLiked: Long
+import com.example.dailybruh.dataclasses.PageArticle
+import com.example.dailybruh.presenter.LikedArticlesPresenter
+
+class NewsPageRecyclerAdapter(private val presenter: LikedArticlesPresenter,
+                              private val pageArray: List<PageArticle>
 ): RecyclerView.Adapter<NewsPageRecyclerAdapter.ViewHolder>() {
 
     private lateinit var binding: RecyclerItemSavedNewsBinding
@@ -22,19 +24,14 @@ class NewsPageRecyclerAdapter(private val database: Database,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
             binding.apply {
-                holder.apply {
-                        database.getArticleByPos(pos = position).observe(lifecycleOwner) {
-                                header.text = it.header
-                                bindImage(urlPhoto, it.urlPhoto)
-                                authorPage.text = it.author
-                        }
-                }
+                header.text = presenter.pageArray[position].header
+                authorPage.text = presenter.pageArray[position].author
+                bindImage(urlPhoto,presenter.pageArray[position].urlPhoto)
             }
     }
 
-    override fun getItemCount(): Int = totalLiked.toInt()
+    override fun getItemCount(): Int = presenter.total.toInt()
 
 
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root)
