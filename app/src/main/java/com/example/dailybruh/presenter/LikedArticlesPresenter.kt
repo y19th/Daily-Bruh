@@ -2,16 +2,16 @@ package com.example.dailybruh.presenter
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.example.dailybruh.database.DataCallback
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.toGenerics
 import com.example.dailybruh.interfaces.LikedArticlesPresenterInterface
 import com.example.dailybruh.interfaces.LikedArticlesView
 import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 class LikedArticlesPresenter(
     private val database: Database,
@@ -21,7 +21,8 @@ class LikedArticlesPresenter(
 
     var total = 0L
     var userLiked = hashMapOf<String,String>()
-    var pageArray = listOf<PageArticle>()
+    private var tempArray = mutableListOf<PageArticle>()
+    private val pageArray get() = tempArray
 
     init {
         database.userReference.child("liked").child("total").get().addOnSuccessListener {
@@ -41,57 +42,57 @@ class LikedArticlesPresenter(
 
         val lock = ReentrantLock()
         val iterator = userLiked.iterator()
+        val callback = createCallback()
 
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("CreatingPageArray")) {
-                val defArray : Deferred<List<PageArticle>> = this.async {
-                    val tempArray = mutableListOf<PageArticle>()
-                    while (iterator.hasNext()) {
-                        val item = iterator.next()
-                        if (item.key != "total") {
-                            database.dataReference.child(item.value).get()
-                                .addOnSuccessListener { article ->
-                                    tempArray.add(
-                                        PageArticle(
-                                            id = article.key.toString(),
-                                            header = article.child("title").value.toString(),
-                                            urlPage = article.child("urlPage").value.toString(),
-                                            urlPhoto = article.child("urlPhoto").value.toString(),
-                                            author = article.child("author").value.toString()
-                                        )
-                                    )
-                                }
-                        }
-                    }
-                    tempArray
-                }
-            pageArray = defArray.await()
-            viewState.setAdapter(pageArray)
-                /*
                 lock.withLock {
                     while (iterator.hasNext()) {
-
                         val item = iterator.next()
-
                         if (item.key != "total") {
-                            database.dataReference.child(item.value).get()
-                                .addOnSuccessListener { article ->
-                                    pageArray.add(
-                                        PageArticle(
-                                            id = article.key.toString(),
-                                            header = article.child("title").value.toString(),
-                                            urlPage = article.child("urlPage").value.toString(),
-                                            urlPhoto = article.child("urlPhoto").value.toString(),
-                                            author = article.child("author").value.toString()
-                                        )
-                                    )
-                                }
-                            this.cancel()
+                            itemFromDatabase(item.value, callback = callback)
                         }
                     }
-                }*/
+                }
+        }
+
+    }
+    private fun itemFromDatabase(itemId: String,callback: DataCallback) {
+
+        var tempPage: PageArticle
+        database.dataReference.child(itemId).get()
+            .addOnCompleteListener {article ->
+                tempPage = PageArticle(
+                    id = article.result.key.toString(),
+                    header = article.result.child("title").value.toString(),
+                    urlPage = article.result.child("urlPage").value.toString(),
+                    urlPhoto = article.result.child("urlPhoto").value.toString(),
+                    author = article.result.child("author").value.toString()
+                )
+                addPageToList(tempPage)
+                callback.onSuccess(tempArray.size)
         }
     }
-    suspend fun defToPage(defArray: Deferred<List<PageArticle>>): List<PageArticle> {
-        return defArray.await()
+    private fun addPageToList(pageArticle: PageArticle) {
+        tempArray.add(pageArticle)
+    }
+
+    private fun createCallback() = object : DataCallback() {
+        override val totalToComplete: Int
+            get() = userLiked.size - 1
+
+        var current = 0
+
+        override fun onSuccess(now: Int) {
+            if(!onComplete(now))current++
+        }
+
+        override fun onComplete(now: Int): Boolean {
+            if(totalToComplete == now) {
+                viewState.setAdapter(pageArray)
+                return true
+            }
+            return false
+        }
+
     }
 }

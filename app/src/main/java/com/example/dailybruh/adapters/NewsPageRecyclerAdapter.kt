@@ -3,9 +3,7 @@ package com.example.dailybruh.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.presenter.LikedArticlesPresenter
@@ -25,9 +23,9 @@ class NewsPageRecyclerAdapter(private val presenter: LikedArticlesPresenter,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             binding.apply {
-                header.text = presenter.pageArray[position].header
-                authorPage.text = presenter.pageArray[position].author
-                bindImage(urlPhoto,presenter.pageArray[position].urlPhoto)
+                header.text = pageArray[position].header
+                authorPage.text = pageArray[position].author
+                bindImage(urlPhoto,pageArray[position].urlPhoto)
             }
     }
 
