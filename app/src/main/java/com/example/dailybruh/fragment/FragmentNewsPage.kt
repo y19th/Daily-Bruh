@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.database.Database
@@ -28,16 +28,13 @@ import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageView {
 
     private val newsModel: NewsViewModel by viewModels()
     private val databaseViewModel: DatabaseViewModel by viewModels()
     private lateinit var presenter: MainPagePresenter
+    private lateinit var dialogSearch: DialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,24 +62,29 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
                 }
             }
             navMenuButton.setOnClickListener {
-                FragmentDialogSearch(newsModel).show(childFragmentManager,"dialog_search")
+                dialogSearch = FragmentDialogSearch(reset = { header ->
+                    newsModel.also {
+                        it.status.observe(viewLifecycleOwner) {
+                            dialogDismiss(dialogSearch)
+                        }
+                        recentRequest!!.changeHeader(header)
+                    }.getNews( recentRequest!!.request)
+                }
+                ).also {
+                    it.show(childFragmentManager,"searchDialog")
+                }
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
                 hint = Sort.POPULARITY.get()
                 setOnItemClickListener { _, _, clickedItem, _ ->
                     when (clickedItem) {
-                        0 -> {
-                            changeSortParam(Sort.POPULARITY)
-                        }
+                        0 -> changeSortParam(Sort.POPULARITY)
 
-                        1 -> {
-                            changeSortParam(Sort.PUBLISHEDAT)
-                        }
+                        1 -> changeSortParam(Sort.PUBLISHEDAT)
 
-                        2 -> {
-                            changeSortParam(Sort.RELEVANCY)
-                        }
+                        2 -> changeSortParam(Sort.RELEVANCY)
+
                     }
                 }
             }
@@ -92,15 +94,12 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
                 hint = From.FROM_MONTH.get()
                 setOnItemClickListener { _,_,clickedItem,_ ->
                     when(clickedItem) {
-                        0 -> {
-                            changeFromParam(From.FROM_TODAY)
-                        }
-                        1 -> {
-                            changeFromParam(From.FROM_WEEK)
-                        }
-                        2 -> {
-                            changeFromParam(From.FROM_MONTH)
-                        }
+                        0 -> changeFromParam(From.FROM_TODAY)
+
+                        1 -> changeFromParam(From.FROM_WEEK)
+
+                        2 -> changeFromParam(From.FROM_MONTH)
+
                     }
                 }
             }
@@ -112,6 +111,10 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
             setDropDownBackgroundDrawable(ResourcesCompat.getDrawable(resources,R.drawable.item_filter_background_inset,null))
         }.setAdapter(ArrayAdapter(requireContext(),R.layout.menu_list_item,resources.getStringArray(arrayId)))
 
+    }
+
+    private fun dialogDismiss(dialog : DialogFragment) {
+        dialog.dismiss()
     }
     private fun changeSortParam(sort: Sort) {
         sorting(sort.get())

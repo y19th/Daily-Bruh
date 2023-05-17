@@ -8,16 +8,12 @@ import androidx.core.widget.doOnTextChanged
 import com.example.dailybruh.R
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDialogProfileNicknameBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.dailybruh.fragment.dialog.StandardDialog
 
 class FragmentDialogProfileNickname(
     private val database: Database,
     private val update: (String) -> Unit
-) : BottomSheetDialogFragment() {
-
-    private var _binding: FragmentDialogProfileNicknameBinding? = null
-    private val binding: FragmentDialogProfileNicknameBinding get() = requireNotNull(_binding)
-
+) : StandardDialog<FragmentDialogProfileNicknameBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -10,7 +10,7 @@ class Request(
     _language: String? = null) {
 
     private val endpoint: String = _endpoint
-    private val article: String = _article
+    private var article: String = _article
     private var from: String = if(_from != null) "&from=$_from" else ""
     private var to: String = if(_to != null) "&to=$_to" else ""
     private var sort: String =  if(_sort != null) "&sortBy=$_sort" else ""
@@ -18,6 +18,7 @@ class Request(
     internal val request get() = "$endpoint?q=$article$from$to$sort$language"
 
 
+    fun changeHeader(_article: String) { article = _article }
     fun changeFrom(_from: String) { from = "&from=$_from" }
     fun changeTo(_to: String) { to = "&to=$_to" }
     fun changeSort(_sort: String) { sort = "&sortBy=$_sort"}

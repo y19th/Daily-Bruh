@@ -7,24 +7,18 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentDialogSearchBinding
-import com.example.dailybruh.viewmodel.NewsViewModel
-import com.example.dailybruh.web.Request
-import com.example.dailybruh.web.from
-import com.example.dailybruh.web.sorting
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.dailybruh.fragment.dialog.StandardDialog
+
 
 class FragmentDialogSearch(
-    private val viewModel: NewsViewModel
-): BottomSheetDialogFragment() {
-
-    private var _binding: FragmentDialogSearchBinding? = null
-    private val binding: FragmentDialogSearchBinding get() = requireNotNull(_binding)
+    private val reset: (String) -> Unit
+): StandardDialog<FragmentDialogSearchBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDialogSearchBinding.inflate(inflater,container,false)
+        _binding = FragmentDialogSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,31 +26,14 @@ class FragmentDialogSearch(
 
         binding.apply {
             inputField.doOnTextChanged { _: CharSequence?, _: Int, _: Int, _: Int ->
-                    inputLayout.error = null
+                inputLayout.error = null
             }
             readyButton.setOnClickListener {
-                when(inputField.text!!.length) {
+                when (inputField.text!!.length) {
                     in 0..2 -> inputLayout.error = getString(R.string.dialog_search_error_message)
-                    else -> {
-                        viewModel.apply {
-                            getNews(
-                                Request(
-                                    "everything",
-                                    inputField.text.toString(),
-                                    from.value,
-                                    null,
-                                    sorting.value,
-                                    "en"
-                                ).request
-                            )
-                            status.observe(viewLifecycleOwner) {
-                                dismiss()
-                            }
-                        }
-                    }
+                    else -> reset.invoke(inputField.text.toString())
                 }
             }
         }
     }
-
 }

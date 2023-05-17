@@ -18,6 +18,8 @@ import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.inc
 import com.example.dailybruh.interfaces.PagerItemView
 import com.example.dailybruh.presenter.PagerItemPresenter
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FragmentViewPagerItem(
     private val database: Database,
@@ -40,13 +42,15 @@ class FragmentViewPagerItem(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        presenter = PagerItemPresenter(
-            viewState = this,
-            database = database,
-            itemId = news.articles[position].id,
-            mapLikes = mapLikes
-        )
-        presenter.getLikes()
+        if(Firebase.auth.currentUser != null) {
+            presenter = PagerItemPresenter(
+                viewState = this,
+                database = database,
+                itemId = news.articles[position].id,
+                mapLikes = mapLikes
+            )
+            presenter.getLikes()
+        }
 
 
         binding.apply {

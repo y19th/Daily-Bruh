@@ -11,6 +11,8 @@ import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.Request
 import com.example.dailybruh.web.recentRequest
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -41,9 +43,13 @@ class MainPagePresenter(
     }
 
     override fun loadData() {
-        database.userReference.child("liked").get().addOnCompleteListener {
-            val map = hashMapOf<String,String>().toGenerics()
-            userLiked = it.result.getValue(map) ?: hashMapOf()
+        if (Firebase.auth.currentUser != null) {
+            database.userReference.child("liked").get().addOnCompleteListener {
+                val map = hashMapOf<String, String>().toGenerics()
+                userLiked = it.result.getValue(map) ?: hashMapOf()
+                sendData()
+            }
+        } else {
             sendData()
         }
     }
