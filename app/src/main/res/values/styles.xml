@@ -39,9 +39,14 @@
     <style name="HeaderText" parent="StandardText">
         <item name="fontFamily">@font/jost_semibold</item>
         <item name="android:gravity">center</item>
-<!--        <item name="layout_constraintStart_toStartOf">parent</item>-->
-<!--        <item name="layout_constraintEnd_toEndOf">parent</item>-->
     </style>
+
+    <style name="AuthInputText" parent="HeaderText">
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
 
     <style name="BigHeaderText" parent="HeaderText">
         <item name="android:textSize">26sp</item>

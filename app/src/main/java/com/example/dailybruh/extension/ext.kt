@@ -54,8 +54,17 @@ private fun enableDisableView(view: View,enabled:Boolean) {
     }
 }
 fun String?.ifNull(replace: String): String {
-    return if(this?.isEmpty() == true || this == null) replace
-    else this
+    return when(this) {
+        null -> {
+            replace
+        }
+        "null" -> {
+            replace
+        }
+        else -> {
+            this
+        }
+    }
 }
 
 fun CharSequence.inc(): String {

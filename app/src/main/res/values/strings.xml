@@ -37,6 +37,7 @@
     <string name="auth_code_desc">который мы прислали вам на телефон</string>
     <string name="header_auth_name">Теперь давайте познакомимся</string>
     <string name="underheader_auth_name">как вас зовут?</string>
+    <string name="underheader_auth_nickname">какой у вас никнейм?</string>
     <string name="continue_text">продолжить</string>
     <string name="hint_dialog_input_field_name">введите ваше новое имя…</string>
     <string name="hint_dialog_input_field_nickname">введите ваш новый никнейм…</string>

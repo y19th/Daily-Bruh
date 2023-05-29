@@ -15,4 +15,5 @@ open class StandardDialog<T : ViewBinding> : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
     }
+
 }

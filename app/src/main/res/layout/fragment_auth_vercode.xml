@@ -52,11 +52,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/jost_semibold"
-            android:textSize="32sp"
             android:letterSpacing="1"
-            android:maxLines="1"
             android:maxLength="6"
-            android:textColor="@color/title_text_color"
+            style="@style/AuthInputText"
             tools:text="111111"
             />
         <androidx.appcompat.widget.AppCompatTextView

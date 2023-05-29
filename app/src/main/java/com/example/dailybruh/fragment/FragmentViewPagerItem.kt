@@ -64,10 +64,8 @@ class FragmentViewPagerItem(
     }
 
     private fun resizeDueTextLength(): String {
-        //val string = resizeDescription()
-        val string = newsy.articles[position].desc!!
         resizeTitle()
-        return string
+        return resizeDescription()
     }
     private fun resizeDescription(): String {
         val str = newsy.articles[position].desc
@@ -100,7 +98,7 @@ class FragmentViewPagerItem(
                     false -> likeCount.text = likeCount.text.inc()
                     true -> likeCount.text = likeCount.text.dec()
                 }
-                presenter.changeLikes(count)
+                presenter.changeLikes(likeCount.text.toString().toLong())
             }
 
         }

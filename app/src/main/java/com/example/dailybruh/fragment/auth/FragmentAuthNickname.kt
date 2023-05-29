@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
-import com.example.dailybruh.databinding.FragmentAuthNameBinding
+import com.example.dailybruh.databinding.FragmentAuthNicknameBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.StandardFragment
-import com.example.dailybruh.interfaces.AuthNameView
-import com.example.dailybruh.presenter.AuthNamePresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 
-class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(),AuthNameView {
+class FragmentAuthNickname : StandardFragment<FragmentAuthNicknameBinding>() {
 
     private val databaseViewModel: DatabaseViewModel by viewModels()
 
@@ -23,7 +21,7 @@ class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(),AuthNameView
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAuthNameBinding.inflate(inflater,container,false)
+        _binding = FragmentAuthNicknameBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -33,7 +31,7 @@ class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(),AuthNameView
 
         binding.apply {
             backButton.backButtonLayout.setOnClickListener {
-                view.navigateTo(R.id.auth_name_to_profile)
+                view.navigateTo(R.id.auth_nickname_to_profile)
             }
             inputField.doOnTextChanged { _, _, _, _ ->
                 inputLayout.error = null
@@ -43,19 +41,11 @@ class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(),AuthNameView
             continueButton.setOnClickListener {
                 if(inputField.editableText.isEmpty())inputLayout.error = "unable to have zero-chars name"
                 else {
-                    database.changeName(inputField.text.toString())
-                    AuthNamePresenter(
-                        database = database,
-                        viewState = this@FragmentAuthName).loadData()
+                    database.changeNickname(inputField.text.toString())
+                    view.navigateTo(R.id.auth_nickname_to_profile)
                 }
             }
         }
     }
 
-    override fun navigateNext(nickname: String) {
-        when(nickname) {
-            "null" -> view?.navigateTo(R.id.auth_name_to_auth_nickname)
-            else -> view?.navigateTo(R.id.auth_name_to_profile)
-        }
-    }
 }

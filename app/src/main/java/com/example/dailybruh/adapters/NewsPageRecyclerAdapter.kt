@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
 import com.example.dailybruh.dataclasses.PageArticle
+import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.presenter.LikedArticlesPresenter
 
 class NewsPageRecyclerAdapter(private val presenter: LikedArticlesPresenter,
@@ -23,8 +24,8 @@ class NewsPageRecyclerAdapter(private val presenter: LikedArticlesPresenter,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             binding.apply {
-                header.text = pageArray[position].header
-                authorPage.text = pageArray[position].author
+                header.text = pageArray[position].header.ifNull("Без заголовка")
+                authorPage.text = pageArray[position].author.ifNull("Без автора")
                 bindImage(urlPhoto,pageArray[position].urlPhoto)
             }
     }

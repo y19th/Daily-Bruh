@@ -13,20 +13,25 @@ import com.example.dailybruh.auth.AuthOptions
 import com.example.dailybruh.auth.CodeCallback
 import com.example.dailybruh.auth.verify
 import com.example.dailybruh.const.AUTH_OPTIONS
+import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
+import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.extension.toastLong
 import com.example.dailybruh.fragment.StandardFragment
+import com.example.dailybruh.interfaces.AuthPhoneView
+import com.example.dailybruh.presenter.AuthPhonePresenter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>() {
+class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(),AuthPhoneView {
 
     private lateinit var authOptions: AuthOptions
+    private var codeView: View? = null
 
 
     override fun onCreateView(
@@ -49,19 +54,22 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>() {
                     bundle.apply {
                         putSerializable(AUTH_OPTIONS,authOptions)
                     }.putString(VERIFICATION_ID,this.verificationId())
-                    view.navigateTo(R.id.auth_phone_to_auth_vercode,bundle)
+                    view.navigateTo(
+                        id =  R.id.auth_phone_to_auth_vercode,
+                        bundle = bundle
+                    )
 
                 }
                 override fun onSuccessAuth(
                     view: View,
                     lifecycleOwner: LifecycleOwner,
                     arguments: Bundle) {
-                    Database(Firebase.auth.currentUser!!.phoneNumber!!).name.observe(lifecycleOwner) {
-                        when(it) {
-                            null -> view.navigateTo(R.id.auth_vercode_to_auth_name)
-                            else -> view.navigateTo(R.id.auth_vercode_to_profile)
-                        }
-                    }
+
+                    codeView = view
+                    AuthPhonePresenter(
+                        database = Database(Firebase.auth.currentUser!!.phoneNumber.ifNull(STANDARD_PHONE)),
+                        viewState = this@FragmentAuthPhone
+                    ).loadData()
                 }
 
                 override fun onFailedAuth() {
@@ -130,6 +138,14 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>() {
                     }.visibility = View.GONE
                 }
             }
+        }
+    }
+
+
+    override fun navigateNext(name: String) {
+        when(name) {
+            "null" -> codeView?.navigateTo(R.id.auth_vercode_to_auth_name)
+            else -> codeView?.navigateTo(R.id.auth_vercode_to_profile)
         }
     }
 }

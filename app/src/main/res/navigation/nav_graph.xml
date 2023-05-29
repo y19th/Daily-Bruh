@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/main">
     <fragment
@@ -99,9 +100,19 @@
         android:name="com.example.dailybruh.fragment.auth.FragmentAuthName"
         android:label="FragmentAuthName"
         >
-<!--        <action android:id="@+id/auth_name_to_auth_nickname"-->
-<!--            app:destination="@id/auth_phone"/>-->
         <action android:id="@+id/auth_name_to_profile"
+            app:destination="@id/profile"
+            />
+        <action android:id="@+id/auth_name_to_auth_nickname"
+            app:destination="@id/auth_nickname"
+            />
+    </fragment>
+
+    <fragment android:id="@+id/auth_nickname"
+        android:name="com.example.dailybruh.fragment.auth.FragmentAuthNickname"
+        tools:layout="FragmentAuthNickname"
+        >
+        <action android:id="@+id/auth_nickname_to_profile"
             app:destination="@id/profile"
             />
     </fragment>

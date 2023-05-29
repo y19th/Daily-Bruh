@@ -44,11 +44,11 @@ class PagerItemPresenter(
     override fun changeLikes(long: Long) {
         when(isLiked) {
             true -> {
-                database.dataReference.child(itemId).child("likes").setValue(long.inc())
+                database.dataReference.child(itemId).child("likes").setValue(long)
                 removeLike()
             }
             false -> {
-                database.dataReference.child(itemId).child("likes").setValue(long.dec())
+                database.dataReference.child(itemId).child("likes").setValue(long)
                 addLike()
             }
         }

@@ -58,7 +58,7 @@ class NewsViewModel : ViewModel() {
             lock.withLock {
                 for(item in this@setId.articles) {
                     item.apply {
-                        id = "${title?.subSequence(0,3)}${count++}_${time}"
+                        id = "${title?.subSequence(0,3).toString()}${count++}_${time}"
                     }
                 }
             }

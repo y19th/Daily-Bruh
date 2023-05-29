@@ -15,7 +15,6 @@ import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.interfaces.LikedArticlesView
 import com.example.dailybruh.presenter.LikedArticlesPresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
-import kotlinx.coroutines.Deferred
 
 class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticlesBinding>(),LikedArticlesView {
 
@@ -56,9 +55,4 @@ class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticle
             layoutManager = LinearLayoutManager(context)
         }
     }
-
-    suspend fun defToPage(defArray: Deferred<List<PageArticle>>): List<PageArticle> {
-        return defArray.await()
-    }
-
 }

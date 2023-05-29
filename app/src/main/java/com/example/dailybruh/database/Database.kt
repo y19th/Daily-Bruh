@@ -43,8 +43,8 @@ class Database(
     }
 
     fun article(article: Article) {
-        dataReference.child(article.id).get().addOnSuccessListener {
-            if(it.value == null)standardParams(article)
+        dataReference.child(article.id).get().addOnCompleteListener {
+            if(it.result.value == null)standardParams(article)
         }
     }
 

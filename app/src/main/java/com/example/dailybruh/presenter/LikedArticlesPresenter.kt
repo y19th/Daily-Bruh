@@ -87,7 +87,7 @@ class LikedArticlesPresenter(
         }
 
         override fun onComplete(now: Int): Boolean {
-            if(totalToComplete == now) {
+            if(totalToComplete <= now) {
                 viewState.setAdapter(pageArray)
                 return true
             }

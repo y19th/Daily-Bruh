@@ -51,10 +51,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/jost_semibold"
-            android:textSize="32sp"
             android:letterSpacing="0.1"
-            android:textColor="@color/title_text_color"
+            android:maxLength="16"
+            style="@style/AuthInputText"
             tools:text="+7-961-075-54-47"
             />
 
