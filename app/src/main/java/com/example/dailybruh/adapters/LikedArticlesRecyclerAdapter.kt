@@ -9,9 +9,9 @@ import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.presenter.LikedArticlesPresenter
 
-class NewsPageRecyclerAdapter(private val presenter: LikedArticlesPresenter,
-                              private val pageArray: List<PageArticle>
-): RecyclerView.Adapter<NewsPageRecyclerAdapter.ViewHolder>() {
+class LikedArticlesRecyclerAdapter(private val presenter: LikedArticlesPresenter,
+                                   private val pageArray: List<PageArticle>
+): RecyclerView.Adapter<LikedArticlesRecyclerAdapter.ViewHolder>() {
 
     private lateinit var binding: RecyclerItemSavedNewsBinding
     private lateinit var context: Context

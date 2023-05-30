@@ -51,15 +51,16 @@ class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
             continueButton.setOnClickListener {
                 when(codeField.text.length) {
                     in 0..5 -> {
-                        error("Слишком мало символов", true)
+                        error("слишком мало символов", true)
                     }
                     else -> {
-                        authOptions.setCurrentSetUp(view, viewLifecycleOwner)
+                        authOptions.setView(view)
                         credential = PhoneAuthProvider.getCredential(verId,codeField.text.toString())
                         authOptions.signInWithCred(credential)
                     }
                 }
             }
+
             backButton.backButtonLayout.setOnClickListener {
                 view.navigateTo(R.id.auth_vercode_to_auth_phone)
             }

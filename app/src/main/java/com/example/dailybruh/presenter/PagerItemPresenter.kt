@@ -1,8 +1,8 @@
 package com.example.dailybruh.presenter
 
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.interfaces.PagerItemPresenterInterface
-import com.example.dailybruh.interfaces.PagerItemView
+import com.example.dailybruh.interfaces.mainpage.pager.PagerItemPresenterInterface
+import com.example.dailybruh.interfaces.mainpage.pager.PagerItemView
 
 class PagerItemPresenter(
     private val viewState: PagerItemView,

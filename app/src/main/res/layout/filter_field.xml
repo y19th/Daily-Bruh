@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout android:id="@+id/date_filter_layout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:paddingVertical="5dp"
+    app:endIconMode="dropdown_menu"
+    app:boxBackgroundColor="?android:attr/windowBackground"
+    app:boxStrokeWidth="0dp"
+    app:boxStrokeWidthFocused="0dp"
+    android:divider="@drawable/item_drag_line"
+    android:showDividers="middle"
+    app:endIconDrawable="@drawable/icon_arrow_bottom"
+    app:endIconMinSize="20dp"
+    app:endIconTint="@color/red"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <AutoCompleteTextView
+        android:id="@+id/date_filter_field"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="11sp"
+        android:fontFamily="@font/jost_regular"
+        android:ellipsize="end"
+        android:inputType="none"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:text="за эту неделю"
+        />
+
+
+</com.google.android.material.textfield.TextInputLayout>

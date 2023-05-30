@@ -2,7 +2,7 @@ package com.example.dailybruh.auth
 
 import android.app.Activity
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
+import com.example.dailybruh.callback.CodeCallback
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -13,17 +13,20 @@ import java.util.concurrent.TimeUnit
 
 class AuthOptions : java.io.Serializable {
 
-    private lateinit var options: PhoneAuthOptions
+    private var _options: PhoneAuthOptions? = null
+
+    private val options: PhoneAuthOptions get() = requireNotNull(_options)
 
     private var _phone: String? = null
     private var _activity: Activity? = null
     private var _callbacks: CodeCallback? = null
 
-    private val callbacks: CodeCallback get() = _callbacks!!
-    private val activity: Activity get() = _activity!!
+    private val callbacks: CodeCallback get() = requireNotNull(_callbacks)
+    private val activity: Activity get() = requireNotNull(_activity)
+
+    private val phone: String get() = requireNotNull(_phone)
 
     private lateinit var currentView: View
-    private lateinit var lifecycleOwner: LifecycleOwner
 
     private var user : FirebaseUser? = null
 
@@ -37,7 +40,7 @@ class AuthOptions : java.io.Serializable {
         _phone = phoneNumber
         _callbacks = callbacks
 
-        options = PhoneAuthOptions.newBuilder(Firebase.auth)
+        _options = PhoneAuthOptions.newBuilder(Firebase.auth)
             .setPhoneNumber(phoneNumber)
             .setTimeout(timeout,TimeUnit.SECONDS)
             .setActivity(activity)
@@ -52,19 +55,15 @@ class AuthOptions : java.io.Serializable {
                 if(task.isSuccessful) {
                     user = task.result?.user
                     callbacks.onSuccessAuth(
-                        view = currentView,
-                        lifecycleOwner = lifecycleOwner
+                        view = currentView
                         )
                 } else {
                     callbacks.onFailedAuth()
                 }
             }
     }
-    fun setCurrentSetUp(view: View,owner: LifecycleOwner) {
-        currentView = view
-        lifecycleOwner = owner
 
-    }
+    fun setView(view: View) { currentView = view }
 }
 
 fun PhoneAuthOptions.verify(){

@@ -2,12 +2,12 @@ package com.example.dailybruh.presenter
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.example.dailybruh.database.DataCallback
+import com.example.dailybruh.callback.DataCallback
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.toGenerics
-import com.example.dailybruh.interfaces.LikedArticlesPresenterInterface
-import com.example.dailybruh.interfaces.LikedArticlesView
+import com.example.dailybruh.interfaces.profile.liked.LikedArticlesPresenterInterface
+import com.example.dailybruh.interfaces.profile.liked.LikedArticlesView
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.launch
 import java.util.concurrent.locks.ReentrantLock

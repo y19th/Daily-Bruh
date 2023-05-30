@@ -9,14 +9,13 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.bindImage
 import com.example.dailybruh.calendar.parseDate
-import com.example.dailybruh.const.constNews
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.RecyclerItemNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.dec
 import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.inc
-import com.example.dailybruh.interfaces.PagerItemView
+import com.example.dailybruh.interfaces.mainpage.pager.PagerItemView
 import com.example.dailybruh.presenter.PagerItemPresenter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -26,10 +25,12 @@ class FragmentViewPagerItem(
     private val position: Int,
     private val news: News,
     private val mapLikes: HashMap<String,String>
-): StandardFragment<RecyclerItemNewsPageBinding>(),PagerItemView {
+): StandardFragment<RecyclerItemNewsPageBinding>(), PagerItemView {
 
-    private val newsy = constNews.value!!
     private lateinit var presenter: PagerItemPresenter
+
+    override val fragment: FragmentViewPagerItem
+        get() = this
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +69,7 @@ class FragmentViewPagerItem(
         return resizeDescription()
     }
     private fun resizeDescription(): String {
-        val str = newsy.articles[position].desc
+        val str = news.articles[position].desc
         return if(str!!.length > 150) str.substring(0, str.indexOf(" ", 130)).plus("...")
             else return str
     }
@@ -84,7 +85,7 @@ class FragmentViewPagerItem(
                     descPage.textSize = 16F
                 }
             }
-            if(newsy.articles[position].title!!.length > 50) {
+            if(news.articles[position].title!!.length > 50) {
                 titlePage.textSize = 16F
             }
         }

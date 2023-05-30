@@ -1,4 +1,4 @@
-package com.example.dailybruh.interfaces
+package com.example.dailybruh.interfaces.mainpage
 
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.dataclasses.News

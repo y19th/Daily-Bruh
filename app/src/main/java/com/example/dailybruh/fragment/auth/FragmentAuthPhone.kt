@@ -1,5 +1,6 @@
 package com.example.dailybruh.fragment.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,31 +8,20 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.LifecycleOwner
 import com.example.dailybruh.R
-import com.example.dailybruh.auth.AuthOptions
-import com.example.dailybruh.auth.CodeCallback
-import com.example.dailybruh.auth.verify
-import com.example.dailybruh.const.AUTH_OPTIONS
-import com.example.dailybruh.const.STANDARD_PHONE
-import com.example.dailybruh.const.VERIFICATION_ID
-import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
 import com.example.dailybruh.extension.disableView
-import com.example.dailybruh.extension.enableView
-import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.extension.toastLong
 import com.example.dailybruh.fragment.StandardFragment
-import com.example.dailybruh.interfaces.AuthPhoneView
+import com.example.dailybruh.interfaces.auth.AuthPhoneView
 import com.example.dailybruh.presenter.AuthPhonePresenter
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
-class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(),AuthPhoneView {
+class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(), AuthPhoneView {
+    override val viewContext: Context
+        get() = requireContext()
 
-    private lateinit var authOptions: AuthOptions
-    private var codeView: View? = null
+    override val viewFragment: FragmentAuthPhone
+        get() = this
 
 
     override fun onCreateView(
@@ -44,39 +34,12 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(),AuthPhone
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val presenter = AuthPhonePresenter(
+            viewState = this@FragmentAuthPhone
+        ).also { it.setCallback() }
+
         binding.apply {
-            authOptions = AuthOptions()
-
-            val callback = object : CodeCallback(requireContext()) {
-                override fun stepOnCodeSent() {
-                    view.enableView()
-                    val bundle = Bundle()
-                    bundle.apply {
-                        putSerializable(AUTH_OPTIONS,authOptions)
-                    }.putString(VERIFICATION_ID,this.verificationId())
-                    view.navigateTo(
-                        id =  R.id.auth_phone_to_auth_vercode,
-                        bundle = bundle
-                    )
-
-                }
-                override fun onSuccessAuth(
-                    view: View,
-                    lifecycleOwner: LifecycleOwner,
-                    arguments: Bundle) {
-
-                    codeView = view
-                    AuthPhonePresenter(
-                        database = Database(Firebase.auth.currentUser!!.phoneNumber.ifNull(STANDARD_PHONE)),
-                        viewState = this@FragmentAuthPhone
-                    ).loadData()
-                }
-
-                override fun onFailedAuth() {
-                    toastLong(requireContext(),"Failed!")
-                }
-            }
-
             phoneField.doOnTextChanged { text, start, _, end ->
                 error(enabled = false)
                 phoneField.apply {
@@ -92,12 +55,7 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(),AuthPhone
                 when(phoneField.text!!.length) {
                     16 -> {
                         view.disableView()
-                        authOptions.createOptions(
-                            callback,
-                            phoneField.text.toString(),
-                            requireActivity(),
-                            60L
-                        ).verify()
+                        presenter.createOptions(phoneField.text.toString())
                     }
                     0 -> { error("Необходимо ввести номер",true) }
                     in 1..15 -> { error("Номер должен состоять из 11 цифр",true) }
@@ -142,10 +100,11 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(),AuthPhone
     }
 
 
-    override fun navigateNext(name: String) {
+
+    override fun navigateNext(name: String,codeView: View) {
         when(name) {
-            "null" -> codeView?.navigateTo(R.id.auth_vercode_to_auth_name)
-            else -> codeView?.navigateTo(R.id.auth_vercode_to_profile)
+            "null" -> codeView.navigateTo(R.id.auth_vercode_to_auth_name)
+            else -> codeView.navigateTo(R.id.auth_vercode_to_profile)
         }
     }
 }

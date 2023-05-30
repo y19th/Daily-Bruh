@@ -19,7 +19,7 @@ import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
-import com.example.dailybruh.interfaces.MainPageView
+import com.example.dailybruh.interfaces.mainpage.MainPageView
 import com.example.dailybruh.presenter.MainPagePresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
@@ -29,7 +29,7 @@ import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageView {
+class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageView {
 
     private val newsModel: NewsViewModel by viewModels()
     private val databaseViewModel: DatabaseViewModel by viewModels()
@@ -76,7 +76,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
-                hint = Sort.POPULARITY.get()
+                hint = sorting.value
                 setOnItemClickListener { _, _, clickedItem, _ ->
                     when (clickedItem) {
                         0 -> changeSortParam(Sort.POPULARITY)
@@ -91,7 +91,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(),MainPageVie
 
             dateFilterField.apply {
                 setAdapter(R.array.date_filter)
-                hint = From.FROM_MONTH.get()
+                hint = from.value
                 setOnItemClickListener { _,_,clickedItem,_ ->
                     when(clickedItem) {
                         0 -> changeFromParam(From.FROM_TODAY)

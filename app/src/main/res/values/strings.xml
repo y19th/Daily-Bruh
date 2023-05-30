@@ -10,6 +10,8 @@
     <string name="app_title">Daily Bruh</string>
     <string name="url_button_desc">arrow_next</string>
     <string name="firebase_error_network">Подключение к сети отсутствует</string>
+    <string name="firebase_error_too_many_requests">Лимит запросов исчерпан. Попробуйте позже</string>
+    <string name="firebase_error_invalid_credential">Ошибка полномочий</string>
     <string name="phone">номер телефона</string>
     <string name="name_header">имя</string>
     <string name="saved_news">Сохраненные новости</string>
@@ -42,6 +44,7 @@
     <string name="hint_dialog_input_field_name">введите ваше новое имя…</string>
     <string name="hint_dialog_input_field_nickname">введите ваш новый никнейм…</string>
     <string name="hint_search_dialog">введите ваш запрос…</string>
+    <string name="resend_code_text">не пришел код? отправить еще раз!</string>
 
     <array name="popular_filter">
         <item>популярные</item>

@@ -1,8 +1,8 @@
 package com.example.dailybruh.presenter
 
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.interfaces.ProfilePresenterInterface
-import com.example.dailybruh.interfaces.ProfileView
+import com.example.dailybruh.interfaces.profile.ProfilePresenterInterface
+import com.example.dailybruh.interfaces.profile.ProfileView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

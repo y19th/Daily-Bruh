@@ -5,8 +5,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.dailybruh.const.BASE_ARTICLE
 import com.example.dailybruh.const.BASE_ENDPOINT
 import com.example.dailybruh.extension.toGenerics
-import com.example.dailybruh.interfaces.MainPagePresenterInterface
-import com.example.dailybruh.interfaces.MainPageView
+import com.example.dailybruh.interfaces.mainpage.MainPagePresenterInterface
+import com.example.dailybruh.interfaces.mainpage.MainPageView
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.Request

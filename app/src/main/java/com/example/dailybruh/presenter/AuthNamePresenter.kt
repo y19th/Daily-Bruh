@@ -1,8 +1,8 @@
 package com.example.dailybruh.presenter
 
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.interfaces.AuthNamePresenterInterface
-import com.example.dailybruh.interfaces.AuthNameView
+import com.example.dailybruh.interfaces.auth.AuthNamePresenterInterface
+import com.example.dailybruh.interfaces.auth.AuthNameView
 
 class AuthNamePresenter(
     private val database: Database,

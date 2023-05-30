@@ -2,11 +2,15 @@ package com.example.dailybruh.extension
 
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
+import com.example.dailybruh.R
 import com.google.firebase.database.GenericTypeIndicator
 
 fun View.navigateTo(id: Int) {
@@ -85,4 +89,22 @@ fun toastLong(context: Context, message: String) {
 
 fun toastShort(context: Context, message: String) {
     Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+}
+
+fun TextView.timer(timer: Long,interval: Long) {
+    object : CountDownTimer(timer * 1000,interval * 1000) {
+        override fun onTick(rem: Long) {
+            this@timer.apply {
+                isClickable = false
+            }.text = "через ${rem.div(1000)} секунд можно будет отправить код снова"
+            //TODO(make this shit with placeholders)
+        }
+
+        override fun onFinish() {
+            this@timer.apply {
+                text = resources.getString(R.string.resend_code_text)
+            }.isClickable = true
+        }
+
+    }.start()
 }

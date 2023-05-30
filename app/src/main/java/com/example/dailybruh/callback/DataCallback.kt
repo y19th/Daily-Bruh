@@ -1,4 +1,4 @@
-package com.example.dailybruh.database
+package com.example.dailybruh.callback
 
 abstract class DataCallback {
 

@@ -57,6 +57,7 @@
             style="@style/AuthInputText"
             tools:text="111111"
             />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/code_error_text"
             android:layout_width="match_parent"
@@ -84,21 +85,20 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/continue_button"
+        style="@style/RedContinueButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/under_header"
-        app:layout_constraintStart_toStartOf="@id/keyboard_layout"
-        app:layout_constraintEnd_toEndOf="@id/keyboard_layout"
         app:layout_constraintBottom_toTopOf="@id/keyboard_layout"
-        app:layout_constraintVertical_bias="0.8"
-        style="@style/RedContinueButton"
+        app:layout_constraintEnd_toEndOf="@id/keyboard_layout"
+        app:layout_constraintStart_toStartOf="@id/keyboard_layout"
+        android:layout_marginBottom="10dp"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/keyboard_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,110 +124,78 @@
             >
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_1"
-                android:background="@color/transparent"
                 android:text="1"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="1"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_2"
-                android:background="@color/transparent"
                 android:text="2"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="2"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_3"
-                android:background="@color/transparent"
                 android:text="3"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="3"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_4"
-                android:background="@color/transparent"
                 android:text="4"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="4"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_5"
-                android:background="@color/transparent"
                 android:text="5"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="5"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_6"
-                android:background="@color/transparent"
                 android:text="6"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="6"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_7"
-                android:background="@color/transparent"
                 android:text="7"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="7"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_8"
-                android:background="@color/transparent"
                 android:text="8"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="8"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_9"
-                android:background="@color/transparent"
                 android:text="9"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="9"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_0"
-                android:background="@color/transparent"
                 android:text="0"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="0"
                 android:layout_column="1"
-                android:layout_margin="10dp"
                 android:paddingVertical="10dp"
+                style="@style/KeyboardKeys"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/keyboard_button_erase"
                 android:background="@drawable/item_erase_with_inset"
-                android:fontFamily="@font/jost_semibold"
-                android:textSize="32sp"
                 android:tag="-1"
                 android:layout_margin="10dp"
                 android:paddingVertical="10dp"

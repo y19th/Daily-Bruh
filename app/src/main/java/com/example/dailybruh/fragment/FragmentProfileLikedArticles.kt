@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailybruh.R
-import com.example.dailybruh.adapters.NewsPageRecyclerAdapter
+import com.example.dailybruh.adapters.LikedArticlesRecyclerAdapter
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDilaogLikedArticlesBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.navigateTo
-import com.example.dailybruh.interfaces.LikedArticlesView
+import com.example.dailybruh.interfaces.profile.liked.LikedArticlesView
 import com.example.dailybruh.presenter.LikedArticlesPresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 
-class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticlesBinding>(),LikedArticlesView {
+class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticlesBinding>(),
+    LikedArticlesView {
 
     private val databaseViewModel: DatabaseViewModel by viewModels()
     private lateinit var database : Database
@@ -51,7 +52,7 @@ class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticle
                 0L -> binding.errorLayout.visibility = View.VISIBLE
                 else -> binding.errorLayout.visibility = View.GONE
             }
-            adapter = NewsPageRecyclerAdapter(presenter = presenter, pageArray = pageArray)
+            adapter = LikedArticlesRecyclerAdapter(presenter = presenter, pageArray = pageArray)
             layoutManager = LinearLayoutManager(context)
         }
     }

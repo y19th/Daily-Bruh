@@ -1,4 +1,4 @@
-package com.example.dailybruh.interfaces
+package com.example.dailybruh.interfaces.mainpage
 
 interface MainPagePresenterInterface {
 

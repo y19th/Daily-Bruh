@@ -10,11 +10,11 @@ import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentAuthNameBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.StandardFragment
-import com.example.dailybruh.interfaces.AuthNameView
+import com.example.dailybruh.interfaces.auth.AuthNameView
 import com.example.dailybruh.presenter.AuthNamePresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 
-class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(),AuthNameView {
+class FragmentAuthName: StandardFragment<FragmentAuthNameBinding>(), AuthNameView {
 
     private val databaseViewModel: DatabaseViewModel by viewModels()
 
