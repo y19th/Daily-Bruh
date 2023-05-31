@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.dailybruh.R
 import com.example.dailybruh.const.BASE_ARTICLE
 import com.example.dailybruh.const.BASE_ENDPOINT
@@ -18,6 +19,11 @@ import com.example.dailybruh.web.sorting
 
 class MainFragment : StandardFragment<FragmentMainBinding>() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        this.requireActivity().setTheme(R.style.Theme_DailyBruh)
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

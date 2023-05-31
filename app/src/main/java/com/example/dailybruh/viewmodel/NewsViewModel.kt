@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dailybruh.const.API_KEY
 import com.example.dailybruh.const.BASE_URL
+import com.example.dailybruh.const.loadStatus
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.web.NewsApi
 import kotlinx.coroutines.CoroutineName
@@ -45,7 +46,10 @@ class NewsViewModel : ViewModel() {
             } catch (e : Exception) {
                 _status.value = e.message
             }
+        }.invokeOnCompletion {
+            loadStatus.value = true
         }
+
     }
 
     private fun getURL(addUrl: String) = "$BASE_URL$addUrl&apiKey=$API_KEY"

@@ -11,12 +11,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
+import com.example.dailybruh.const.loadStatus
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.enum.From
 import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.disableView
+import com.example.dailybruh.extension.makeGone
+import com.example.dailybruh.extension.makeVisible
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
 import com.example.dailybruh.interfaces.mainpage.MainPageView
@@ -42,6 +45,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewsPageBinding.inflate(inflater,container,false)
+        if(loadStatus.value == true)binding.mainCap.main.makeGone()
         return binding.root
     }
 
@@ -128,7 +132,10 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
     }
 
     override fun setNews(news: News, database: Database, likesMap: HashMap<String,String>) {
-        binding.viewpagerMain.adapter = VerticalPagerAdapter(
+        binding.also {/*
+            it.layoutUnderCap.makeVisible()
+            it.mainCap.main.makeGone()*/
+        }.viewpagerMain.adapter = VerticalPagerAdapter(
             database = database,
             fragmentManager = parentFragmentManager,
             lifecycle = viewLifecycleOwner.lifecycle,

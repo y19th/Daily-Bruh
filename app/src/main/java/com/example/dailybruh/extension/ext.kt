@@ -49,6 +49,17 @@ fun View.enableView() {
     enableDisableView(this,true)
 }
 
+fun View.makeVisible() {
+    this.visibility = View.VISIBLE
+}
+fun View.makeInvisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.makeGone() {
+    this.visibility = View.GONE
+}
+
 private fun enableDisableView(view: View,enabled:Boolean) {
     view.isEnabled = enabled
     if(view is ViewGroup) {
