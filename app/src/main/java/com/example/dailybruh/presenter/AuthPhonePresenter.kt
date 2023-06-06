@@ -10,7 +10,6 @@ import com.example.dailybruh.const.AUTH_OPTIONS
 import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.database.Database
-import com.example.dailybruh.extension.enableView
 import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.extension.toastLong
@@ -46,12 +45,10 @@ class AuthPhonePresenter(
 
     override fun setCallback() {
         _callback = object : CodeCallback(
-            context = viewState.viewContext,
-            view = viewState.viewFragment.requireView()
+            context = viewState.viewContext
         ) {
 
             override fun stepOnCodeSent() {
-                viewState.viewFragment.requireView().enableView()
                 toastLong(viewState.viewContext,"code sent")
                 val bundle = Bundle()
                 bundle.also {

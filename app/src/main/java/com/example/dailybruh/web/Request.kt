@@ -1,6 +1,9 @@
 package com.example.dailybruh.web
 
-internal var recentRequest: Request? = null
+
+internal var _recentRequest: Request? = null
+
+internal val recentRequest: Request get() = requireNotNull(_recentRequest)
 class Request(
     _endpoint: String,
     _article: String,

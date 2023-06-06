@@ -52,7 +52,7 @@ class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticle
                 0L -> binding.errorLayout.visibility = View.VISIBLE
                 else -> binding.errorLayout.visibility = View.GONE
             }
-            adapter = LikedArticlesRecyclerAdapter(presenter = presenter, pageArray = pageArray)
+            adapter = LikedArticlesRecyclerAdapter(pageArray = pageArray)
             layoutManager = LinearLayoutManager(context)
         }
     }

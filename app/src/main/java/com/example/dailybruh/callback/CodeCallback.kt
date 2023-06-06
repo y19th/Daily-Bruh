@@ -3,7 +3,6 @@ package com.example.dailybruh.callback
 import android.content.Context
 import android.view.View
 import com.example.dailybruh.R
-import com.example.dailybruh.extension.enableView
 import com.example.dailybruh.extension.toastShort
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
@@ -12,8 +11,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
-abstract class CodeCallback(private val context: Context,
-                            private val view: View) : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+abstract class CodeCallback(private val context: Context) : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
     private var _token: PhoneAuthProvider.ForceResendingToken? = null
     private val token: PhoneAuthProvider.ForceResendingToken get() = _token!!
 
@@ -32,7 +30,6 @@ abstract class CodeCallback(private val context: Context,
             is FirebaseNetworkException -> toastShort(context,context.getString(R.string.firebase_error_network))
             else -> toastShort(context,"$exc exception")
         }
-        view.enableView()
     }
 
     override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {

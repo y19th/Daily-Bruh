@@ -1,37 +1,43 @@
 package com.example.dailybruh.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.ifNull
-import com.example.dailybruh.presenter.LikedArticlesPresenter
 
-class LikedArticlesRecyclerAdapter(private val presenter: LikedArticlesPresenter,
-                                   private val pageArray: List<PageArticle>
-): RecyclerView.Adapter<LikedArticlesRecyclerAdapter.ViewHolder>() {
+class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): RecyclerView.Adapter<LikedArticlesRecyclerAdapter.ViewHolder>() {
 
-    private lateinit var binding: RecyclerItemSavedNewsBinding
-    private lateinit var context: Context
+    private var _binding: RecyclerItemSavedNewsBinding? = null
+    private val binding: RecyclerItemSavedNewsBinding get() = requireNotNull(_binding)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = RecyclerItemSavedNewsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        context = parent.context
-        return ViewHolder()
+        _binding = RecyclerItemSavedNewsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        with(pageArray[position]) {
             binding.apply {
-                header.text = pageArray[position].header.ifNull("Без заголовка")
-                authorPage.text = pageArray[position].author.ifNull("Без автора")
-                bindImage(urlPhoto,pageArray[position].urlPhoto)
+                header.text = this@with.header.ifNull("Без заголовка")
+                authorPage.text = this@with.author.ifNull("Без автора")
+                bindImage(urlPhoto, this@with.urlPhoto)
             }
+        }
     }
 
-    override fun getItemCount(): Int = presenter.total.toInt()
+
+    override fun getItemCount(): Int = pageArray.size
+
+    override fun getItemViewType(position: Int): Int = position
+
+    override fun getItemId(position: Int): Long = position.toLong()
 
 
-    inner class ViewHolder: RecyclerView.ViewHolder(binding.root)
+
+    inner class ViewHolder(val binding: RecyclerItemSavedNewsBinding): RecyclerView.ViewHolder(binding.root)
 }

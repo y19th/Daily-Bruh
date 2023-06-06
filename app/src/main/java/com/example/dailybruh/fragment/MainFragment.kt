@@ -11,8 +11,8 @@ import com.example.dailybruh.const.BASE_ENDPOINT
 import com.example.dailybruh.databinding.FragmentMainBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.web.Request
+import com.example.dailybruh.web._recentRequest
 import com.example.dailybruh.web.language
-import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.setDefaultSettings
 import com.example.dailybruh.web.sorting
 
@@ -34,7 +34,7 @@ class MainFragment : StandardFragment<FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDefaultSettings()
-        recentRequest = Request(
+        _recentRequest = Request(
             BASE_ENDPOINT, BASE_ARTICLE, null,null, sorting.value,
             language.value)
         view.navigateTo(R.id.newspage)

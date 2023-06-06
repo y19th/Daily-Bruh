@@ -31,7 +31,7 @@ class MainPagePresenter(
     override fun sendData() {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {
             newsViewModel.also {
-                it.getNews(recentRequest?.request ?: Request(BASE_ENDPOINT, BASE_ARTICLE).request)
+                it.getNews(recentRequest.request ?: Request(BASE_ENDPOINT, BASE_ARTICLE).request)
             }.news.map {
                 viewState.setNews(
                     news = it,

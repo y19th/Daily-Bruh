@@ -10,7 +10,8 @@ import androidx.core.view.children
 import androidx.core.widget.doOnTextChanged
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentAuthPhoneBinding
-import com.example.dailybruh.extension.disableView
+import com.example.dailybruh.extension.makeGone
+import com.example.dailybruh.extension.makeVisible
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.StandardFragment
 import com.example.dailybruh.interfaces.auth.AuthPhoneView
@@ -34,7 +35,6 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(), AuthPhon
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val presenter = AuthPhonePresenter(
             viewState = this@FragmentAuthPhone
         ).also { it.setCallback() }
@@ -54,7 +54,6 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(), AuthPhon
             continueButton.setOnClickListener {
                 when(phoneField.text!!.length) {
                     16 -> {
-                        view.disableView()
                         presenter.createOptions(phoneField.text.toString())
                     }
                     0 -> { error("Необходимо ввести номер",true) }
@@ -88,12 +87,12 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(), AuthPhon
                 true -> {
                     phoneErrorText.apply {
                         text = message
-                    }.visibility = View.VISIBLE
+                    }.makeVisible()
                 }
                 false -> {
                     phoneErrorText.apply {
                         text = null
-                    }.visibility = View.GONE
+                    }.makeGone()
                 }
             }
         }

@@ -39,15 +39,12 @@ class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
         authOptions = if(Build.VERSION.SDK_INT >= 33) {
             requireArguments().getSerializable(AUTH_OPTIONS,AuthOptions::class.java)!!
         } else {
-            requireArguments().getSerializable(AUTH_OPTIONS) as AuthOptions
+            requireArguments().getSerializable(AUTH_OPTIONS) as AuthOptions //TODO(why this is deprecated???)
         }
         binding.apply {
-
-
             codeField.doOnTextChanged { _, _, _, _ ->
                 error(enabled = false)
             }
-
             continueButton.setOnClickListener {
                 when(codeField.text.length) {
                     in 0..5 -> {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
 import com.example.dailybruh.R
@@ -89,6 +88,7 @@ fun CharSequence.inc(): String {
 fun CharSequence.dec(): String {
     return this.toString().toLong().dec().toString()
 }
+
 
 fun <T> T.toGenerics(): GenericTypeIndicator<T> {
     return object : GenericTypeIndicator<T>() {}

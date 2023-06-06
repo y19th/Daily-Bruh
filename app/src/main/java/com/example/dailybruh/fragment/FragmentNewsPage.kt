@@ -17,9 +17,7 @@ import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.enum.From
 import com.example.dailybruh.enum.Sort
-import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.makeGone
-import com.example.dailybruh.extension.makeVisible
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
 import com.example.dailybruh.interfaces.mainpage.MainPageView
@@ -59,7 +57,6 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
         ).also { it.loadData() }
         binding.apply {
             profileButton.setOnClickListener {
-                view.disableView()
                 when (Firebase.auth.currentUser) {
                     null -> view.navigateTo(R.id.newspage_to_auth_phone)
                     else -> view.navigateTo(R.id.newspage_to_profile)
@@ -71,8 +68,8 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
                         it.status.observe(viewLifecycleOwner) {
                             dialogDismiss(dialogSearch)
                         }
-                        recentRequest!!.changeHeader(header)
-                    }.getNews( recentRequest!!.request)
+                        recentRequest.changeHeader(header)
+                    }.getNews(recentRequest.request)
                 }
                 ).also {
                     it.show(childFragmentManager,"searchDialog")
@@ -122,20 +119,18 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
     }
     private fun changeSortParam(sort: Sort) {
         sorting(sort.get())
-        recentRequest!!.changeSort(sort.getParam())
-        newsModel.getNews(recentRequest!!.request)
+        recentRequest.changeSort(sort.getParam())
+        newsModel.getNews(recentRequest.request)
     }
     private fun changeFromParam(from: From) {
         from(from.get())
-        recentRequest!!.changeFrom(from.getParam())
-        newsModel.getNews(recentRequest!!.request)
+        recentRequest.changeFrom(from.getParam())
+        newsModel.getNews(recentRequest.request)
     }
 
+
     override fun setNews(news: News, database: Database, likesMap: HashMap<String,String>) {
-        binding.also {/*
-            it.layoutUnderCap.makeVisible()
-            it.mainCap.main.makeGone()*/
-        }.viewpagerMain.adapter = VerticalPagerAdapter(
+        binding.viewpagerMain.adapter = VerticalPagerAdapter(
             database = database,
             fragmentManager = parentFragmentManager,
             lifecycle = viewLifecycleOwner.lifecycle,

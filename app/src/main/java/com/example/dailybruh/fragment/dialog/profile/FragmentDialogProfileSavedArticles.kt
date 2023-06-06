@@ -21,9 +21,6 @@ class FragmentDialogProfileSavedArticles(database: Database): BottomSheetDialogF
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     }

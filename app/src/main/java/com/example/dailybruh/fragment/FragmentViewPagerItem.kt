@@ -15,6 +15,7 @@ import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.extension.dec
 import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.inc
+import com.example.dailybruh.extension.makeGone
 import com.example.dailybruh.interfaces.mainpage.pager.PagerItemView
 import com.example.dailybruh.presenter.PagerItemPresenter
 import com.google.firebase.auth.ktx.auth
@@ -42,18 +43,24 @@ class FragmentViewPagerItem(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        if(Firebase.auth.currentUser != null) {
-            presenter = PagerItemPresenter(
-                viewState = this,
-                database = database,
-                itemId = news.articles[position].id,
-                mapLikes = mapLikes
-            )
-            presenter.getLikes()
+        when(Firebase.auth.currentUser) {
+            null -> {
+                binding.apply {
+                    likeButton.makeGone()
+                    likeCount.makeGone()
+                    saveButton.makeGone()
+                }
+            }
+            else -> {
+                presenter = PagerItemPresenter(
+                    viewState = this,
+                    database = database,
+                    itemId = news.articles[position].id,
+                    mapLikes = mapLikes
+                )
+                presenter.getLikes()
+            }
         }
-
-
         binding.apply {
                 titlePage.text = news.articles[position].title
                 publishedatPage.text = parseDate(news.articles[position].time)
@@ -93,13 +100,15 @@ class FragmentViewPagerItem(
 
     override fun setLikes(count: Long) {
         binding.apply {
-            likeCount.text = count.toString()
-            likeButton.setOnClickListener {
-                when(presenter.isLiked) {
-                    false -> likeCount.text = likeCount.text.inc()
-                    true -> likeCount.text = likeCount.text.dec()
+            with(likeCount) {
+                this.text = count.toString()
+                likeButton.setOnClickListener {
+                    when (presenter.isLiked) {
+                        false -> this.text = this.text.inc()
+                        true -> this.text = this.text.dec()
+                    }
+                    presenter.changeLikes(this.text.toString().toLong())
                 }
-                presenter.changeLikes(likeCount.text.toString().toLong())
             }
 
         }
