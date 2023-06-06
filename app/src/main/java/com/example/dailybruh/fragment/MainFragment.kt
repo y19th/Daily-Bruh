@@ -21,7 +21,6 @@ class MainFragment : StandardFragment<FragmentMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        this.requireActivity().setTheme(R.style.Theme_DailyBruh)
         super.onCreate(savedInstanceState)
     }
     override fun onCreateView(

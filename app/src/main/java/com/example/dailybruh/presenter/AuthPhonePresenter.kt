@@ -45,14 +45,17 @@ class AuthPhonePresenter(
     }
 
     override fun setCallback() {
-        _callback = object : CodeCallback(context = viewState.viewContext) {
+        _callback = object : CodeCallback(
+            context = viewState.viewContext,
+            view = viewState.viewFragment.requireView()
+        ) {
 
             override fun stepOnCodeSent() {
                 viewState.viewFragment.requireView().enableView()
                 toastLong(viewState.viewContext,"code sent")
                 val bundle = Bundle()
-                bundle.apply {
-                    putSerializable(AUTH_OPTIONS,authOptions)
+                bundle.also {
+                    it.putSerializable(AUTH_OPTIONS,authOptions)
                 }.putString(VERIFICATION_ID,this.verificationId())
                 viewState.viewFragment.requireView().navigateTo(
                     id =  R.id.auth_phone_to_auth_vercode,
@@ -67,8 +70,8 @@ class AuthPhonePresenter(
                 loadData()
             }
 
-            override fun onInstantAuth(credential: PhoneAuthCredential) {
-                authOptions.signInWithCred(credential)
+            override fun onInstantAuth(cred: PhoneAuthCredential) {
+                authOptions.signInWithCred(cred)
             }
 
             override fun onFailedAuth() {
