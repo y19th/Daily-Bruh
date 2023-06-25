@@ -12,11 +12,12 @@ class VerticalPagerAdapter(private val database: Database,
                            fragmentManager: FragmentManager,
                            lifecycle: Lifecycle,
                            private val news: News,
-                           private val likesMap: HashMap<String,String>
+                           private val likesMap: HashMap<String,String>,
+                           private val savesMap: HashMap<String,String>
                            ) : FragmentStateAdapter(fragmentManager,lifecycle) {
 
     override fun getItemCount(): Int = news.total
 
-    override fun createFragment(position: Int): Fragment = FragmentViewPagerItem(database,position,news,likesMap)
+    override fun createFragment(position: Int): Fragment = FragmentViewPagerItem(database,position,news,likesMap,savesMap)
 
 }

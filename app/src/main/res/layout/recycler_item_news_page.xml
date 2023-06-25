@@ -51,11 +51,12 @@
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/icon_save_news"
+        app:srcCompat="@drawable/icon_save_news_unfilled"
         app:layout_constraintEnd_toEndOf="@id/url_photo_layout"
         app:layout_constraintTop_toTopOf="@id/author_page"
         app:layout_constraintBottom_toBottomOf="@id/author_page"
         android:layout_marginEnd="13dp"
+        tools:src="@drawable/icon_save_news_filled"
         />
 
     <androidx.cardview.widget.CardView

@@ -43,6 +43,18 @@ class Database(
         }.child(itemId).removeValue()
     }
 
+    fun addSave(itemId: String,value: String,total: Long) {
+        userReference.child("saved").also {
+            it.child("total").setValue(total)
+        }.child(itemId).setValue(value)
+    }
+
+    fun removeSave(itemId: String,total: Long) {
+        userReference.child("saved").also {
+            it.child("total").setValue(total)
+        }.child(itemId).removeValue()
+    }
+
     fun article(article: Article) {
         dataReference.child(article.id).get().addOnCompleteListener {
             if(it.result.value == null)standardParams(article)

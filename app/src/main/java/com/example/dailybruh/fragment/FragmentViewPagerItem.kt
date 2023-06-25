@@ -25,7 +25,8 @@ class FragmentViewPagerItem(
     private val database: Database,
     private val position: Int,
     private val news: News,
-    private val mapLikes: HashMap<String,String>
+    private val mapLikes: HashMap<String,String>,
+    private val mapSaves: HashMap<String,String>
 ): StandardFragment<RecyclerItemNewsPageBinding>(), PagerItemView {
 
     private lateinit var presenter: PagerItemPresenter
@@ -56,9 +57,10 @@ class FragmentViewPagerItem(
                     viewState = this,
                     database = database,
                     itemId = news.articles[position].id,
-                    mapLikes = mapLikes
+                    mapLikes = mapLikes,
+                    mapSaves = mapSaves
                 )
-                presenter.getLikes()
+                presenter.also { it.getSaves() }.getLikes()
             }
         }
         binding.apply {
@@ -113,6 +115,20 @@ class FragmentViewPagerItem(
 
         }
 
+    }
+
+    override fun setSaves() {
+        binding.saveButton.setOnClickListener {
+            presenter.changeSaveState()
+        }
+    }
+    override fun checkIsSaved(isSaved: Boolean) {
+        when(isSaved) {
+            true -> binding.saveButton.setImageDrawable(AppCompatResources
+                .getDrawable(requireContext(),R.drawable.icon_save_news_filled))
+            false -> binding.saveButton.setImageDrawable(AppCompatResources
+                .getDrawable(requireContext(),R.drawable.icon_save_news_unfilled))
+        }
     }
 
     override fun checkIsLiked(isLiked: Boolean) {

@@ -27,6 +27,7 @@ class MainPagePresenter(
 
     val database = databaseViewModel.withLifecycle(lifecycle = viewLifecycleOwner.lifecycle).value
     var userLiked: HashMap<String,String> = hashMapOf()
+    var userSaved: HashMap<String,String> = hashMapOf()
 
     override fun sendData() {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {
@@ -36,7 +37,8 @@ class MainPagePresenter(
                 viewState.setNews(
                     news = it,
                     database = database,
-                    likesMap = userLiked
+                    likesMap = userLiked,
+                    savesMap = userSaved
                 )
             }.stateIn(this)
         }
@@ -44,9 +46,11 @@ class MainPagePresenter(
 
     override fun loadData() {
         if (Firebase.auth.currentUser != null) {
-            database.userReference.child("liked").get().addOnCompleteListener {
-                val map = hashMapOf<String, String>().toGenerics()
-                userLiked = it.result.getValue(map) ?: hashMapOf()
+            database.userReference.get().addOnCompleteListener {
+                val likeMap = hashMapOf<String,String>().toGenerics()
+                val saveMap = hashMapOf<String,String>().toGenerics()
+                userLiked = it.result.child("liked").getValue(likeMap) ?: hashMapOf()
+                userSaved = it.result.child("saved").getValue(saveMap) ?: hashMapOf()
                 sendData()
             }
         } else {

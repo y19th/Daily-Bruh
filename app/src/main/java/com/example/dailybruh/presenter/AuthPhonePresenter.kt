@@ -36,10 +36,18 @@ class AuthPhonePresenter(
     }
 
     override fun loadData() {
-        Database(Firebase.auth.currentUser!!.phoneNumber.ifNull(STANDARD_PHONE))
-            .userReference.child("name").get().addOnCompleteListener {
+        Database(Firebase.auth.currentUser!!.phoneNumber.ifNull(STANDARD_PHONE)).also {
+            setDefault("liked",it)
+            setDefault("saved",it)
+        }.userReference.child("name").get().addOnCompleteListener {
             userName = it.result.value as String?
             sendData()
+        }
+    }
+
+    private fun setDefault(child: String, database: Database) {
+        database.userReference.child(child).child("total").get().addOnCompleteListener {res ->
+            if(res.result.value == null) database.userReference.child(child).child("total").setValue(0L)
         }
     }
 
@@ -60,9 +68,7 @@ class AuthPhonePresenter(
                 )
 
             }
-            override fun onSuccessAuth(
-                view: View
-            ) {
+            override fun onSuccessAuth(view: View) {
                 _codeView = view
                 loadData()
             }

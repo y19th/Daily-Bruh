@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 open class BaseAdapter<T : ViewBinding> : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     var _binding: T? = null
-    val binding: T = requireNotNull(_binding)
+    val binding: T get() = requireNotNull(_binding)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
        return super.createViewHolder(parent,viewType)

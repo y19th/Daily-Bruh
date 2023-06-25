@@ -8,15 +8,21 @@ class PagerItemPresenter(
     private val viewState: PagerItemView,
     private val database: Database,
     private val itemId: String,
-    private val mapLikes: HashMap<String,String>
+    private val mapLikes: HashMap<String,String>,
+    private val mapSaves: HashMap<String,String>
 ) : PagerItemPresenterInterface {
 
     var isLiked: Boolean = false
-    var total = 0L
+    var isSaved: Boolean = false
+    private var likeTotal = 0L
+    private var saveTotal = 0L
 
     init {
         database.userReference.child("liked").child("total").get().addOnSuccessListener {
-            total = it.value as Long
+            likeTotal = it.value as Long
+        }
+        database.userReference.child("saved").child("total").get().addOnSuccessListener {
+            saveTotal = it.value as Long
         }
     }
 
@@ -25,6 +31,11 @@ class PagerItemPresenter(
             viewState.setLikes(it.result.value as Long? ?: 0L)
             isLiked()
         }
+    }
+
+    override fun getSaves() {
+        viewState.setSaves()
+        isSaved()
     }
 
     override fun isLiked() {
@@ -41,6 +52,21 @@ class PagerItemPresenter(
         })
     }
 
+    override fun isSaved() {
+        viewState.checkIsSaved(
+            when(mapSaves.size) {
+                0 -> {
+                    isSaved = false
+                    false
+                }
+                else -> {
+                    isSaved = mapSaves.containsValue(itemId)
+                    isSaved
+                }
+            }
+        )
+    }
+
     override fun changeLikes(long: Long) {
         when(isLiked) {
             true -> {
@@ -54,6 +80,47 @@ class PagerItemPresenter(
         }
     }
 
+
+    override fun changeSaveState() {
+        when(isSaved) {
+            true -> removeSave()
+            false -> addSave()
+        }
+    }
+
+    private fun addSave() {
+        when(val itemPull = mapSaves.checkPull()) {
+            null -> {
+                mapSaves["id$saveTotal"] = itemId
+                saveTotal++
+                database.addSave(itemId = "id${saveTotal - 1}", value = itemId,total = saveTotal)
+                isSaved()
+            }
+            else -> {
+                mapSaves[itemPull] = itemId
+                saveTotal++
+                database.addSave(itemId = itemPull, value = itemId, total = saveTotal)
+                isSaved()
+            }
+        }
+    }
+
+    private fun removeSave() {
+        val iterator = mapSaves.iterator()
+        while (iterator.hasNext()) {
+
+            val item = iterator.next()
+            val itemKey = item.key
+
+            if(item.value == itemId) {
+                saveTotal--
+                database.removeSave(itemId = itemKey, total = saveTotal)
+                iterator.remove()
+            }
+        }
+        isSaved()
+    }
+
     private fun removeLike() {
         val iterator = mapLikes.iterator()
         while(iterator.hasNext()) {
@@ -62,8 +129,8 @@ class PagerItemPresenter(
             val itemKey = item.key
 
             if(item.value == itemId) {
-                total--
-                database.removeLike(itemId = itemKey, total = total)
+                likeTotal--
+                database.removeLike(itemId = itemKey, total = likeTotal)
                 iterator.remove()
             }
         }
@@ -73,15 +140,15 @@ class PagerItemPresenter(
     private fun addLike() {
         when(val itemPull = mapLikes.checkPull()) {
             null -> {
-                mapLikes["id$total"] = itemId
-                total++
-                database.addLike(itemId = "id${total - 1}", value = itemId,total = total)
+                mapLikes["id$likeTotal"] = itemId
+                likeTotal++
+                database.addLike(itemId = "id${likeTotal - 1}", value = itemId,total = likeTotal)
                 isLiked()
             }
             else -> {
                 mapLikes[itemPull] = itemId
-                total++
-                database.addLike(itemId = itemPull, value = itemId, total = total)
+                likeTotal++
+                database.addLike(itemId = itemPull, value = itemId, total = likeTotal)
                 isLiked()
             }
         }
