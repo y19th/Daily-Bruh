@@ -2,25 +2,25 @@ package com.example.dailybruh.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.example.dailybruh.databinding.RecyclerItemSavedNewsBinding
+import com.example.dailybruh.databinding.RecyclerItemLikedNewsBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.ifNull
 
-class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): RecyclerView.Adapter<LikedArticlesRecyclerAdapter.ViewHolder>() {
+class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): BaseAdapter<RecyclerItemLikedNewsBinding>() {
 
-    private var _binding: RecyclerItemSavedNewsBinding? = null
-    private val binding: RecyclerItemSavedNewsBinding get() = requireNotNull(_binding)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<RecyclerItemLikedNewsBinding> {
+        _binding = RecyclerItemLikedNewsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        _binding = RecyclerItemSavedNewsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-
-        return ViewHolder(binding)
+        return BaseViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(
+        holder: BaseViewHolder<RecyclerItemLikedNewsBinding>,
+        position: Int
+    ) {
         with(pageArray[position]) {
             binding.apply {
                 header.text = this@with.header.ifNull("Без заголовка")
@@ -38,6 +38,4 @@ class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): Re
     override fun getItemId(position: Int): Long = position.toLong()
 
 
-
-    inner class ViewHolder(val binding: RecyclerItemSavedNewsBinding): RecyclerView.ViewHolder(binding.root)
 }

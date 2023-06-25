@@ -60,6 +60,8 @@
             android:id="@+id/profile_to_liked_articles"
             app:destination="@id/liked_articles"
             />
+        <action android:id="@+id/profile_to_saved_articles"
+            app:destination="@id/saved_articles"/>
     </fragment>
     <fragment
         android:id="@+id/liked_articles"
@@ -115,5 +117,13 @@
         <action android:id="@+id/auth_nickname_to_profile"
             app:destination="@id/profile"
             />
+    </fragment>
+
+    <fragment android:id="@+id/saved_articles"
+        android:name="com.example.dailybruh.fragment.FragmentProfileSavedArticles"
+        android:label="FragmentProfileSavedArticles"
+        >
+        <action android:id="@+id/saved_articles_to_profile"
+            app:destination="@+id/profile"/>
     </fragment>
 </navigation>

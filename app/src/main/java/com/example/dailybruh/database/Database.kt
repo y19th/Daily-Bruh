@@ -20,7 +20,8 @@ class Database(
     val userReference = database.reference.child("users").child(phone)
     val dataReference = database.reference.child("articles")
     val name = MutableLiveData<String>()
-    fun setLifecycle(lOwner: LifecycleOwner? = null,lcycle: Lifecycle? = null) {
+
+    fun setLifecycle(lOwner: LifecycleOwner? = null, lcycle: Lifecycle? = null) {
         lifecycleOwner = lOwner?.let { lOwner }
         lifecycle = lcycle?.let { lcycle }
     }

@@ -10,7 +10,6 @@ import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
-import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileSavedArticles
 import com.example.dailybruh.interfaces.profile.ProfileView
 import com.example.dailybruh.presenter.ProfilePresenter
 import com.example.dailybruh.viewmodel.DatabaseViewModel
@@ -61,7 +60,7 @@ class FragmentProfile : StandardFragment<FragmentProfileBinding>(), ProfileView 
                 ).show(childFragmentManager,"nickname_edit_dialog")
             }
             savedNewsLayout.setOnClickListener {
-                FragmentDialogProfileSavedArticles(database).show(childFragmentManager,"saved_articles_dialog")
+                view.navigateTo(R.id.profile_to_saved_articles)
             }
             likedNewsLayout.setOnClickListener {
                 view.navigateTo(R.id.profile_to_liked_articles)

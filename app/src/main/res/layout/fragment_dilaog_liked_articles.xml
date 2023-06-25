@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:nestedScrollingEnabled="true"
-
     >
 
     <include
@@ -62,7 +61,7 @@
         android:clipToPadding="true"
         android:layout_marginTop="170dp"
         app:layout_constraintTop_toBottomOf="@id/divider_layout"
-        tools:listitem="@layout/recycler_item_saved_news"
+        tools:listitem="@layout/recycler_item_liked_news"
         tools:visibility="invisible"
         />
 

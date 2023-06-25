@@ -22,8 +22,8 @@
     <string name="change_name_desc">здесь вы можете изменить свое имя</string>
     <string name="change_nickname">Изменить никнейм</string>
     <string name="change_nickname_desc">здесь вы можете изменить свой никнейм</string>
-    <string name="saved_articles_header">Сохраненные новости</string>
-    <string name="saved_articles_desc">Здесь будут храниться ваши сохраненные новости</string>
+    <string name="saved_articles_header">Ваши сохраненные новости</string>
+    <string name="saved_articles_desc">это ваши сохраненные новости</string>
     <string name="liked_articles_header">Новости, которые вам понравились</string>
     <string name="liked_articles_desc">мы добавили их сюда, чтоб вы всегда могли посмотреть понравившиеся вам новости</string>
     <string name="auth_phone_header">Введите свой номер</string>
