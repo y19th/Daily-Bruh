@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.example.dailybruh.databinding.RecyclerItemLikedNewsBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.ifNull
+import com.example.dailybruh.extension.showTabOnClick
 
 class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): BaseAdapter<RecyclerItemLikedNewsBinding>() {
 
@@ -24,18 +25,13 @@ class LikedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>): Ba
         with(pageArray[position]) {
             binding.apply {
                 header.text = this@with.header.ifNull("Без заголовка")
-                authorPage.text = this@with.author.ifNull("Без автора")
+                authorPage.text = this@with.author
                 bindImage(urlPhoto, this@with.urlPhoto)
+                mainLayout.showTabOnClick(this@with.urlPage)
             }
         }
     }
 
 
     override fun getItemCount(): Int = pageArray.size
-
-    override fun getItemViewType(position: Int): Int = position
-
-    override fun getItemId(position: Int): Long = position.toLong()
-
-
 }

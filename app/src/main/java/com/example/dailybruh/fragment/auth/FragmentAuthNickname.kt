@@ -5,16 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentAuthNicknameBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.StandardFragment
-import com.example.dailybruh.viewmodel.DatabaseViewModel
 
 class FragmentAuthNickname : StandardFragment<FragmentAuthNicknameBinding>() {
 
-    private val databaseViewModel: DatabaseViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +24,6 @@ class FragmentAuthNickname : StandardFragment<FragmentAuthNicknameBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
 
         binding.apply {
             backButton.backButtonLayout.setOnClickListener {

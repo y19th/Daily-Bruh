@@ -22,7 +22,6 @@ import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
 import com.example.dailybruh.interfaces.mainpage.MainPageView
 import com.example.dailybruh.presenter.MainPagePresenter
-import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.example.dailybruh.web.from
 import com.example.dailybruh.web.recentRequest
@@ -33,8 +32,6 @@ import com.google.firebase.ktx.Firebase
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageView {
 
     private val newsModel: NewsViewModel by viewModels()
-    private val databaseViewModel: DatabaseViewModel by viewModels()
-    private lateinit var presenter: MainPagePresenter
     private lateinit var dialogSearch: DialogFragment
 
     override fun onCreateView(
@@ -49,7 +46,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = MainPagePresenter(
+        MainPagePresenter(
             viewState = this,
             viewLifecycleOwner = viewLifecycleOwner,
             newsViewModel = newsModel,

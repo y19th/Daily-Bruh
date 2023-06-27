@@ -15,15 +15,9 @@ import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.databinding.FragmentAuthVercodeBinding
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.StandardFragment
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
 class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
-
-    private lateinit var credential: PhoneAuthCredential
-    private lateinit var verId: String
-    private lateinit var authOptions: AuthOptions
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +29,8 @@ class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       verId = requireArguments().getString(VERIFICATION_ID)!!
-        authOptions = if(Build.VERSION.SDK_INT >= 33) {
+        val verId = requireArguments().getString(VERIFICATION_ID)!!
+        val authOptions = if(Build.VERSION.SDK_INT >= 33) {
             requireArguments().getSerializable(AUTH_OPTIONS,AuthOptions::class.java)!!
         } else {
             requireArguments().getSerializable(AUTH_OPTIONS) as AuthOptions //TODO(why this is deprecated???)
@@ -51,9 +45,9 @@ class FragmentAuthVerCode: StandardFragment<FragmentAuthVercodeBinding>() {
                         error("слишком мало символов", true)
                     }
                     else -> {
-                        authOptions.setView(view)
-                        credential = PhoneAuthProvider.getCredential(verId,codeField.text.toString())
-                        authOptions.signInWithCred(credential)
+                        authOptions.also {
+                            it.signInWithCred(PhoneAuthProvider.getCredential(verId,codeField.text.toString()))
+                        }.setView(view)
                     }
                 }
             }

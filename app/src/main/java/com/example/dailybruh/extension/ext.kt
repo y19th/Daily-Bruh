@@ -1,12 +1,14 @@
 package com.example.dailybruh.extension
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
 import com.example.dailybruh.R
@@ -118,4 +120,15 @@ fun TextView.timer(timer: Long,interval: Long) {
         }
 
     }.start()
+}
+
+fun View.showCustomTab(url: String) {
+    val intent = CustomTabsIntent.Builder().build()
+    intent.launchUrl(this.context, Uri.parse(url))
+}
+
+fun View.showTabOnClick(url: String) {
+    this.setOnClickListener {
+        this.showCustomTab(url)
+    }
 }

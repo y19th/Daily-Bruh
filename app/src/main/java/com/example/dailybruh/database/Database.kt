@@ -55,6 +55,9 @@ class Database(
         }.child(itemId).removeValue()
     }
 
+    fun setZeroParam(idChild: String) {
+        userReference.child(idChild).child("total").setValue(0L)
+    }
     fun article(article: Article) {
         dataReference.child(article.id).get().addOnCompleteListener {
             if(it.result.value == null)standardParams(article)
@@ -62,13 +65,13 @@ class Database(
     }
 
     private fun standardParams(article: Article) {
-
         dataReference.child(article.id).apply {
             child("title").setValue(article.title!!)
             child("author").setValue(article.author)
             child("urlPhoto").setValue(article.image)
             child("urlPage").setValue(article.url)
             child("likes").setValue(0)
+            child("description").setValue(article.desc)
             child("commentaries").child("asd").setValue("fuck ouou")
         }
     }

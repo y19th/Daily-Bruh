@@ -19,10 +19,12 @@ class PagerItemPresenter(
 
     init {
         database.userReference.child("liked").child("total").get().addOnSuccessListener {
-            likeTotal = it.value as Long
+            if(it.value == null) database.setZeroParam(idChild = "liked")
+            else likeTotal = it.value as Long
         }
         database.userReference.child("saved").child("total").get().addOnSuccessListener {
-            saveTotal = it.value as Long
+            if(it.value == null) database.setZeroParam(idChild = "saved")
+            else saveTotal = it.value as Long
         }
     }
 

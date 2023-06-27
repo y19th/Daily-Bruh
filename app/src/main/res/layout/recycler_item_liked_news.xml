@@ -10,17 +10,14 @@
     android:layout_margin="10dp"
     android:background="@drawable/item_rounded_rectangle_white"
     >
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/author_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/jost_regular"
-        android:textAlignment="textStart"
-        android:textColor="@color/back_text_color"
-        android:textSize="11sp"
+        style="@style/MinimalRecyclerText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Фамилия имя" />
@@ -47,6 +44,7 @@
             tools:layout_height="200dp"
             />
     </androidx.cardview.widget.CardView>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/header"
         android:layout_width="0dp"

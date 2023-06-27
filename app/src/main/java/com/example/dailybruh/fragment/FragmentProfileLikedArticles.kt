@@ -4,24 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.LikedArticlesRecyclerAdapter
-import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentDilaogLikedArticlesBinding
 import com.example.dailybruh.dataclasses.PageArticle
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.interfaces.profile.liked.LikedArticlesView
 import com.example.dailybruh.presenter.LikedArticlesPresenter
-import com.example.dailybruh.viewmodel.DatabaseViewModel
 
 class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticlesBinding>(),
     LikedArticlesView {
 
-    private val databaseViewModel: DatabaseViewModel by viewModels()
-    private lateinit var database : Database
-    private lateinit var presenter: LikedArticlesPresenter
+    private var _presenter: LikedArticlesPresenter? = null
+    private val presenter: LikedArticlesPresenter get() = requireNotNull(_presenter)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,9 +28,8 @@ class FragmentProfileLikedArticles : StandardFragment<FragmentDilaogLikedArticle
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
 
-        presenter = LikedArticlesPresenter(
+        _presenter = LikedArticlesPresenter(
             database = database,
             viewLifecycleOwner = viewLifecycleOwner,
             viewState = this

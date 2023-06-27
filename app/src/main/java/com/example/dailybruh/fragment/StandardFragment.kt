@@ -2,15 +2,20 @@ package com.example.dailybruh.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.extension.disableView
 import com.example.dailybruh.extension.enableView
+import com.example.dailybruh.viewmodel.DatabaseViewModel
 
 open class StandardFragment<T: ViewBinding> : Fragment() {
 
-
+    val databaseViewModel: DatabaseViewModel by viewModels()
     var _binding: T? = null
     val binding:T get() = requireNotNull(_binding)
+    val database: Database
+        get() = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
 
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

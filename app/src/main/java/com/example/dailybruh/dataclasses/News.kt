@@ -14,7 +14,7 @@ data class Article(
     var id: String = "-",
     @Json(name = "author")val author: String?,
     @Json(name = "source")val source: Source,
-    @Json(name = "url")val url: String?,
+    @Json(name = "url")val url: String,
     @Json(name = "title")val title: String?,
     @Json(name = "publishedAt")val time: String?,
     @Json(name = "content")val content: String?,

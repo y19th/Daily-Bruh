@@ -40,16 +40,14 @@ class LikedArticlesPresenter(
 
     override fun createPage() {
 
-        val lock = ReentrantLock()
         val iterator = userLiked.iterator()
-        val callback = createCallback()
 
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("CreatingPageArray")) {
-                lock.withLock {
+            ReentrantLock().withLock {
                     while (iterator.hasNext()) {
                         val item = iterator.next()
                         if (item.key != "total") {
-                            itemFromDatabase(item.value, callback = callback)
+                            itemFromDatabase(item.value, callback = createCallback())
                         }
                     }
                 }
@@ -80,7 +78,7 @@ class LikedArticlesPresenter(
         override val totalToComplete: Int
             get() = userLiked.size - 1
 
-        var current = 0
+        override var current = 0
 
         override fun onSuccess(now: Int) {
             if(!onComplete(now))current++

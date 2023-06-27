@@ -16,13 +16,14 @@ import com.example.dailybruh.extension.dec
 import com.example.dailybruh.extension.ifNull
 import com.example.dailybruh.extension.inc
 import com.example.dailybruh.extension.makeGone
+import com.example.dailybruh.extension.showTabOnClick
 import com.example.dailybruh.interfaces.mainpage.pager.PagerItemView
 import com.example.dailybruh.presenter.PagerItemPresenter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class FragmentViewPagerItem(
-    private val database: Database,
+    private val unionDatabase: Database,
     private val position: Int,
     private val news: News,
     private val mapLikes: HashMap<String,String>,
@@ -30,7 +31,6 @@ class FragmentViewPagerItem(
 ): StandardFragment<RecyclerItemNewsPageBinding>(), PagerItemView {
 
     private lateinit var presenter: PagerItemPresenter
-
     override val fragment: FragmentViewPagerItem
         get() = this
 
@@ -44,6 +44,17 @@ class FragmentViewPagerItem(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(news.articles[position]) {
+            binding.apply {
+                titlePage.text = this@with.title
+                publishedatPage.text = parseDate(this@with.time)
+                authorPage.text = this@with.author.ifNull("Без автора")
+                bindImage(urlPhoto, this@with.image)
+                unionDatabase.article(this@with)
+                descPage.text = resizeDueTextLength()
+                buttonLayout.showTabOnClick(this@with.url)
+            }
+        }
         when(Firebase.auth.currentUser) {
             null -> {
                 binding.apply {
@@ -55,7 +66,7 @@ class FragmentViewPagerItem(
             else -> {
                 presenter = PagerItemPresenter(
                     viewState = this,
-                    database = database,
+                    database = unionDatabase,
                     itemId = news.articles[position].id,
                     mapLikes = mapLikes,
                     mapSaves = mapSaves
@@ -63,14 +74,6 @@ class FragmentViewPagerItem(
                 presenter.also { it.getSaves() }.getLikes()
             }
         }
-        binding.apply {
-                titlePage.text = news.articles[position].title
-                publishedatPage.text = parseDate(news.articles[position].time)
-                authorPage.text = news.articles[position].author.ifNull("Без автора")
-                bindImage(urlPhoto, news.articles[position].image)
-                descPage.text = resizeDueTextLength()
-                database.article(news.articles[position])
-            }
     }
 
     private fun resizeDueTextLength(): String {

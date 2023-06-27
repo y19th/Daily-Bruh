@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.databinding.FragmentProfileBinding
 import com.example.dailybruh.extension.navigateTo
@@ -12,13 +11,11 @@ import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.interfaces.profile.ProfileView
 import com.example.dailybruh.presenter.ProfilePresenter
-import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class FragmentProfile : StandardFragment<FragmentProfileBinding>(), ProfileView {
 
-    private val databaseViewModel: DatabaseViewModel by viewModels()
     override val fragment: FragmentProfile
         get() = this
 
@@ -33,7 +30,6 @@ class FragmentProfile : StandardFragment<FragmentProfileBinding>(), ProfileView 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val database = databaseViewModel.withLifecycle(lifecycleOwner = viewLifecycleOwner).value
         val presenter = ProfilePresenter(viewState = this, database = database).also { it.loadData() }
 
         binding.apply {

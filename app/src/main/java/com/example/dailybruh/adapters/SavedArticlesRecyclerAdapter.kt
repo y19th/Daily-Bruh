@@ -3,8 +3,10 @@ package com.example.dailybruh.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.dailybruh.databinding.RecyclerItemSavedArticlesBinding
+import com.example.dailybruh.dataclasses.PageArticle
+import com.example.dailybruh.extension.showTabOnClick
 
-class SavedArticlesRecyclerAdapter : BaseAdapter<RecyclerItemSavedArticlesBinding>() {
+class SavedArticlesRecyclerAdapter(private val pageArray: List<PageArticle>) : BaseAdapter<RecyclerItemSavedArticlesBinding>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -18,12 +20,16 @@ class SavedArticlesRecyclerAdapter : BaseAdapter<RecyclerItemSavedArticlesBindin
         holder: BaseViewHolder<RecyclerItemSavedArticlesBinding>,
         position: Int
     ) {
-        binding.apply {
-
+        with(pageArray[position]) {
+            binding.apply {
+                authorPage.text = this@with.author
+                headerPage.text = this@with.header
+                descPage.text = this@with.description
+                bindImage(urlPhoto, this@with.urlPhoto)
+                mainLayout.showTabOnClick(this@with.urlPage)
+            }
         }
     }
 
-    override fun getItemCount(): Int = 0 //TODO()
-
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemCount(): Int = pageArray.size
 }

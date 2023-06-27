@@ -17,4 +17,7 @@ open class BaseAdapter<T : ViewBinding> : RecyclerView.Adapter<BaseViewHolder<T>
     }
 
     override fun getItemCount(): Int = 0
+    override fun getItemViewType(position: Int): Int = position
+
+    override fun getItemId(position: Int): Long = position.toLong()
 }
