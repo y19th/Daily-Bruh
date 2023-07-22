@@ -15,14 +15,14 @@ import com.example.dailybruh.const.loadStatus
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
-import com.example.dailybruh.enum.From
-import com.example.dailybruh.enum.Sort
 import com.example.dailybruh.extension.makeGone
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
 import com.example.dailybruh.interfaces.mainpage.MainPageView
 import com.example.dailybruh.presenter.MainPagePresenter
 import com.example.dailybruh.viewmodel.NewsViewModel
+import com.example.dailybruh.web.From
+import com.example.dailybruh.web.Sort
 import com.example.dailybruh.web.from
 import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.sorting
@@ -77,11 +77,11 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
                 hint = sorting.value
                 setOnItemClickListener { _, _, clickedItem, _ ->
                     when (clickedItem) {
-                        0 -> changeSortParam(Sort.POPULARITY)
+                        0 -> changeSortParam(Sort.Popularity(context))
 
-                        1 -> changeSortParam(Sort.PUBLISHEDAT)
+                        1 -> changeSortParam(Sort.PublishedAt(context))
 
-                        2 -> changeSortParam(Sort.RELEVANCY)
+                        2 -> changeSortParam(Sort.Relevancy(context))
 
                     }
                 }
@@ -92,12 +92,11 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
                 hint = from.value
                 setOnItemClickListener { _,_,clickedItem,_ ->
                     when(clickedItem) {
-                        0 -> changeFromParam(From.FROM_TODAY)
+                        0 -> changeFromParam(From.Today(context))
 
-                        1 -> changeFromParam(From.FROM_WEEK)
+                        1 -> changeFromParam(From.Week(context))
 
-                        2 -> changeFromParam(From.FROM_MONTH)
-
+                        2 -> changeFromParam(From.Month(context))
                     }
                 }
             }
@@ -115,13 +114,13 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
         dialog.dismiss()
     }
     private fun changeSortParam(sort: Sort) {
-        sorting(sort.get())
-        recentRequest.changeSort(sort.getParam())
+        sorting(sort.getString)
+        recentRequest.changeSort(sort.getParam)
         newsModel.getNews(recentRequest.request)
     }
     private fun changeFromParam(from: From) {
-        from(from.get())
-        recentRequest.changeFrom(from.getParam())
+        from(from.getString)
+        recentRequest.changeFrom(from.getTime)
         newsModel.getNews(recentRequest.request)
     }
 

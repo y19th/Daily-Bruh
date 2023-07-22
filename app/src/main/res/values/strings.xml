@@ -45,6 +45,17 @@
     <string name="hint_dialog_input_field_nickname">введите ваш новый никнейм…</string>
     <string name="hint_search_dialog">введите ваш запрос…</string>
     <string name="resend_code_text">не пришел код? отправить еще раз!</string>
+    <string name="russian">Русский</string>
+    <string name="english">Английский</string>
+    <string name="from_today">за сегодня</string>
+    <string name="from_week">за неделю</string>
+    <string name="from_month">за месяц</string>
+    <string name="sort_popularity_string">популярные</string>
+    <string name="sort_popularity_param">popularity</string>
+    <string name="sort_relevancy_string">самые актуальные</string>
+    <string name="sort_relevancy_param">relevancy</string>
+    <string name="sort_publishedat_string">новейшие</string>
+    <string name="sort_publishedat_param">publishedAt</string>
 
     <array name="popular_filter">
         <item>популярные</item>

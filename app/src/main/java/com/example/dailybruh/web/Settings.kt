@@ -1,11 +1,11 @@
 package com.example.dailybruh.web
 
 import androidx.lifecycle.MutableLiveData
-import com.example.dailybruh.enum.From
-import com.example.dailybruh.enum.Sort
 
 private const val LANGUAGE = "ru"
 private const val TO = "2023-01-02"
+private const val SORT = "популярные"
+private const val FROM = "за месяц"
 
 internal val language: MutableLiveData<String> by lazy {
     MutableLiveData<String>()
@@ -41,7 +41,7 @@ fun toDate(t: String): String? {
 
 fun setDefaultSettings() {
     language(LANGUAGE)
-    sorting(Sort.POPULARITY.get())
-    from(From.FROM_MONTH.get())
+    sorting(SORT)
+    from(FROM)
     toDate(TO)
 }

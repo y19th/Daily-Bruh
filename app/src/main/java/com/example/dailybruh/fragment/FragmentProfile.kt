@@ -11,6 +11,7 @@ import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileName
 import com.example.dailybruh.fragment.dialog.profile.FragmentDialogProfileNickname
 import com.example.dailybruh.interfaces.profile.ProfileView
 import com.example.dailybruh.presenter.ProfilePresenter
+import com.example.dailybruh.web.Language
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
