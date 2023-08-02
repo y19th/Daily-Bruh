@@ -40,7 +40,6 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewsPageBinding.inflate(inflater,container,false)
-        if(loadStatus.value == true)binding.mainCap.main.makeGone()
         return binding.root
     }
 
@@ -60,7 +59,8 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
                 }
             }
             navMenuButton.setOnClickListener {
-                dialogSearch = FragmentDialogSearch(reset = { header ->
+                dialogSearch = FragmentDialogSearch(
+                    reset = { header ->
                     newsModel.also {
                         it.status.observe(viewLifecycleOwner) {
                             dialogDismiss(dialogSearch)

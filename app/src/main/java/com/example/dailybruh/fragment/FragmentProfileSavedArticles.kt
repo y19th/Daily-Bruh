@@ -15,6 +15,7 @@ import com.example.dailybruh.presenter.SavedArticlesPresenter
 
 class FragmentProfileSavedArticles : StandardFragment<FragmentSavedArticlesBinding>(), SavedArticlesView {
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

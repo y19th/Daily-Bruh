@@ -26,8 +26,8 @@ class MainPagePresenter(
 ): MainPagePresenterInterface {
 
     val database = databaseViewModel.withLifecycle(lifecycle = viewLifecycleOwner.lifecycle).value
-    var userLiked: HashMap<String,String> = hashMapOf()
-    var userSaved: HashMap<String,String> = hashMapOf()
+    private var userLiked: HashMap<String,String> = hashMapOf()
+    private var userSaved: HashMap<String,String> = hashMapOf()
 
     override fun sendData() {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {

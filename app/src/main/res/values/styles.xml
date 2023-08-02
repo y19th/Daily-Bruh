@@ -26,7 +26,6 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
-
     <style name="RedContinueButton" parent="Widget.MaterialComponents.Button">
         <item name="android:fontFamily">@font/jost_semibold</item>
         <item name="android:textSize">20sp</item>
