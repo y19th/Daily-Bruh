@@ -1,9 +1,12 @@
+@file:Suppress("LocalVariableName", "ObjectPropertyName")
+
 package com.example.dailybruh.web
 
 
 internal var _recentRequest: Request? = null
 
 internal val recentRequest: Request get() = requireNotNull(_recentRequest)
+
 class Request(
     _endpoint: String,
     _article: String,

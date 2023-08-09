@@ -1,8 +1,7 @@
 package com.example.dailybruh.viewmodel
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.database.Database
 import com.google.firebase.auth.ktx.auth
@@ -11,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class DatabaseViewModel : ViewModel() {
 
@@ -18,16 +18,13 @@ class DatabaseViewModel : ViewModel() {
     val database: StateFlow<Database> = _database.asStateFlow()
 
     init {
-        val phone = Firebase.auth.currentUser?.phoneNumber ?: STANDARD_PHONE
-        _database.update { Database(phone) }
+        updateDatabase()
     }
-
-    fun withLifecycle(lifecycle: Lifecycle? = null,lifecycleOwner: LifecycleOwner? = null): StateFlow<Database> {
-        _database.value.setLifecycle(
-            lOwner = lifecycleOwner?.let { lifecycleOwner },
-            lcycle = lifecycle?.let { lifecycle }
-        )
-        return database
+    private fun updateDatabase() {
+        viewModelScope.launch {
+            _database.update {
+                Database(phone = Firebase.auth.currentUser?.phoneNumber ?: STANDARD_PHONE)
+            }
+        }
     }
-
 }

@@ -1,7 +1,5 @@
 package com.example.dailybruh.database
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.dataclasses.Article
@@ -9,22 +7,15 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
-private val database = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
 
-class Database(
-    phone: String = STANDARD_PHONE,
-    private var lifecycleOwner: LifecycleOwner? = null,
-    private var lifecycle: Lifecycle? = null
-) {
+class Database(phone: String = STANDARD_PHONE) {
 
-    val userReference = database.reference.child("users").child(phone)
-    val dataReference = database.reference.child("articles")
+    private val firebase = Firebase.database("https://dailybruh-bf63c-default-rtdb.europe-west1.firebasedatabase.app/")
+
+    val userReference = firebase.reference.child("users").child(phone)
+    val dataReference = firebase.reference.child("articles")
     val name = MutableLiveData<String>()
 
-    fun setLifecycle(lOwner: LifecycleOwner? = null, lcycle: Lifecycle? = null) {
-        lifecycleOwner = lOwner?.let { lOwner }
-        lifecycle = lcycle?.let { lcycle }
-    }
     fun changeNickname(nick: String) {
         userReference.child("nickname").setValue(nick)
     }

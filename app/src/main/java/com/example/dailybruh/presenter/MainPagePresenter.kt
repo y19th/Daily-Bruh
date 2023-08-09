@@ -2,10 +2,10 @@ package com.example.dailybruh.presenter
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.example.dailybruh.database.Database
 import com.example.dailybruh.extension.toGenerics
 import com.example.dailybruh.interfaces.mainpage.MainPagePresenterInterface
 import com.example.dailybruh.interfaces.mainpage.MainPageView
-import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,26 +16,14 @@ class MainPagePresenter(
     private val viewState: MainPageView,
     private val viewLifecycleOwner: LifecycleOwner,
     private val newsViewModel: NewsViewModel,
-    databaseViewModel: DatabaseViewModel,
+    private val database: Database
 ): MainPagePresenterInterface {
-
-    val database = databaseViewModel.withLifecycle(lifecycle = viewLifecycleOwner.lifecycle).value
 
     override fun sendData (
         likeMap: HashMap<String,String>,
         saveMap: HashMap<String,String>
     ) {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {
-            /*newsViewModel.also {
-                it.getNews(recentRequest.request ?: Request(BASE_ENDPOINT, BASE_ARTICLE).request)
-            }.news.collect {
-                viewState.setNews(
-                    news = it,
-                    database = database,
-                    likesMap = likeMap,
-                    savesMap = saveMap
-                )
-            }*/
             newsViewModel.news.collect {
                 viewState.setNews(
                     news = it,

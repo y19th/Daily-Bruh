@@ -10,7 +10,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
-import com.example.dailybruh.dagger.Test
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
@@ -26,14 +25,10 @@ import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import javax.inject.Inject
 
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageView {
 
     private lateinit var dialogSearch: DialogFragment
-
-    @Inject
-    lateinit var test: Test
 
     private val newsModel: NewsViewModel get() = mainComponent.newsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +51,7 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
             viewState = this,
             viewLifecycleOwner = viewLifecycleOwner,
             newsViewModel = newsModel,
-            databaseViewModel = databaseViewModel
+            database = database
         ).also { it.loadData() }
         binding.apply {
             profileButton.setOnClickListener {
