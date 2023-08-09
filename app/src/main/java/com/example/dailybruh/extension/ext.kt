@@ -1,3 +1,4 @@
+@file:Suppress("Unused")
 package com.example.dailybruh.extension
 
 import android.content.Context
@@ -12,7 +13,16 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.iterator
 import androidx.navigation.findNavController
 import com.example.dailybruh.R
+import com.example.dailybruh.activity.MainApp
+import com.example.dailybruh.dagger.MainComponent
 import com.google.firebase.database.GenericTypeIndicator
+
+
+val Context.appComponent: MainComponent
+    get() = when(this) {
+        is MainApp -> appComponent
+        else -> this.applicationContext.appComponent
+    }
 
 fun View.navigateTo(id: Int) {
     this.findNavController().navigate(id)

@@ -8,14 +8,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
-import com.example.dailybruh.const.loadStatus
+import com.example.dailybruh.dagger.Test
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.databinding.FragmentNewsPageBinding
 import com.example.dailybruh.dataclasses.News
-import com.example.dailybruh.extension.makeGone
 import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.fragment.dialog.search.FragmentDialogSearch
 import com.example.dailybruh.interfaces.mainpage.MainPageView
@@ -28,11 +26,20 @@ import com.example.dailybruh.web.recentRequest
 import com.example.dailybruh.web.sorting
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageView {
 
-    private val newsModel: NewsViewModel by viewModels()
     private lateinit var dialogSearch: DialogFragment
+
+    @Inject
+    lateinit var test: Test
+
+    private val newsModel: NewsViewModel get() = mainComponent.newsViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        mainComponent.inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,15 +68,15 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
             navMenuButton.setOnClickListener {
                 dialogSearch = FragmentDialogSearch(
                     reset = { header ->
-                    newsModel.also {
-                        it.status.observe(viewLifecycleOwner) {
-                            dialogDismiss(dialogSearch)
-                        }
-                        recentRequest.changeHeader(header)
-                    }.getNews(recentRequest.request)
-                }
+                        newsModel.also {
+                            it.status.observe(viewLifecycleOwner) {
+                                dialogDismiss(dialogSearch)
+                            }
+                            recentRequest.changeHeader(header)
+                        }.getNews(recentRequest.request)
+                    }
                 ).also {
-                    it.show(childFragmentManager,"searchDialog")
+                    it.show(childFragmentManager, "searchDialog")
                 }
             }
             popularFilterField.apply {

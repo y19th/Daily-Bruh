@@ -31,8 +31,6 @@ class FragmentViewPagerItem(
 ): StandardFragment<RecyclerItemNewsPageBinding>(), PagerItemView {
 
     private lateinit var presenter: PagerItemPresenter
-    override val fragment: FragmentViewPagerItem
-        get() = this
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,16 +42,15 @@ class FragmentViewPagerItem(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        with(news.articles[position]) {
-            binding.apply {
-                titlePage.text = this@with.title
-                publishedatPage.text = parseDate(this@with.time)
-                authorPage.text = this@with.author.ifNull("Без автора")
-                bindImage(urlPhoto, this@with.image)
-                unionDatabase.article(this@with)
-                descPage.text = resizeDueTextLength()
-                buttonLayout.showTabOnClick(this@with.url)
-            }
+        val item = news.articles[position]
+        binding.apply {
+            titlePage.text = item.title
+            publishedatPage.text = parseDate(item.time)
+            authorPage.text = item.author.ifNull("Без автора")
+            bindImage(urlPhoto, item.image)
+            unionDatabase.article(item)
+            descPage.text = resizeDueTextLength()
+            buttonLayout.showTabOnClick(item.url)
         }
         when(Firebase.auth.currentUser) {
             null -> {
@@ -70,8 +67,10 @@ class FragmentViewPagerItem(
                     itemId = news.articles[position].id,
                     mapLikes = mapLikes,
                     mapSaves = mapSaves
-                )
-                presenter.also { it.getSaves() }.getLikes()
+                ).also {
+                    it.getSaves()
+                    it.getLikes()
+                }
             }
         }
     }

@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dailybruh.const.API_KEY
 import com.example.dailybruh.const.BASE_URL
-import com.example.dailybruh.const.loadStatus
 import com.example.dailybruh.dataclasses.News
 import com.example.dailybruh.web.NewsApi
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 class NewsViewModel : ViewModel() {
+
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
@@ -29,27 +28,15 @@ class NewsViewModel : ViewModel() {
 
 
     fun getNews(addUrl: String) {
-        viewModelScope.launch(Dispatchers.Main + CoroutineName("getNews")) {
+        viewModelScope.launch(Dispatchers.IO + CoroutineName("getNews")) {
             try {
-                val result = NewsApi.retrofitService.getNews(getURL(addUrl))
-                result.setId()
-                _news.collect {
-                    _news.update { currentState ->
-                        currentState.copy(
-                            total = result.total,
-                            status = result.status,
-                            articles = result.articles
-                        )
-                    }
-                    this.cancel()
+                _news.update {
+                    NewsApi.retrofitService.getNews(getURL(addUrl)).also { it.setId() }
                 }
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 _status.value = e.message
             }
-        }.invokeOnCompletion {
-            loadStatus.value = true
         }
-
     }
 
     private fun getURL(addUrl: String) = "$BASE_URL$addUrl&apiKey=$API_KEY"
@@ -59,12 +46,13 @@ class NewsViewModel : ViewModel() {
         val lock = ReentrantLock()
         viewModelScope.launch {
             lock.withLock {
-                for(item in this@setId.articles) {
-                    item.apply {
-                        id = "${title?.subSequence(0,3).toString()}${count++}_${time}"
-                    }
+                for (item in this@setId.articles) {
+                    item.id = "${item.title?.subSequence(0, 3).toString()}${count++}_${item.time}".regex()
                 }
             }
         }
+    }
+    private fun String.regex(): String {
+        return this.replace("[\\[\\].#$]".toRegex(),"_")
     }
 }

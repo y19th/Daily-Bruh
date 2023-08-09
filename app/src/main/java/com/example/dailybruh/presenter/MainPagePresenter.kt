@@ -2,59 +2,66 @@ package com.example.dailybruh.presenter
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.example.dailybruh.const.BASE_ARTICLE
-import com.example.dailybruh.const.BASE_ENDPOINT
 import com.example.dailybruh.extension.toGenerics
 import com.example.dailybruh.interfaces.mainpage.MainPagePresenterInterface
 import com.example.dailybruh.interfaces.mainpage.MainPageView
 import com.example.dailybruh.viewmodel.DatabaseViewModel
 import com.example.dailybruh.viewmodel.NewsViewModel
-import com.example.dailybruh.web.Request
-import com.example.dailybruh.web.recentRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainPagePresenter(
     private val viewState: MainPageView,
     private val viewLifecycleOwner: LifecycleOwner,
     private val newsViewModel: NewsViewModel,
-    databaseViewModel: DatabaseViewModel
+    databaseViewModel: DatabaseViewModel,
 ): MainPagePresenterInterface {
 
     val database = databaseViewModel.withLifecycle(lifecycle = viewLifecycleOwner.lifecycle).value
-    private var userLiked: HashMap<String,String> = hashMapOf()
-    private var userSaved: HashMap<String,String> = hashMapOf()
 
-    override fun sendData() {
+    override fun sendData (
+        likeMap: HashMap<String,String>,
+        saveMap: HashMap<String,String>
+    ) {
         viewLifecycleOwner.lifecycleScope.launch(CoroutineName("getNewsPresenter")) {
-            newsViewModel.also {
+            /*newsViewModel.also {
                 it.getNews(recentRequest.request ?: Request(BASE_ENDPOINT, BASE_ARTICLE).request)
-            }.news.map {
+            }.news.collect {
                 viewState.setNews(
                     news = it,
                     database = database,
-                    likesMap = userLiked,
-                    savesMap = userSaved
+                    likesMap = likeMap,
+                    savesMap = saveMap
                 )
-            }.stateIn(this)
+            }*/
+            newsViewModel.news.collect {
+                viewState.setNews(
+                    news = it,
+                    database = database,
+                    likesMap = likeMap,
+                    savesMap = saveMap
+                )
+            }
         }
     }
 
     override fun loadData() {
+        var userLiked = hashMapOf<String,String>()
+        var userSaved = hashMapOf<String,String>()
+
         if (Firebase.auth.currentUser != null) {
             database.userReference.get().addOnCompleteListener {
-                val likeMap = hashMapOf<String,String>().toGenerics()
-                val saveMap = hashMapOf<String,String>().toGenerics()
-                userLiked = it.result.child("liked").getValue(likeMap) ?: hashMapOf()
-                userSaved = it.result.child("saved").getValue(saveMap) ?: hashMapOf()
-                sendData()
+                userLiked = it.result.child("liked").getValue(
+                    hashMapOf<String, String>().toGenerics()
+                ) ?: hashMapOf()
+
+                userSaved = it.result.child("saved").getValue(
+                    hashMapOf<String, String>().toGenerics()
+                ) ?: hashMapOf()
             }
-        } else {
-            sendData()
         }
+        sendData(likeMap = userLiked, saveMap = userSaved)
     }
 }
