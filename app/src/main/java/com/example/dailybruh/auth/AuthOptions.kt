@@ -9,22 +9,19 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
-class AuthOptions : java.io.Serializable {
+class AuthOptions : Serializable {
 
     private var _options: PhoneAuthOptions? = null
-
     private val options: PhoneAuthOptions get() = requireNotNull(_options)
 
-    private var _phone: String? = null
     private var _activity: Activity? = null
     private var _callbacks: CodeCallback? = null
 
     private val callbacks: CodeCallback get() = requireNotNull(_callbacks)
     private val activity: Activity get() = requireNotNull(_activity)
-
-    private val phone: String get() = requireNotNull(_phone)
 
     private lateinit var currentView: View
 
@@ -37,7 +34,6 @@ class AuthOptions : java.io.Serializable {
     ): PhoneAuthOptions {
 
         _activity = activity
-        _phone = phoneNumber
         _callbacks = callbacks
 
         _options = PhoneAuthOptions.newBuilder(Firebase.auth)

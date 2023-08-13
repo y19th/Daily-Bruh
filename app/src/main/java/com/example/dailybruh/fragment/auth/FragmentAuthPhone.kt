@@ -106,4 +106,8 @@ class FragmentAuthPhone : StandardFragment<FragmentAuthPhoneBinding>(), AuthPhon
             else -> codeView.navigateTo(R.id.auth_vercode_to_profile)
         }
     }
+
+    override fun navigateToVerCode(id: Int, bundle: Bundle) {
+        requireView().navigateTo(id = id,bundle = bundle)
+    }
 }

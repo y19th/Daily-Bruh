@@ -3,10 +3,13 @@ package com.example.dailybruh.extension
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
-suspend fun withMain(lambda: suspend CoroutineScope.() -> Unit) {
-    lambda.invoke(CoroutineScope(Dispatchers.Main))
+
+suspend fun withMain(block: suspend CoroutineScope.() -> Unit) {
+    withContext(Dispatchers.Main,block)
 }
+
 
 

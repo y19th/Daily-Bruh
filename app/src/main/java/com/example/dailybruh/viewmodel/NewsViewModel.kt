@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dailybruh.const.API_KEY
 import com.example.dailybruh.const.BASE_URL
 import com.example.dailybruh.dataclasses.News
+import com.example.dailybruh.extension.withMain
 import com.example.dailybruh.web.NewsApi
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,9 @@ class NewsViewModel : ViewModel() {
             try {
                 _news.update {
                     NewsApi.retrofitService.getNews(getURL(addUrl)).also { it.setId() }
+                }
+                withMain {
+                    _status.value = "completed"
                 }
             } catch (e: Exception) {
                 _status.value = e.message

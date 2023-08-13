@@ -28,7 +28,10 @@ class FragmentProfile : StandardFragment<FragmentProfileBinding>(), ProfileView 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val presenter = ProfilePresenter(viewState = this, database = database).also { it.loadData() }
+        val presenter = ProfilePresenter(
+            viewState = this,
+            database = database
+        ).also { it.loadData() }
 
         binding.apply {
             phoneField.text = presenter.phoneNumber

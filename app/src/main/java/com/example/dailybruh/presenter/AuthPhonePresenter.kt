@@ -11,7 +11,6 @@ import com.example.dailybruh.const.STANDARD_PHONE
 import com.example.dailybruh.const.VERIFICATION_ID
 import com.example.dailybruh.database.Database
 import com.example.dailybruh.extension.ifNull
-import com.example.dailybruh.extension.navigateTo
 import com.example.dailybruh.extension.toastLong
 import com.example.dailybruh.interfaces.auth.AuthPhonePresenterInterface
 import com.example.dailybruh.interfaces.auth.AuthPhoneView
@@ -62,8 +61,8 @@ class AuthPhonePresenter(
                 bundle.also {
                     it.putSerializable(AUTH_OPTIONS,authOptions)
                 }.putString(VERIFICATION_ID,this.verificationId())
-                viewState.viewFragment.requireView().navigateTo(
-                    id =  R.id.auth_phone_to_auth_vercode,
+                viewState.navigateToVerCode(
+                    id = R.id.auth_phone_to_auth_vercode,
                     bundle = bundle
                 )
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.DialogFragment
 import com.example.dailybruh.R
 import com.example.dailybruh.adapters.VerticalPagerAdapter
 import com.example.dailybruh.database.Database
@@ -27,8 +26,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageView {
-
-    private lateinit var dialogSearch: DialogFragment
 
     private val newsModel: NewsViewModel get() = mainComponent.newsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,18 +58,16 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
                 }
             }
             navMenuButton.setOnClickListener {
-                dialogSearch = FragmentDialogSearch(
-                    reset = { header ->
+                FragmentDialogSearch(
+                    reset = { header, dialog ->
                         newsModel.also {
                             it.status.observe(viewLifecycleOwner) {
-                                dialogDismiss(dialogSearch)
+                                dialog.dismiss()
                             }
                             recentRequest.changeHeader(header)
                         }.getNews(recentRequest.request)
                     }
-                ).also {
-                    it.show(childFragmentManager, "searchDialog")
-                }
+                ).show(childFragmentManager, "searchDialog")
             }
             popularFilterField.apply {
                 setAdapter(R.array.popular_filter)
@@ -112,9 +107,6 @@ class FragmentNewsPage : StandardFragment<FragmentNewsPageBinding>(), MainPageVi
 
     }
 
-    private fun dialogDismiss(dialog : DialogFragment) {
-        dialog.dismiss()
-    }
     private fun changeSortParam(sort: Sort) {
         sorting(sort.getString)
         recentRequest.changeSort(sort.getParam)
